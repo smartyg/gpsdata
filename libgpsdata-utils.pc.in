@@ -1,0 +1,12 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: lib@PACKAGE_NAME@-utils
+Description: @PROGRAM_DESCRIPTION@
+Version: @PACKAGE_VERSION@
+URL: @PACKAGE_URL@
+Libs: -L${libdir} -lgpsdata-utils
+Requires: gpsdata
+Cflags: -I${includedir}/@PROGRAM_NAME@
