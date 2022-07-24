@@ -7,10 +7,7 @@
 #include <vector>
 #include <tuple>
 
-//#define DEBUG(format, ...) (empty_func())
-//#define DEBUG(format, ...) (printf(format, __VA_ARGS__))
-//inline const void empty_func (void) { return; };
-
+// Include this file before gpsdata.h to enable debug messages, if _RELEASE is defined also DEBUG_MSG is enabled.
 #include "gpsdata/utils/Logger.hpp"
 
 #include "gpsdata.hpp"
