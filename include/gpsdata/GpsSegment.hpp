@@ -43,6 +43,13 @@ namespace gpsdata {
 			this->_n = n;
 		}
 
+	private:
+		GpsSegment (void) = delete;
+		GpsSegment (const GpsSegment&) = delete;                // copy constructor
+		GpsSegment (GpsSegment&&) noexcept = delete;            // move constructor
+		GpsSegment& operator= (const GpsSegment&) = delete;     // copy assignment
+		GpsSegment& operator= (GpsSegment&&) noexcept = delete; // move assignment
+
 	public:
 		~GpsSegment (void) {
 			DEBUG_MSG("GpsSegment::%s ()\n", __func__);

@@ -8,6 +8,9 @@
 namespace gpsdata::utils {
 
 	class Convert final {
+		Convert (void) = delete;
+		~Convert (void) = delete;
+
 	public:
 		#pragma GCC diagnostic push
 		#pragma GCC diagnostic ignored "-Wunused-parameter"

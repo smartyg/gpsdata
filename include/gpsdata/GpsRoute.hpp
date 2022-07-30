@@ -58,6 +58,13 @@ namespace gpsdata {
 
 		GpsRoute (const std::shared_ptr<const F>& factory) : GpsRoute (0, factory) { }
 
+	private:
+		GpsRoute (void) = delete;
+		GpsRoute (const GpsRoute&) = delete;                // copy constructor
+		GpsRoute (GpsRoute&&) noexcept = delete;            // move constructor
+		GpsRoute& operator= (const GpsRoute&) = delete;     // copy assignment
+		GpsRoute& operator= (GpsRoute&&) noexcept = delete; // move assignment
+
 	public:
 		~GpsRoute (void) {
 			DEBUG_MSG("GpsRoute::%s ()\n", __func__);

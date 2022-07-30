@@ -23,6 +23,9 @@ namespace gpsdata::utils {
 namespace gpsdata::utils {
 
 	class Logger {
+		Logger (void) = delete;
+		~Logger (void) = delete;
+
 	public:
 		enum Loglevel : uint_fast8_t {
 			EMERG   = 0, // System is unusable

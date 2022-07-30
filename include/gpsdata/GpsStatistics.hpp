@@ -24,6 +24,13 @@ namespace gpsdata {
 			this->_statistics.clear ();
 		}
 
+	private:
+		GpsStatistics (void) = delete;
+		GpsStatistics (const GpsStatistics&) = delete;                // copy constructor
+		GpsStatistics (GpsStatistics&&) noexcept = delete;            // move constructor
+		GpsStatistics& operator= (const GpsStatistics&) = delete;     // copy assignment
+		GpsStatistics& operator= (GpsStatistics&&) noexcept = delete; // move assignment
+
 	public:
 		~GpsStatistics (void) {
 			DEBUG_MSG("GpsStatistics::%s ()\n", __func__);

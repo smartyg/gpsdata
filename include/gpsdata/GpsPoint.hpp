@@ -31,6 +31,13 @@ namespace gpsdata {
 			this->_data.clear ();
 		}
 
+	private:
+		GpsPoint (void) = delete;
+		GpsPoint (const GpsPoint&) = delete;                // copy constructor
+		GpsPoint (GpsPoint&&) noexcept = delete;            // move constructor
+		GpsPoint& operator= (const GpsPoint&) = delete;     // copy assignment
+		GpsPoint& operator= (GpsPoint&&) noexcept = delete; // move assignment
+
 	public:
 		[[nodiscard]] static std::shared_ptr<GpsPoint<F>> create (const ObjectTime& time, const std::shared_ptr<const F>& factory) {
 			return std::shared_ptr<GpsPoint<F>>(new GpsPoint<F> (time, factory));
