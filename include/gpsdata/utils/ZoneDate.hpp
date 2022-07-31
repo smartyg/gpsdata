@@ -13,9 +13,22 @@ namespace gpsdata::utils { class ZoneDate; }
 
 namespace gpsdata::utils {
 	class ZoneDate final : std::enable_shared_from_this<ZoneDate> {
+		const date::time_zone *_zone;
+		std::string _zone_name;
+		std::string _country_name;
+		std::string _country_code;
+		double _latitude;
+		double _longitude;
+
 		ZoneDate (const double& lat, const double& lon, const ZoneDetectResult *);
 		ZoneDate (const double& lat, const double& lon, const std::string&);
 		ZoneDate (const std::string&);
+
+		ZoneDate (void) = delete;
+		ZoneDate (const ZoneDate&) = delete;                // copy constructor
+		ZoneDate (ZoneDate&&) noexcept = delete;            // move constructor
+		ZoneDate& operator= (const ZoneDate&) = delete;     // copy assignment
+		ZoneDate& operator= (ZoneDate&&) noexcept = delete; // move assignment
 
 	public:
 		~ZoneDate (void);
@@ -85,13 +98,6 @@ namespace gpsdata::utils {
 		}
 
 	private:
-		const date::time_zone *_zone;
-		std::string _zone_name;
-		std::string _country_name;
-		std::string _country_code;
-		double _latitude;
-		double _longitude;
-
 		date::sys_time<std::chrono::milliseconds> getZoneTime (const date::local_time<std::chrono::milliseconds>& utc_tp) const noexcept;
 		const date::sys_info getZoneInfo (const date::local_time<std::chrono::milliseconds>& utc_tp) const noexcept;
 		int getUtcOffset (const date::local_time<std::chrono::milliseconds>&) const noexcept;
