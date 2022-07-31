@@ -55,7 +55,7 @@ libgpsdata_utils_la_SOURCES = src/utils/Logger.cpp \
 	src/utils/PointDate.cpp \
 	src/utils/ZoneDate.cpp
 
-libgpsdata_utils_la_LIBADD = @DL_LIBS@ @ZONEDETECT_LIBS@ @DATE_TZ_LIBS@
+libgpsdata_utils_la_LIBADD = @ZONEDETECT_LIBS@ @DATE_TZ_LIBS@
 
 ## Instruct libtool to include ABI version information in the generated shared
 ## library file (.so).  The library ABI version is defined in configure.ac, so
