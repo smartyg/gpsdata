@@ -4,25 +4,25 @@
   What is it?
   -----------
 
-  ...
+  Package containing base data structures, types and utilities to handle gps data in C++ programs.
 
   The Latest Version
   ------------------
 
   Details of the latest version can be found on the project page under
-  http://www.martijn-goedhart.nl/sad/.
+  http://www.martijn-goedhart.nl/gpsdata/.
 
   Documentation
   -------------
 
   This package includes a man page for detailed usage of this utility.
   Furthermore more information cat be found at
-  http://www.martijn-goedhart.nl/sad/
+  http://www.martijn-goedhart.nl/gpsdata/
 
   Installation
   ------------
 
-  Please see the file called INSTALL.
+  TODO
 
   Licensing
   ---------
