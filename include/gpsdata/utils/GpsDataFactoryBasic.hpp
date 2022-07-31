@@ -9,6 +9,8 @@
 #include <memory>
 
 #include <gpsdata/utils/Convert.hpp>
+#include <gpsdata/GpsDataValueType.hpp>
+#include <gpsdata/GpsValue.hpp>
 
 namespace gpsdata::utils {
 	class GpsDataFactoryBasic : std::enable_shared_from_this<GpsDataFactoryBasic> {
