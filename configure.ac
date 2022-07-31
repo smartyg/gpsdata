@@ -149,9 +149,6 @@ AC_CHECK_FUNCS([memset setlocale strcpy])
 # Checks for programs.
 AC_CHECK_PROGS([GIT], [git])
 
-# Checks for packages.
-PKG_CHECK_MODULES([GPX], [gpxlib])
-
 # Checks for libraries.
 AX_CHECK_LIB([dl], [dlopen], [DL])
 AX_CHECK_LIB([zonedetect], [ZDCloseDatabase], [ZONEDETECT], [-lm])
