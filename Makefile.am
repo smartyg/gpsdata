@@ -67,20 +67,27 @@ libgpsdata_utils_la_LDFLAGS = -version-info @LIBRARY_CURRENT_VERSION@:@LIBRARY_R
 ## filename, in order to avoid the need to define separate file lists for each
 ## installation directory.  This only works if the directory hierarchy in the
 ## source tree matches the hierarchy at the install location, however.
-libgpsdata_utils_la_includedir = $(includedir)
-nobase_libgpsdata_utils_la_include_HEADERS = include/gpsdata.hpp \
-	include/gpsdata/GpsDataValueType.hpp \
+gpsdata_includedir = $(includedir)
+gpsdata_include_HEADERS = include/gpsdata.hpp \
+	include/gpsdata-utils.hpp
+
+gpsdata_sub_includedir = $(includedir)/gpsdata
+gpsdata_sub_include_HEADERS = include/gpsdata/GpsDataValueType.hpp \
 	include/gpsdata/GpsFactoryUserBase.hpp \
 	include/gpsdata/GpsPoint.hpp \
 	include/gpsdata/GpsSegment.hpp \
 	include/gpsdata/GpsRoute.hpp \
 	include/gpsdata/GpsStatistics.hpp \
-	include/gpsdata/GpsValue.hpp \
-	include/gpsdata/types/Latitude.hpp \
+	include/gpsdata/GpsValue.hpp
+
+gpsdata_sub_types_includedir = $(includedir)/gpsdata/types
+gpsdata_sub_types_include_HEADERS = include/gpsdata/types/Latitude.hpp \
 	include/gpsdata/types/Longitude.hpp \
 	include/gpsdata/types/ObjectId.hpp \
-	include/gpsdata/types/ObjectTime.hpp \
-	include/gpsdata/utils/Convert.hpp \
+	include/gpsdata/types/ObjectTime.hpp
+
+gpsdata_sub_utils_includedir = $(includedir)/gpsdata/utils
+gpsdata_sub_utils_include_HEADERS = include/gpsdata/utils/Convert.hpp \
 	include/gpsdata/utils/GpsDataFactoryBasic.hpp \
 	include/gpsdata/utils/Logger.hpp \
 	include/gpsdata/utils/PointDate.hpp \
@@ -92,7 +99,7 @@ example1_LDFLAGS = -Wl,-rpath=$(pkglibdir),--enable-new-dtags
 example1_CPPFLAGS = -Iinclude -DLOCALEDIR=\"$(localedir)\" -DPKGLIBDIR=\"$(pkglibdir)\"
 example1_SOURCES = examples/example1.cpp
 
-EXTRA_DIST = VERSION @PROGRAM_NAME@.spec
+EXTRA_DIST = VERSION ChangeLog README AUTHORS LICENSE @PROGRAM_NAME@.spec
 
 ## Only try to update the ChangeLog file when git is availible to report all the changes.
 if HAVE_GIT
