@@ -55,7 +55,7 @@ libgpsdata_utils_la_SOURCES = src/utils/Logger.cpp \
 	src/utils/PointDate.cpp \
 	src/utils/ZoneDate.cpp
 
-libgpsdata_utils_la_LIBADD = @DL_LIBS@ @ZONEDETECT_LIBS@ @DATE_TZ_LIBS@
+libgpsdata_utils_la_LIBADD = @ZONEDETECT_LIBS@ @DATE_TZ_LIBS@
 
 ## Instruct libtool to include ABI version information in the generated shared
 ## library file (.so).  The library ABI version is defined in configure.ac, so
@@ -79,6 +79,9 @@ gpsdata_sub_include_HEADERS = include/gpsdata/GpsDataValueType.hpp \
 	include/gpsdata/GpsRoute.hpp \
 	include/gpsdata/GpsStatistics.hpp \
 	include/gpsdata/GpsValue.hpp
+
+gpsdata_sub_traits_includedir = $(includedir)/gpsdata/traits
+gpsdata_sub_traits_include_HEADERS = include/gpsdata/traits/GpsFactory.hpp
 
 gpsdata_sub_types_includedir = $(includedir)/gpsdata/types
 gpsdata_sub_types_include_HEADERS = include/gpsdata/types/Latitude.hpp \
@@ -113,7 +116,7 @@ ChangeLog:
 	-$(GIT) log --decorate > ChangeLog
 
 VERSION:
-	-$(GIT) describe --tags --match=v[0-9]* --long --dirty | $(SED) 's/^v//' > VERSION
+	-$(GIT) describe --tags --match=[0-9]* --long --dirty | $(SED) 's/^v//' > VERSION
 
 distclean-local:
 	@rm -f ChangeLog VERSION

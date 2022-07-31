@@ -156,7 +156,6 @@ AC_CHECK_FUNCS([memset setlocale strcpy])
 AC_CHECK_PROGS([GIT], [git])
 
 # Checks for libraries.
-AX_CHECK_LIB([dl], [dlopen], [DL])
 AX_CHECK_LIB([zonedetect], [ZDCloseDatabase], [ZONEDETECT], [-lm])
 
 AX_CPP_CHECK_LIB([date-tz], [date::sys_info r], [date/tz.h], [DATE_TZ], [])
