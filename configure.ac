@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([gpsdata], [0.0.1], [goedhart.martijn@gmail.com])
+AC_INIT([gpsdata], [0.0.2], [goedhart.martijn@gmail.com])
 AC_CONFIG_SRCDIR([include/gpsdata.hpp])
 AC_CONFIG_HEADERS([config.h])
 AH_BOTTOM([#include <features.h>])
