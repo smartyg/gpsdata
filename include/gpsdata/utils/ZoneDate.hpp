@@ -14,25 +14,63 @@ namespace gpsdata::utils {
 	class ZoneDate final {
 		friend class PointDate;
 
-	protected:
-		ZoneDate (double lat, double lon, const ZoneDetectResult *);
 
-	public:
-		ZoneDate (double lat, double lon, const std::string&);
+		ZoneDate (const double& lat, const double& lon, const ZoneDetectResult *);
+		ZoneDate (const double& lat, const double& lon, const std::string&);
 		ZoneDate (const std::string&);
 		~ZoneDate (void);
 
 		const std::string getZoneName (void) const noexcept;
 		const std::string getCountryCode (void) const noexcept;
 		const std::string getCountryName (void) const noexcept;
-		date::sys_time<std::chrono::milliseconds> getZoneTime (const ObjectTime& utc_time) const noexcept;
-		date::sys_time<std::chrono::milliseconds> getZoneTime (std::chrono::milliseconds utc_tp) const noexcept;
-		date::local_time<std::chrono::milliseconds> getUtcTime (date::sys_time<std::chrono::milliseconds> tp) const noexcept;
-		const ObjectTime getUtcTimeAsObjectTime (date::sys_time<std::chrono::milliseconds> tp) const noexcept;
-		int getUtcOffset (const ObjectTime& utc_time) const noexcept;
-		int getUtcOffset (std::chrono::milliseconds utc_time) const noexcept;
-		const date::sys_info getZoneInfo (const ObjectTime& utc_time) const noexcept;
-		const date::sys_info getZoneInfo (std::chrono::milliseconds utc_time) const noexcept;
+
+		date::local_time<std::chrono::milliseconds> getUtcTime (const date::sys_time<std::chrono::milliseconds>&) const noexcept;
+		const ObjectTime getUtcTimeAsObjectTime (const date::sys_time<std::chrono::milliseconds>&) const noexcept;
+
+		inline date::sys_time<std::chrono::milliseconds> getZoneTime (const ObjectTime::internalTimeType& utc_time) const noexcept {
+			const ObjectTime o (utc_time);
+			return this->getZoneTime (o);
+		}
+
+		inline date::sys_time<std::chrono::milliseconds> getZoneTime (const ObjectTime& utc_time) const noexcept {
+			std::chrono::milliseconds utc_time_ms = std::chrono::duration_cast<std::chrono::milliseconds>(utc_time.get ());
+			return this->getZoneTime (utc_time_ms);
+		}
+
+		inline date::sys_time<std::chrono::milliseconds> getZoneTime (const std::chrono::milliseconds& utc_tp) const noexcept {
+			date::local_time<std::chrono::milliseconds> tp{utc_tp};
+			return this->getZoneTime (tp);
+		}
+
+		inline int getUtcOffset (const ObjectTime::internalTimeType& utc_time) const noexcept {
+			const ObjectTime o (utc_time);
+			return this->getUtcOffset (o);
+		}
+
+		inline int getUtcOffset (const ObjectTime& utc_time) const noexcept {
+			std::chrono::milliseconds utc_time_ms = std::chrono::duration_cast<std::chrono::milliseconds>(utc_time.get ());
+			return this->getUtcOffset (utc_time_ms);
+		}
+
+		inline int getUtcOffset (const std::chrono::milliseconds& utc_time) const noexcept {
+			date::local_time<std::chrono::milliseconds> utc_tp{utc_time};
+			return this->getUtcOffset (utc_tp);
+		}
+
+		inline const date::sys_info getZoneInfo (const ObjectTime::internalTimeType& utc_time) const noexcept {
+			const ObjectTime o (utc_time);
+			return this->getZoneInfo (o);
+		}
+
+		inline const date::sys_info getZoneInfo (const ObjectTime& utc_time) const noexcept {
+			std::chrono::milliseconds utc_time_ms = std::chrono::duration_cast<std::chrono::milliseconds>(utc_time.get ());
+			return this->getZoneInfo (utc_time_ms);
+		}
+
+		inline const date::sys_info getZoneInfo (const std::chrono::milliseconds& utc_time) const noexcept {
+			date::local_time<std::chrono::milliseconds> utc_tp{utc_time};
+			return this->getZoneInfo (utc_tp);
+		}
 
 	private:
 		const date::time_zone *_zone;
@@ -42,9 +80,9 @@ namespace gpsdata::utils {
 		double _latitude;
 		double _longitude;
 
-		date::sys_time<std::chrono::milliseconds> getZoneTime (date::local_time<std::chrono::milliseconds> utc_tp) const noexcept;
-		const date::sys_info getZoneInfo (date::local_time<std::chrono::milliseconds> utc_tp) const noexcept;
-		inline int getUtcOffset (date::local_time<std::chrono::milliseconds> utc_tp) const noexcept;
+		date::sys_time<std::chrono::milliseconds> getZoneTime (const date::local_time<std::chrono::milliseconds>& utc_tp) const noexcept;
+		const date::sys_info getZoneInfo (const date::local_time<std::chrono::milliseconds>& utc_tp) const noexcept;
+		int getUtcOffset (const date::local_time<std::chrono::milliseconds>&) const noexcept;
 	};
 
 	const ZoneDate *create_zonedate (const std::string&);

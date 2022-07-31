@@ -48,16 +48,15 @@ bool PointDate::isValid (void) noexcept {
 	return (PointDate::_zone_database != nullptr);
 }
 
-const ZoneDate *PointDate::getTimeZone (float lat, float lon) noexcept {
+const ZoneDate *PointDate::getTimeZone (const double& lat, const double& lon) noexcept {
 	if (!PointDate::isValid ()) return nullptr;
-	ZoneDetectResult *result = ZDLookup (PointDate::_zone_database, lat, lon, nullptr);
+	ZoneDetectResult *result = ZDLookup (PointDate::_zone_database, static_cast<float>(lat), static_cast<float>(lon), nullptr);
 	const ZoneDate *zone_date = new ZoneDate (lat, lon, result);
 	ZDFreeResults (result);
 	return zone_date;
 }
 
 const ZoneDate *PointDate::getTimeZone (const std::string& zone_name) noexcept {
-
 	ZoneDate *zone_date = new ZoneDate (zone_name);
 	return zone_date;
 }
@@ -89,18 +88,4 @@ const ObjectTime PointDate::parseTime (const std::string& time_string, const std
 	return tp.time_since_epoch();
 }
 
-time_t PointDate::convertToTimeT (const ObjectTime& t) noexcept {
-	const auto tp = std::chrono::milliseconds(t);
-	return PointDate::convertToTimeT(tp);
-}
 
-time_t PointDate::convertToTimeT (std::chrono::milliseconds t) noexcept {
-	date::local_time<std::chrono::milliseconds> tp{t};
-	return PointDate::convertToTimeT(tp);
-}
-
-inline time_t PointDate::convertToTimeT (date::local_time<std::chrono::milliseconds> tp) noexcept {
-	//std::chrono::milliseconds ms = tp.time_since_epoch();
-	std::chrono::seconds s = std::chrono::duration_cast<std::chrono::seconds>(tp.time_since_epoch());
-	return static_cast<time_t>(s.count());
-}
