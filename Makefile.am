@@ -80,6 +80,9 @@ gpsdata_sub_include_HEADERS = include/gpsdata/GpsDataValueType.hpp \
 	include/gpsdata/GpsStatistics.hpp \
 	include/gpsdata/GpsValue.hpp
 
+gpsdata_sub_traits_includedir = $(includedir)/gpsdata/traits
+gpsdata_sub_traits_include_HEADERS = include/gpsdata/traits/GpsFactory.hpp
+
 gpsdata_sub_types_includedir = $(includedir)/gpsdata/types
 gpsdata_sub_types_include_HEADERS = include/gpsdata/types/Latitude.hpp \
 	include/gpsdata/types/Longitude.hpp \
