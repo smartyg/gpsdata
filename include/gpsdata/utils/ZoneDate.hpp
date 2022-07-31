@@ -6,18 +6,18 @@ namespace gpsdata::utils { class ZoneDate; }
 #include <date/date.h>
 #include <date/tz.h>
 #include <zonedetect.h>
+#include <memory>
 
 #include <gpsdata/utils/PointDate.hpp>
 #include <gpsdata/types/ObjectTime.hpp>
 
 namespace gpsdata::utils {
-	class ZoneDate final {
-		friend class PointDate;
-
-
+	class ZoneDate final : std::enable_shared_from_this<ZoneDate> {
 		ZoneDate (const double& lat, const double& lon, const ZoneDetectResult *);
 		ZoneDate (const double& lat, const double& lon, const std::string&);
 		ZoneDate (const std::string&);
+
+	public:
 		~ZoneDate (void);
 
 		const std::string getZoneName (void) const noexcept;
@@ -72,6 +72,18 @@ namespace gpsdata::utils {
 			return this->getZoneInfo (utc_tp);
 		}
 
+		[[nodiscard]] static std::shared_ptr<ZoneDate> create (const std::string& zone_name) {
+			return std::shared_ptr<ZoneDate>(new ZoneDate (zone_name));
+		}
+
+		[[nodiscard]] static std::shared_ptr<ZoneDate> create (const double& lat, const double& lon, const std::string& zone_name) {
+			return std::shared_ptr<ZoneDate>(new ZoneDate (lat, lon, zone_name));
+		}
+
+		[[nodiscard]] static std::shared_ptr<ZoneDate> create (const double& lat, const double& lon, const ZoneDetectResult *zone) {
+			return std::shared_ptr<ZoneDate>(new ZoneDate (lat, lon, zone));
+		}
+
 	private:
 		const date::time_zone *_zone;
 		std::string _zone_name;
@@ -84,8 +96,6 @@ namespace gpsdata::utils {
 		const date::sys_info getZoneInfo (const date::local_time<std::chrono::milliseconds>& utc_tp) const noexcept;
 		int getUtcOffset (const date::local_time<std::chrono::milliseconds>&) const noexcept;
 	};
-
-	const ZoneDate *create_zonedate (const std::string&);
 }
 
 #endif /* _X_GPSDATA_ZONEDATE_ */

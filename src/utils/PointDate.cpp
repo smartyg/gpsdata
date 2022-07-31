@@ -7,6 +7,7 @@
 #include <chrono>
 #include <sstream>
 #include <cstring>
+#include <memory>
 
 #include "gpsdata/utils/Logger.hpp"
 #include "gpsdata/utils/ZoneDate.hpp"
@@ -48,16 +49,17 @@ bool PointDate::isValid (void) noexcept {
 	return (PointDate::_zone_database != nullptr);
 }
 
-const ZoneDate *PointDate::getTimeZone (const double& lat, const double& lon) noexcept {
+const std::shared_ptr<ZoneDate> PointDate::getTimeZone (const double& lat, const double& lon) noexcept {
 	if (!PointDate::isValid ()) return nullptr;
 	ZoneDetectResult *result = ZDLookup (PointDate::_zone_database, static_cast<float>(lat), static_cast<float>(lon), nullptr);
-	const ZoneDate *zone_date = new ZoneDate (lat, lon, result);
+	const std::shared_ptr<ZoneDate> zone_date = ZoneDate::create (lat, lon, result);
 	ZDFreeResults (result);
 	return zone_date;
 }
 
-const ZoneDate *PointDate::getTimeZone (const std::string& zone_name) noexcept {
-	ZoneDate *zone_date = new ZoneDate (zone_name);
+const std::shared_ptr<ZoneDate> PointDate::getTimeZone (const std::string& zone_name) noexcept {
+
+	const std::shared_ptr<ZoneDate> zone_date = ZoneDate::create (zone_name);
 	return zone_date;
 }
 

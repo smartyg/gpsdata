@@ -7,6 +7,7 @@ namespace gpsdata::utils { class PointDate; }
 #include <zonedetect.h>
 #include <chrono>
 #include <sstream>
+#include <memory>
 
 #include <gpsdata/utils/ZoneDate.hpp>
 #include <gpsdata/types/ObjectTime.hpp>
@@ -19,7 +20,8 @@ namespace gpsdata::utils {
 
 		static bool isValid (void) noexcept;
 
-		static const ZoneDate *getTimeZone (const double& lat, const double& lon) noexcept;
+		static const std::shared_ptr<ZoneDate> getTimeZone (const double& lat, const double& lon) noexcept;
+		static const std::shared_ptr<ZoneDate> getTimeZone (const std::string&) noexcept;
 
 		static const ObjectTime parseTime (const std::string&, const std::vector<std::string>&);
 

@@ -6,15 +6,12 @@
 #include <date/tz.h>
 #include <zonedetect.h>
 #include <cstring>
+#include <memory>
 
 #include "gpsdata/types/ObjectTime.hpp"
 
 using gpsdata::utils::ZoneDate;
 using gpsdata::ObjectTime;
-
-const gpsdata::utils::ZoneDate *gpsdata::utils::create_zonedate (const std::string& time_zone) {
-	return new ZoneDate (time_zone);
-}
 
 ZoneDate::ZoneDate (const double& latitude, const double& longitude, const ZoneDetectResult *zone) {
 	this->_latitude = latitude;
