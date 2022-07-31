@@ -19,7 +19,7 @@ namespace gpsdata {
 
 			ObjectTime (void) noexcept { this->_time = timeType::zero (); }
 
-			ObjectTime (internalTimeType time) noexcept {
+			explicit ObjectTime (internalTimeType time) noexcept {
 				this->_time = timeType{time};
 			}
 
