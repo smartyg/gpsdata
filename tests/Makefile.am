@@ -11,3 +11,5 @@ test_zonedate_LDFLAGS = -pthread
 test_zonedate_CPPFLAGS = @GTEST_CFLAGS@ @GMOCK_CFLAGS@ -pthread -I../include -I../src
 
 TESTS = test-zonedate test-pointdate
+
+EXTRA_DIST = out_v1/country16.bin out_v1/country21.bin out_v1/timezone16.bin out_v1/timezone21.bin
