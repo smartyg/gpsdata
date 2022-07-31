@@ -49,18 +49,24 @@ AC_DEFUN([AX_CPP_CHECK_LIB], [
 # some other package constants
 AX_DEFINE_SUBST([PROGRAM_NAME], [gpsdata], [program name])
 AX_DEFINE_SUBST([PROGRAM_SUMMARY], [Headers and utility library for GPS data handling], [program summary])
-AX_DEFINE_SUBST([PROGRAM_DESCRIPTION], [...], [program description])
-AX_DEFINE_SUBST([LAST_CHANGE], [24-07-2022], [Date of last change])
+AX_DEFINE_SUBST([PROGRAM_DESCRIPTION], [Package containing base data structures, types and utilities to handle gps data in C++ programs.], [program description])
+AX_DEFINE_SUBST([LAST_CHANGE], [31-07-2022], [Date of last change])
 AX_DEFINE_SUBST([AUTHOR], [Martijn Goedhart], [Author])
 AX_DEFINE_SUBST([COPYRIGHT], [Copyright (C) 2022 Martijn Goedhart], [Copyright])
 AX_DEFINE_SUBST([LICENSE], [GNU General Public License], [License name])
 AX_DEFINE_SUBST([LICENSE_SHORT], [GPLv3+], [License shorthand])
 AX_DEFINE_SUBST([LICENSE_SHORT_RPM], [GPL-3.0+], [SPDX License code])
 AX_DEFINE_SUBST([LICENSE_LONG], [GNU GPL version 3 or later <http://www.gnu.org/licenses/gpl-3.0.html>], [Long license description])
-AX_DEFINE_SUBST([PACKAGE_HOMEPAGE], [http://www.martijn-goedhart.nl/sad/], [package home page])
-AX_DEFINE_SUBST([LIBRARY_CURRENT_VERSION], [0], [version of this library])
-AX_DEFINE_SUBST([LIBRARY_REVISION_VERSION], [0], [version of this library])
-AX_DEFINE_SUBST([LIBRARY_AGE_VERSION], [0], [version of this library])
+AX_DEFINE_SUBST([PACKAGE_HOMEPAGE], [http://www.martijn-goedhart.nl/gpsdata/], [package home page])
+
+# If the library source code has changed at all since the last update, then increment revision (‘c:r:a’ becomes ‘c:r+1:a’).
+# If any interfaces have been added, removed, or changed since the last update, increment current, and set revision to 0.
+# If any interfaces have been added since the last public release, then increment age.
+# If any interfaces have been removed or changed since the last public release, then set age to 0.
+
+AX_DEFINE_SUBST([LIBRARY_CURRENT_VERSION], [0], [current interface version library])
+AX_DEFINE_SUBST([LIBRARY_REVISION_VERSION], [0], [current revision of the interface of this library])
+AX_DEFINE_SUBST([LIBRARY_AGE_VERSION], [0], [age of the interface])
 
 # Checks for programs.
 AC_PROG_CXX
