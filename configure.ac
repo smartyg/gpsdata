@@ -47,7 +47,7 @@ AC_DEFUN([AX_CPP_CHECK_LIB], [
 ])
 
 # some other package constants
-AX_DEFINE_SUBST([PROGRAM_NAME], [Gps data structures], [program name])
+AX_DEFINE_SUBST([PROGRAM_NAME], [gpsdata], [program name])
 AX_DEFINE_SUBST([PROGRAM_SUMMARY], [Headers and utility library for GPS data handling], [program summary])
 AX_DEFINE_SUBST([PROGRAM_DESCRIPTION], [...], [program description])
 AX_DEFINE_SUBST([LAST_CHANGE], [24-07-2022], [Date of last change])
