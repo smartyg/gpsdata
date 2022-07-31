@@ -93,11 +93,13 @@ gpsdata_sub_utils_include_HEADERS = include/gpsdata/utils/Convert.hpp \
 	include/gpsdata/utils/PointDate.hpp \
 	include/gpsdata/utils/ZoneDate.hpp
 
+if EXAMPLE
 bin_PROGRAMS = example1
 example1_LDADD = libgpsdata-utils.la
 example1_LDFLAGS = -Wl,-rpath=$(pkglibdir),--enable-new-dtags
 example1_CPPFLAGS = -Iinclude -DLOCALEDIR=\"$(localedir)\" -DPKGLIBDIR=\"$(pkglibdir)\"
 example1_SOURCES = examples/example1.cpp
+endif
 
 EXTRA_DIST = VERSION ChangeLog README AUTHORS LICENSE @PROGRAM_NAME@.spec
 

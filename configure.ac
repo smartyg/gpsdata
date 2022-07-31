@@ -102,7 +102,17 @@ AC_ARG_ENABLE([release],
 	esac],
 	[release=false])
 
-# release flag (remove all debug code from compilation)
+# example flag
+AC_ARG_ENABLE([example],
+	[AS_HELP_STRING([--enable-example], [Compile example programs @<:@default=disabled@:>@])],
+	[case "${enableval}" in
+		yes) example=true ;;
+		no)  example=false ;;
+		*) AC_MSG_ERROR([bad value ${enableval} for --enable-example]) ;;
+	esac],
+	[release=false])
+
+# google test flag
 AC_ARG_ENABLE([gtest],
 	[AS_HELP_STRING([--enable-gtest], [Enable googletest (gtest and gmock) for code testing @<:@default=disabled@:>@])],
 	[case "${enableval}" in
@@ -186,6 +196,7 @@ fi
 
 AM_CONDITIONAL([DEBUG], [test x$debug = xtrue])
 AM_CONDITIONAL([RELEASE], [test x$release = xtrue])
+AM_CONDITIONAL([EXAMPLE], [test x$example = xtrue])
 AM_CONDITIONAL([HAVE_GIT], [test -n "$GIT"])
 
 AM_CONDITIONAL([GTEST], [test x$gtest = xtrue])
