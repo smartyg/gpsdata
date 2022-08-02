@@ -8,4 +8,4 @@ Description: @PROGRAM_DESCRIPTION@
 Version: @PACKAGE_VERSION@
 URL: @PACKAGE_URL@
 Libs: -L${libdir} -ldate-tz
-Cflags: -I${includedir}/@PROGRAM_NAME@ -fconcepts
+Cflags: -I${includedir} -fconcepts
