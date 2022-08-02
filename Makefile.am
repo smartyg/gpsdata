@@ -18,14 +18,14 @@ COMMON_DEBUG_OPTIONS = -Wall -Wextra -W -Wshadow -Wpointer-arith -Wcast-qual -Wc
 	-Wundef -Wunreachable-code -Wlogical-op -Wfloat-equal -Wno-float-equal \
 	-Wstrict-aliasing=2 -Wredundant-decls -Werror \
 	-fno-omit-frame-pointer -ffloat-store -fno-common -fstrict-aliasing \
-	-fvar-tracking -fvar-tracking-assignments  -fconcepts -ggdb3 -O0
+	-fvar-tracking -fvar-tracking-assignments -fconcepts -ggdb3 -O0
 AM_CFLAGS += $(COMMON_DEBUG_OPTIONS) \
 	-Wbad-function-cast -Wstrict-prototypes -Wmissing-prototypes -Wnested-externs \
 	-Wold-style-definition
 AM_CXXFLAGS += $(COMMON_DEBUG_OPTIONS) \
-	-Wabi -Wconversion-null  -Wctor-dtor-privacy -Wdelete-non-virtual-dtor \
-	-Wnarrowing -Wnoexcept -Wnon-virtual-dtor  -Wreorder -Wstrict-null-sentinel \
-	-Wno-non-template-friend  -Wold-style-cast -Woverloaded-virtual  -Wno-pmf-conversions \
+	-Wabi -Wconversion-null -Wctor-dtor-privacy -Wdelete-non-virtual-dtor \
+	-Wnarrowing -Wnoexcept -Wnon-virtual-dtor -Wreorder -Wstrict-null-sentinel \
+	-Wno-non-template-friend -Wold-style-cast -Woverloaded-virtual -Wno-pmf-conversions \
 	-Wsign-promo
 else
 AM_CFLAGS += -flto
