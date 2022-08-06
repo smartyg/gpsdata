@@ -8,6 +8,9 @@ namespace gpsdata {
 	inline namespace types {
 
 		class ObjectId final {
+			template <typename B>
+			friend void serialize (B&, ObjectId&);
+
 		private:
 			uint32_t _id;
 

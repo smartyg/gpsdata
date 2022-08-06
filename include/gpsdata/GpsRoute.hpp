@@ -16,10 +16,17 @@
 #include <gpsdata/GpsPoint.hpp>
 #include <gpsdata/GpsSegment.hpp>
 
+namespace bitsery {
+	class Access;
+}
+
 namespace gpsdata {
 
 	template<GpsDataFactory F, class S = GpsSegment<F>>
 	class GpsRoute : virtual public GpsStatistics<F>, virtual public internal::GpsFactoryUserBase<F>, std::enable_shared_from_this<GpsRoute<F, S>> {
+		friend class bitsery::Access;
+		template <typename B, class F2, class S2>
+		friend void serialize (B&, std::shared_ptr<GpsRoute<F2, S2>>&);
 
 		static_assert (std::is_base_of<GpsSegment<F, typename S::Point>, S>::value);
 		static_assert (std::is_same<typename S::GpsFactory, F>::value);

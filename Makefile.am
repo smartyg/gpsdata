@@ -96,6 +96,9 @@ gpsdata_sub_utils_include_HEADERS = include/gpsdata/utils/Convert.hpp \
 	include/gpsdata/utils/PointDate.hpp \
 	include/gpsdata/utils/ZoneDate.hpp
 
+gpsdata_sub_bitsery_includedir = $(includedir)/gpsdata/bitsery
+gpsdata_sub_bitsery_include_HEADERS = include/gpsdata/bitsery/GpsRoute.hpp
+
 if EXAMPLE
 bin_PROGRAMS = example1
 example1_LDADD = libgpsdata-utils.la

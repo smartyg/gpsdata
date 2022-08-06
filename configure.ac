@@ -138,6 +138,7 @@ AC_SYS_LARGEFILE
 
 # Checks for header files.
 AC_CHECK_HEADERS([fcntl.h string.h sys/stat.h locale.h time.h])
+AC_CHECK_HEADERS([bitsery/bitsery.h bitsery/traits/string.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_CHECK_HEADER_STDBOOL
