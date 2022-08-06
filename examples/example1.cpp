@@ -11,10 +11,16 @@
 #include <gpsdata-utils.hpp>
 #include <gpsdata.hpp>
 
+using GpsFactoryType = gpsdata::utils::GpsDataFactoryBasic;
+using GpsPointType = gpsdata::GpsPoint<GpsFactoryType>;
+using GpsSegmentType = gpsdata::GpsSegment<GpsFactoryType, GpsPointType>;
+using GpsRouteType = gpsdata::GpsRoute<GpsFactoryType, GpsSegmentType>;
+
 int main(void) {
 	gpsdata::ObjectId id = 1;
-	auto factory = gpsdata::utils::GpsDataFactoryBasic::create ();
-	auto route = gpsdata::GpsRoute<gpsdata::utils::GpsDataFactoryBasic>::create (id, factory);
+	auto factory = GpsFactoryType::create ();
+	auto route = GpsRouteType::create<GpsRouteType> (id, factory);
+
 	route->addSegment (0);
 	gpsdata::ObjectTime t1 = static_cast<gpsdata::ObjectTime::internalTimeType>(10);
 	if (route->addPointData (0, t1, "SPEED", 10, true)) std::cout << "success" << std::endl;
