@@ -23,6 +23,20 @@ namespace gpsdata::utils {
 	inline void empty_func (void) { return; };
 }
 
+#define GPSVALUEVECTOR_MIN_SIZE (static_cast<uint8_t>(12))
+
+#include "gpsdata/traits/GpsFactory.hpp"
+
+// Forward declaration of the main gps types.
+namespace gpsdata {
+	template<GpsDataFactory F>
+	class GpsPoint;
+	template<GpsDataFactory F, class P>
+	class GpsSegment;
+	template<GpsDataFactory F, class S>
+	class GpsRoute;
+}
+
 #include "gpsdata/types/ObjectId.hpp"
 #include "gpsdata/types/ObjectTime.hpp"
 #include "gpsdata/types/Latitude.hpp"
