@@ -15,8 +15,58 @@ namespace gpsdata {
 			using internalPrecision = Representation::period;
 			using timeType = std::chrono::duration<internalTimeType, internalPrecision>;
 
+			friend bool operator==(const ObjectTime& lhs, const ObjectTime& rhs) noexcept;
+			friend bool operator==(const ObjectTime& lhs, const ObjectTime::Representation& rhs) noexcept;
+			friend bool operator==(const ObjectTime::Representation& lhs, const ObjectTime& rhs) noexcept;
+			friend bool operator==(const ObjectTime& lhs, const ObjectTime::internalTimeType& rhs) noexcept;
+			friend bool operator==(const ObjectTime::internalTimeType& lhs, const ObjectTime& rhs) noexcept;
+
+			friend bool operator!=(const ObjectTime& lhs, const ObjectTime& rhs) noexcept;
+			friend bool operator!=(const ObjectTime& lhs, const ObjectTime::Representation& rhs) noexcept;
+			friend bool operator!=(const ObjectTime::Representation& lhs, const ObjectTime& rhs) noexcept;
+			friend bool operator!=(const ObjectTime& lhs, const ObjectTime::internalTimeType& rhs) noexcept;
+			friend bool operator!=(const ObjectTime::internalTimeType& lhs, const ObjectTime& rhs) noexcept;
+
+			friend bool operator< (const ObjectTime& lhs, const ObjectTime& rhs) noexcept;
+			friend bool operator< (const ObjectTime& lhs, const ObjectTime::Representation& rhs) noexcept;
+			friend bool operator< (const ObjectTime::Representation& lhs, const ObjectTime& rhs) noexcept;
+			friend bool operator< (const ObjectTime& lhs, const ObjectTime::internalTimeType& rhs) noexcept;
+			friend bool operator< (const ObjectTime::internalTimeType& lhs, const ObjectTime& rhs) noexcept;
+
+			friend bool operator> (const ObjectTime& lhs, const ObjectTime& rhs) noexcept;
+			friend bool operator> (const ObjectTime& lhs, const ObjectTime::Representation& rhs) noexcept;
+			friend bool operator> (const ObjectTime::Representation& lhs, const ObjectTime& rhs) noexcept;
+			friend bool operator> (const ObjectTime& lhs, const ObjectTime::internalTimeType& rhs) noexcept;
+			friend bool operator> (const ObjectTime::internalTimeType& lhs, const ObjectTime& rhs) noexcept;
+
+			friend bool operator<=(const ObjectTime& lhs, const ObjectTime& rhs) noexcept;
+			friend bool operator<=(const ObjectTime& lhs, const ObjectTime::Representation& rhs) noexcept;
+			friend bool operator<=(const ObjectTime::Representation& lhs, const ObjectTime& rhs) noexcept;
+			friend bool operator<=(const ObjectTime& lhs, const ObjectTime::internalTimeType& rhs) noexcept;
+			friend bool operator<=(const ObjectTime::internalTimeType& lhs, const ObjectTime& rhs) noexcept;
+
+			friend bool operator>=(const ObjectTime& lhs, const ObjectTime& rhs) noexcept;
+			friend bool operator>=(const ObjectTime& lhs, const ObjectTime::Representation& rhs) noexcept;
+			friend bool operator>=(const ObjectTime::Representation& lhs, const ObjectTime& rhs) noexcept;
+			friend bool operator>=(const ObjectTime& lhs, const ObjectTime::internalTimeType& rhs) noexcept;
+			friend bool operator>=(const ObjectTime::internalTimeType& lhs, const ObjectTime& rhs) noexcept;
+
+			friend ObjectTime operator+(ObjectTime lhs, const ObjectTime& rhs) noexcept;
+			friend ObjectTime operator+(ObjectTime lhs, const ObjectTime::Representation& rhs) noexcept;
+			friend ObjectTime operator+(ObjectTime::Representation lhs, const ObjectTime& rhs) noexcept;
+			friend ObjectTime operator+(ObjectTime lhs, const ObjectTime::internalTimeType& rhs) noexcept;
+			friend ObjectTime operator+(ObjectTime::internalTimeType lhs, const ObjectTime& rhs) noexcept;
+
+			friend ObjectTime operator-(ObjectTime lhs, const ObjectTime& rhs) noexcept;
+			friend ObjectTime operator-(ObjectTime lhs, const ObjectTime::Representation& rhs) noexcept;
+			friend ObjectTime operator-(ObjectTime::Representation lhs, const ObjectTime& rhs) noexcept;
+			friend ObjectTime operator-(ObjectTime lhs, const ObjectTime::internalTimeType& rhs) noexcept;
+			friend ObjectTime operator-(ObjectTime::internalTimeType lhs, const ObjectTime& rhs) noexcept;
+
+		private:
 			timeType _time;
 
+		public:
 			ObjectTime (void) noexcept { this->_time = timeType::zero (); }
 
 			explicit ObjectTime (internalTimeType time) noexcept {
