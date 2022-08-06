@@ -9,7 +9,7 @@ namespace gpsdata {
 
 		class ObjectId final {
 		private:
-			uint_fast32_t _id;
+			uint32_t _id;
 
 		public:
 			ObjectId (void) noexcept { this->_id = 0; }
