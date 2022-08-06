@@ -50,7 +50,7 @@ namespace gpsdata {
 		}
 
 	private:
-		GpsPoint (void) = delete;
+		GpsPoint (void) = default;
 		GpsPoint (const GpsPoint&) = delete;                // copy constructor
 		GpsPoint (GpsPoint&&) noexcept = delete;            // move constructor
 		GpsPoint& operator= (const GpsPoint&) = delete;     // copy assignment

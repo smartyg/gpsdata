@@ -58,7 +58,7 @@ namespace gpsdata {
 		}
 
 	private:
-		GpsSegment (void) = delete;
+		GpsSegment (void) = default;
 		GpsSegment (const GpsSegment&) = delete;                // copy constructor
 		GpsSegment (GpsSegment&&) noexcept = delete;            // move constructor
 		GpsSegment& operator= (const GpsSegment&) = delete;     // copy assignment

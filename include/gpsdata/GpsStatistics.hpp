@@ -35,7 +35,7 @@ namespace gpsdata {
 		}
 
 	private:
-		GpsStatistics (void) = delete;
+		GpsStatistics (void) = default;
 		GpsStatistics (const GpsStatistics&) = delete;                // copy constructor
 		GpsStatistics (GpsStatistics&&) noexcept = delete;            // move constructor
 		GpsStatistics& operator= (const GpsStatistics&) = delete;     // copy assignment
