@@ -17,18 +17,17 @@
 #include <gpsdata/GpsSegment.hpp>
 
 namespace gpsdata {
-	template<GpsDataFactory F, class S = GpsSegment<F>, class P = typename S::Point>
-	class GpsRoute : virtual public GpsStatistics<F>, virtual public internal::GpsFactoryUserBase<F>, std::enable_shared_from_this<GpsRoute<F, S, P>> {
-		static_assert (std::is_base_of<GpsSegment<F>, S>::value);
-		static_assert (std::is_base_of<typename S::Point, P>::value);
-		static_assert (std::is_base_of<GpsPoint<F>, P>::value);
+
+	template<GpsDataFactory F, class S = GpsSegment<F>>
+	class GpsRoute : virtual public GpsStatistics<F>, virtual public internal::GpsFactoryUserBase<F>, std::enable_shared_from_this<GpsRoute<F, S>> {
+
+		static_assert (std::is_base_of<GpsSegment<F, typename S::Point>, S>::value);
 		static_assert (std::is_same<typename S::GpsFactory, F>::value);
-		static_assert (std::is_same<typename P::GpsFactory, F>::value);
 
 	public:
 		using GpsFactory = F;
 		using Segment = S;
-		using Point = P;
+		using Point = typename S::Point;
 		using DataType = typename F::DataType;
 		using ActivityType = typename F::ActivityType;
 
@@ -74,19 +73,19 @@ namespace gpsdata {
 			this->_details.clear ();// = nullptr;
 		}
 
-		template <class R = GpsRoute<F, S, P>>
+		template <class R = GpsRoute<F, S>>
 		[[nodiscard]] static std::shared_ptr<R> create (const ObjectId& id, const std::shared_ptr<const typename R::GpsFactory>& factory) {
 			DEBUG_MSG("GpsRoute::%s (%ld, %p)\n", __func__, static_cast<int64_t>(id), &factory);
 			return std::shared_ptr<R>(new R (id, factory));
 		}
 
-		template <class R = GpsRoute<F, S, P>>
+		template <class R = GpsRoute<F, S>>
 		[[nodiscard]] static std::shared_ptr<R> create (const std::shared_ptr<const typename R::GpsFactory>& factory) {
 			DEBUG_MSG("GpsRoute::%s (%p)\n", __func__, &factory);
 			return std::shared_ptr<R>(new R (factory));
 		}
 
-		std::shared_ptr<GpsRoute<F, S, P>> getptr (void) {
+		std::shared_ptr<GpsRoute<F, S>> getptr (void) {
 			return this->shared_from_this ();
 		}
 
