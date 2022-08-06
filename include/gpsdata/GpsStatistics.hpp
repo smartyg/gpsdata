@@ -3,7 +3,7 @@
 
 #include <string>
 #include <type_traits>
-#include <list>
+#include <vector>
 #include <memory>
 
 #include <gpsdata/GpsValue.hpp>
@@ -14,14 +14,17 @@ namespace gpsdata {
 	template<GpsDataFactory F>
 	class GpsStatistics : virtual public internal::GpsFactoryUserBase<F>, std::enable_shared_from_this<GpsStatistics<F>> {
 
+	public:
 		using DataType = typename F::DataType;
+		using Container = typename std::vector<GpsValue<DataType>>;
 
 	protected:
-		std::list<GpsValue<DataType>> _statistics;
+		Container _statistics;
 
 		GpsStatistics (const std::shared_ptr<const F>& factory) : internal::GpsFactoryUserBase<F> (factory) {
 			DEBUG_MSG("GpsStatistics::%s (%p)\n", __func__, &factory);
 			this->_statistics.clear ();
+			this->_statistics.reserve (GPSVALUEVECTOR_MIN_SIZE);
 		}
 
 	private:
@@ -129,7 +132,7 @@ namespace gpsdata {
 			return this->getStatistic (type);
 		}
 
-		const std::list<GpsValue<DataType>> getStatistics (void) const {
+		const Container getStatistics (void) const {
 			DEBUG_MSG("GpsStatistics::%s ()\n", __func__);
 			return this->_statistics;
 		}

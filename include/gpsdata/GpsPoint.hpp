@@ -2,7 +2,7 @@
 #define _X_GPSDATA_GPSPOINT_
 
 #include <type_traits>
-#include <list>
+#include <vector>
 #include <memory>
 
 #include <gpsdata/types/ObjectTime.hpp>
@@ -18,7 +18,7 @@ namespace gpsdata {
 		using GpsFactory = F;
 		using DataType = typename F::DataType;
 
-		using Container = typename std::list<GpsValue<DataType>>;
+		using Container = typename std::vector<GpsValue<DataType>>;
 		using iterator = typename Container::iterator;
 		using const_iterator = typename Container::const_iterator;
 
@@ -27,8 +27,15 @@ namespace gpsdata {
 		Container _data;
 
 		GpsPoint (const ObjectTime& time, const std::shared_ptr<const F>& factory) : internal::GpsFactoryUserBase<F> (factory), _time(time) {
+			//DEBUG_MSG("GpsPoint::%s (%p, %ld)\n", __func__, &factory, static_cast<const uint64_t>(time));
+			this->_data.clear ();
+			this->_data.reserve (GPSVALUEVECTOR_MIN_SIZE);
+		}
+
+		GpsPoint (const std::shared_ptr<const F>& factory) : internal::GpsFactoryUserBase<F> (factory) {
 			DEBUG_MSG("GpsPoint::%s (%p)\n", __func__, &factory);
 			this->_data.clear ();
+			this->_data.reserve (GPSVALUEVECTOR_MIN_SIZE);
 		}
 
 	private:
@@ -39,8 +46,9 @@ namespace gpsdata {
 		GpsPoint& operator= (GpsPoint&&) noexcept = delete; // move assignment
 
 	public:
-		[[nodiscard]] static std::shared_ptr<GpsPoint<F>> create (const ObjectTime& time, const std::shared_ptr<const F>& factory) {
-			return std::shared_ptr<GpsPoint<F>>(new GpsPoint<F> (time, factory));
+		template <class P = GpsPoint<F>>
+		[[nodiscard]] static std::shared_ptr<P> create (const ObjectTime& time, const std::shared_ptr<const typename P::GpsFactory>& factory) {
+			return std::shared_ptr<P>(new P (time, factory));
 		}
 
 		std::shared_ptr<GpsPoint<F>> getptr (void) {
