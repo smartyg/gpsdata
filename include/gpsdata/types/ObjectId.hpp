@@ -70,7 +70,7 @@ namespace gpsdata {
 			#if INT_MAX >= UINT32_MAX
 			explicit inline operator int() const noexcept { return this->_id; }
 			#endif
-			#if UINT_MAX >= UINT32_MAX
+			#if UINT_MAX >= UINT32_MAX && UINT_MAX != UINT32_MAX
 			explicit inline operator unsigned int() const noexcept { return this->_id; }
 			#endif
 			#if LONG_MAX >= UINT32_MAX
