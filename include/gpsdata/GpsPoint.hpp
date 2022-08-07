@@ -19,12 +19,13 @@ namespace gpsdata {
 	template<GpsFactoryTrait F>
 	class GpsPoint : virtual public internal::GpsFactoryUserBase<F>, std::enable_shared_from_this<GpsPoint<F>> {
 		friend class bitsery::Access;
-		template <typename B, class F2>
-		friend void serialize (B&, std::shared_ptr<GpsPoint<F2>>&);
+
+		template<typename B, GpsPointTrait P>
+		friend void serialize (B&, std::shared_ptr<P>&) requires(std::is_base_of<GpsPoint<typename P::GpsFactory>, P>::value);
 
 		// Mark the GpsSegment serializer as friend to allow allocation of a new GpsPoint.
-		template <typename B, class F2, class P2>
-		friend void serialize (B&, std::shared_ptr<GpsSegment<F2, P2>>&);
+		template<typename B, GpsSegmentTrait S>
+		friend void serialize (B&, std::shared_ptr<S>&) requires(std::is_base_of<GpsSegment<typename S::GpsFactory, typename S::Point>, S>::value);
 
 	public:
 		using GpsFactory = F;

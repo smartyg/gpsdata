@@ -18,8 +18,9 @@ namespace gpsdata {
 	template<GpsFactoryTrait F>
 	class GpsStatistics : virtual public internal::GpsFactoryUserBase<F>, std::enable_shared_from_this<GpsStatistics<F>> {
 		friend class bitsery::Access;
-		template <typename B, class F2>
-		friend void serialize (B&, std::shared_ptr<GpsStatistics<F2>>&);
+
+		template<typename B, GpsStatisticsTrait S>
+		friend void serialize (B&, S&) requires(std::is_base_of<GpsStatistics<typename S::GpsFactory>, S>::value);
 
 	public:
 		using DataType = typename F::DataType;

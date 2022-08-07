@@ -25,12 +25,12 @@ namespace gpsdata {
 	class GpsSegment : virtual public GpsStatistics<F>, virtual public internal::GpsFactoryUserBase<F>, std::enable_shared_from_this<GpsSegment<F, P>> {
 		friend class bitsery::Access;
 
-		template <typename B, class F2, class P2>
-		friend void serialize (B&, std::shared_ptr<GpsSegment<F2, P2>>&);
+		template<typename B, GpsSegmentTrait S>
+		friend void serialize (B&, std::shared_ptr<S>&) requires(std::is_base_of<GpsSegment<typename S::GpsFactory, typename S::Point>, S>::value);
 
 		// Mark the GpsRoute serializer as friend to allow allocation of a new GpsSegment.
-		template <typename B, class F2, class S2>
-		friend void serialize (B& s, std::shared_ptr<GpsRoute<F2, S2>>&);
+		template<typename B, GpsRouteTrait R>
+		friend void serialize (B&, std::shared_ptr<R>&) requires(std::is_base_of<GpsRoute<typename R::GpsFactory, typename R::Segment>, R>::value);
 
 		static_assert (std::is_same<typename P::GpsFactory, F>::value);
 

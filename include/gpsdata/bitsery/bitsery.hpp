@@ -6,6 +6,12 @@
 #include <bitsery/traits/vector.h>
 #include <bitsery/traits/list.h>
 
+#include <gpsdata/traits/GpsPoint.hpp>
+#include <gpsdata/traits/GpsSegment.hpp>
+#include <gpsdata/traits/GpsRoute.hpp>
+
+#include <gpsdata/GpsPoint.hpp>
+#include <gpsdata/GpsSegment.hpp>
 #include <gpsdata/GpsRoute.hpp>
 
 namespace gpsdata {
@@ -56,10 +62,8 @@ namespace gpsdata {
 		}
 	}
 
-	//template<typename B, class R, typename std::enable_if<std::is_base_of<GpsRoute<typename R::GpsFactory, typename R::Segment>, R>::value, bool>::type = 0>
 	template<typename B, GpsRouteTrait R>
-	void serialize (B& s, std::shared_ptr<R>& route) {
-
+	void serialize (B& s, std::shared_ptr<R>& route) requires(std::is_base_of<GpsRoute<typename R::GpsFactory, typename R::Segment>, R>::value) {
 		if constexpr (is_instance<B, bitsery::Serializer>{}) {
 			std::cout << "GpsRoute Serializer function" << std::endl;
 			s.object (route->_id);
@@ -95,27 +99,37 @@ namespace gpsdata {
 			if (n_segments > 0) {
 				route->_segments.reserve (n_segments);
 
-				S *block = static_cast<S *>(calloc (n_segments, sizeof(S)));
+				typename R::Segment *block = static_cast<typename R::Segment *>(calloc (n_segments, sizeof(typename R::Segment)));
+				DEBUG_MSG("reserved block at %p\n", static_cast<void *>(block));
 				std::shared_ptr<void> block_ptr (static_cast<void *>(block), [] (void *ptr) -> void {
+					// This lambda function is called once all references to the shared pointer to this block have gone out of scope.
+					// Now we can safely release the reserved memory as well.
 					DEBUG_MSG("free block at %p\n", ptr);
 					free (ptr);
 				});
 
 				auto deleter = [block_ptr] (void *ptr) -> void {
+					DEBUG_MSG("call deleter on GpsSegment at %p\n", ptr);
+					// Convert the pointer `ptr` back to it's original object
+					typename R::Segment *obj = reinterpret_cast<typename R::Segment *>(ptr);
+					// Now call the destructor, this allows to release all resources owned by the object without releasing the memory the object is in.
+					std::destroy_at (obj);
+
+					// Hold copy of block_ptr to keep track when all objects from the allocated memory are released.
+					// block_ptr.reset () does (somehow) not work as block_ptr seems to be const.
 					(void)block_ptr;
-					(void)ptr;
 					return;
 				};
 
 				for (int i = 0; i < n_segments; ++i) {
 					INFO_MSG ("segment %d\n", i);
-					S *segment_ptr = &(block[i]);
-					S *segment_ptr2 = new (segment_ptr) S (route->getFactory ());
+					typename R::Segment *segment_ptr = &(block[i]);
+					typename R::Segment *segment_ptr2 = new (segment_ptr) typename R::Segment (route->getFactory ());
 					INFO_MSG ("new segment create at %p\n", segment_ptr);
 					assert (segment_ptr == segment_ptr2);
 
 					INFO_MSG ("create shared pointer from pointer %p\n", segment_ptr2);
-					std::shared_ptr<S> segment (segment_ptr, deleter);
+					std::shared_ptr<typename R::Segment> segment (segment_ptr, deleter);
 					s.object (segment);
 					INFO_MSG ("segment size: %d\n", route->_segments.size ());
 					route->_segments.push_back (segment);
@@ -125,8 +139,9 @@ namespace gpsdata {
 		}
 	};
 
-	template <typename B, class F, class P>
-	void serialize (B& s, std::shared_ptr<GpsSegment<F, P>>& segment) {
+	template<typename B, GpsSegmentTrait S>
+	void serialize (B& s, std::shared_ptr<S>& segment) requires(std::is_base_of<GpsSegment<typename S::GpsFactory, typename S::Point>, S>::value) {
+
 		if constexpr (is_instance<B, bitsery::Serializer>{}) {
 			std::cout << "GpsSegment Serializer function" << std::endl;
 
@@ -150,24 +165,34 @@ namespace gpsdata {
 			int n_points;
 			s.value4b (n_points);
 			if (n_points > 0) {
-				P *block = static_cast<P *>(calloc (n_points, sizeof(P)));
+				typename S::Point *block = static_cast<typename S::Point *>(calloc (n_points, sizeof(typename S::Point)));
+				DEBUG_MSG("reserved block at %p\n", static_cast<void *>(block));
 				std::shared_ptr<void> block_ptr (static_cast<void *>(block), [] (void *ptr) -> void {
+					// This lambda function is called once all references to the shared pointer to this block have gone out of scope.
+					// Now we can safely release the reserved memory as well.
 					DEBUG_MSG("free block at %p\n", ptr);
 					free (ptr);
 				});
 
 				auto deleter = [block_ptr] (void *ptr) -> void {
+					DEBUG_MSG("call deleter on GpsPoint at %p\n", ptr);
+					// Convert the pointer `ptr` back to it's original object
+					typename S::Point *obj = reinterpret_cast<typename S::Point *>(ptr);
+					// Now call the destructor, this allows to release all resources owned by the object without releasing the memory the object is in.
+					std::destroy_at (obj);
+
+					// Hold copy of block_ptr to keep track when all objects from the allocated memory are released.
+					// block_ptr.reset () does (somehow) not work as block_ptr seems to be const.
 					(void)block_ptr;
-					(void)ptr;
 					return;
 				};
 
 				for (int i = 0; i < n_points; ++i) {
-					P *point_ptr = &(block[i]);
-					P *point_ptr2 = new (point_ptr) P (segment->getFactory ());
+					typename S::Point *point_ptr = &(block[i]);
+					typename S::Point *point_ptr2 = new (point_ptr) typename S::Point (segment->getFactory ());
 					assert (point_ptr == point_ptr2);
 
-					std::shared_ptr<P> point (point_ptr, deleter);
+					std::shared_ptr<typename S::Point> point (point_ptr, deleter);
 
 					s.object (point);
 					segment->_points.push_back (point);
@@ -176,26 +201,26 @@ namespace gpsdata {
 		}
 	};
 
-	template <typename B, class F>
-	void serialize (B& s, std::shared_ptr<GpsPoint<F>>& o) {
+	template<typename B, GpsPointTrait P>
+	void serialize (B& s, std::shared_ptr<P>& point) requires(std::is_base_of<GpsPoint<typename P::GpsFactory>, P>::value) {
 
 		if constexpr (is_instance<B, bitsery::Serializer>{}) {
 			std::cout << "GpsPoint Serializer function" << std::endl;
-			s.object (o->_time);
+			s.object (point->_time);
 
-			serializeGpsValueVector (s, o->_data, o->getFactory ());
+			serializeGpsValueVector (s, point->_data, point->getFactory ());
 		}
 
 		if constexpr (is_instance<B, bitsery::Deserializer>{}) {
 			std::cout << "GpsPoint Deserializer function" << std::endl;
-			s.object (o->_time);
+			s.object (point->_time);
 
-			deserializeGpsValueVector (s, o->_data, o->getFactory ());
+			deserializeGpsValueVector (s, point->_data, point->getFactory ());
 		}
 	};
 
-	template <typename B, class F>
-	void serialize (B& s, std::shared_ptr<GpsStatistics<F>>& statistics) {
+	template<typename B, GpsStatisticsTrait S>
+	void serialize (B& s, S& statistics) requires(std::is_base_of<GpsStatistics<typename S::GpsFactory>, S>::value) {
 		if constexpr (is_instance<B, bitsery::Serializer>{}) {
 			std::cout << "GpsStatistics Serializer function" << std::endl;
 
