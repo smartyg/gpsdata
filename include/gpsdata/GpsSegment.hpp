@@ -175,7 +175,7 @@ namespace gpsdata {
 		}
 
 	private:
-		typename std::list<std::shared_ptr<P>>::iterator getIterator (const ObjectTime& time) {
+		iterator getIterator (const ObjectTime& time) {
 			DEBUG_MSG("GpsSegment::%s (%ld)\n", __func__, time.getTime ());
 			auto it = this->_points.end ();
 			--it;
@@ -186,7 +186,7 @@ namespace gpsdata {
 			return this->_points.begin ();
 		}
 
-		typename std::list<std::shared_ptr<P>>::const_iterator getIterator (const ObjectTime& time) const {
+		const_iterator getIterator (const ObjectTime& time) const {
 			DEBUG_MSG("GpsSegment::%s (%ld)\n", __func__, time.getTime ());
 			auto it = this->_points.end ();
 			--it;
@@ -197,7 +197,7 @@ namespace gpsdata {
 			return this->_points.begin ();
 		}
 
-		static bool iteratorMatch (typename std::list<std::shared_ptr<P>>::iterator it, const ObjectTime& time) {
+		static bool iteratorMatch (iterator it, const ObjectTime& time) {
 			DEBUG_MSG("GpsSegment::%s (%p, %ld)\n", __func__, &it, time.getTime ());
 			if (*it == nullptr) return false;
 			return ((*it)->getTime () == time);
