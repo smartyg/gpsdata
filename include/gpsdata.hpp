@@ -27,6 +27,7 @@ namespace gpsdata::utils {
 
 #include <gpsdata/traits/GpsFactory.hpp>
 #include <gpsdata/traits/GpsPoint.hpp>
+#include <gpsdata/traits/GpsStatistics.hpp>
 #include <gpsdata/traits/GpsSegment.hpp>
 #include <gpsdata/traits/GpsRoute.hpp>
 
