@@ -86,7 +86,7 @@ namespace gpsdata {
 				if (d.type == type) return d;
 			}
 			GpsValue<DataType> data;
-			//TODO: data.type = GpsDataFactory::gpsDataTypePredefined::NONE;
+			data.type = 0;
 			return data;
 		}
 
