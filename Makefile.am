@@ -105,6 +105,18 @@ example1_LDADD = libgpsdata-utils.la
 example1_LDFLAGS = -Wl,-rpath=$(pkglibdir),--enable-new-dtags
 example1_CPPFLAGS = -Iinclude -DLOCALEDIR=\"$(localedir)\" -DPKGLIBDIR=\"$(pkglibdir)\"
 example1_SOURCES = examples/example1.cpp
+
+bin_PROGRAMS += example2
+example2_LDADD = libgpsdata-utils.la
+example2_LDFLAGS = -Wl,-rpath=$(pkglibdir),--enable-new-dtags
+example2_CPPFLAGS = -Iinclude -DLOCALEDIR=\"$(localedir)\" -DPKGLIBDIR=\"$(pkglibdir)\"
+example2_SOURCES = examples/example2.cpp
+
+bin_PROGRAMS += example3
+example3_LDADD = libgpsdata-utils.la
+example3_LDFLAGS = -Wl,-rpath=$(pkglibdir),--enable-new-dtags
+example3_CPPFLAGS = -Iinclude -DLOCALEDIR=\"$(localedir)\" -DPKGLIBDIR=\"$(pkglibdir)\"
+example3_SOURCES = examples/example3.cpp
 endif
 
 EXTRA_DIST = VERSION ChangeLog README AUTHORS LICENSE @PROGRAM_NAME@.spec
