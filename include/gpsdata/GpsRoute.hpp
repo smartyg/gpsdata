@@ -223,7 +223,6 @@ namespace gpsdata {
 			return this->_segments[segment]->addPoint (point);
 		}
 
-		template<class T>
 		bool addPoint (int segment, const ObjectTime& time) {
 			DEBUG_MSG("GpsRoute::%s (%d, %ld)\n", __func__, segment, time.getTime ());
 			if (!this->hasSegment (segment)) this->addSegment (segment);

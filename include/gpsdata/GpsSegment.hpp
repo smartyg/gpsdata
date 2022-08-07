@@ -94,7 +94,6 @@ namespace gpsdata {
 			return true;
 		};
 
-		template<class T>
 		bool addPoint (const ObjectTime& time) {
 			DEBUG_MSG("GpsSegment::%s (%ld)\n", __func__, time.getTime ());
 			auto it = this->getIterator (time);
