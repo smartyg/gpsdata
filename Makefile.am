@@ -14,7 +14,7 @@ AM_CXXFLAGS =
 if DEBUG
 COMMON_DEBUG_OPTIONS = -Wall -Wextra -W -Wshadow -Wpointer-arith -Wcast-qual -Wcast-align \
 	-Wmissing-declarations -Wno-missing-braces -Wno-missing-field-initializers \
-	-Wformat=1 -Wswitch-default -Wswitch-enum -Wstrict-overflow=5 -Winline \
+	-Wformat=1 -Wswitch-default -Wswitch-enum -Wstrict-overflow=2 \
 	-Wundef -Wunreachable-code -Wlogical-op -Wfloat-equal -Wno-float-equal \
 	-Wstrict-aliasing=2 -Wredundant-decls -Werror \
 	-fno-omit-frame-pointer -ffloat-store -fno-common -fstrict-aliasing \
@@ -23,7 +23,7 @@ AM_CFLAGS += $(COMMON_DEBUG_OPTIONS) \
 	-Wbad-function-cast -Wstrict-prototypes -Wmissing-prototypes -Wnested-externs \
 	-Wold-style-definition
 AM_CXXFLAGS += $(COMMON_DEBUG_OPTIONS) \
-	-Wabi -Wconversion-null -Wctor-dtor-privacy -Wdelete-non-virtual-dtor \
+	-Wconversion-null -Wctor-dtor-privacy -Wdelete-non-virtual-dtor \
 	-Wnarrowing -Wnoexcept -Wnon-virtual-dtor -Wreorder -Wstrict-null-sentinel \
 	-Wno-non-template-friend  -Wold-style-cast -Woverloaded-virtual -Wno-pmf-conversions \
 	-Wsign-promo
