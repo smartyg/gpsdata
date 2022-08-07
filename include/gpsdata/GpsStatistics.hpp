@@ -6,8 +6,8 @@
 #include <vector>
 #include <memory>
 
-#include <gpsdata/GpsValue.hpp>
 #include <gpsdata/traits/GpsFactory.hpp>
+#include <gpsdata/GpsValue.hpp>
 #include <gpsdata/GpsFactoryUserBase.hpp>
 
 namespace bitsery {
@@ -15,7 +15,7 @@ namespace bitsery {
 }
 
 namespace gpsdata {
-	template<GpsDataFactory F>
+	template<GpsFactoryTrait F>
 	class GpsStatistics : virtual public internal::GpsFactoryUserBase<F>, std::enable_shared_from_this<GpsStatistics<F>> {
 		friend class bitsery::Access;
 		template <typename B, class F2>

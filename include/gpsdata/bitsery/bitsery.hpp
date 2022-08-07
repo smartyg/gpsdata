@@ -21,8 +21,8 @@ namespace gpsdata {
 	template <typename T, template <typename ...> typename U>
 	using is_instance = is_instance_impl<std::decay_t<T>, U>;
 
-	template <typename B, class F, typename T = typename F::DataType>
-	void serializeGpsValueVector (B& s, std::vector<GpsValue<T>>& v, const std::shared_ptr<const F>& factory) {
+	template <typename B, GpsFactoryTrait F>
+	void serializeGpsValueVector (B& s, std::vector<GpsValue<typename F::DataType>>& v, const std::shared_ptr<const F>& factory) {
 		assert (v.size () < 256);
 		uint8_t n_elements = v.size ();
 		s.value1b (n_elements);
@@ -37,8 +37,8 @@ namespace gpsdata {
 		}
 	}
 
-	template <typename B, class F, typename T = typename F::DataType>
-	void deserializeGpsValueVector (B& s, std::vector<GpsValue<T>>& v, const std::shared_ptr<const F>& factory) {
+	template <typename B, GpsFactoryTrait F>
+	void deserializeGpsValueVector (B& s, std::vector<GpsValue<typename F::DataType>>& v, const std::shared_ptr<const F>& factory) {
 		uint8_t n_elements;
 		s.value1b (n_elements);
 		v.reserve (std::max (n_elements, GPSVALUEVECTOR_MIN_SIZE));
@@ -50,14 +50,15 @@ namespace gpsdata {
 			s.text1b (type_string, 16);
 			s.value8b (value);
 
-			T type = factory->getDataType (type_string);
+			typename F::DataType type = factory->getDataType (type_string);
 
-			v.push_back (GpsValue<T> {type, value});
+			v.push_back (GpsValue<typename F::DataType> {type, value});
 		}
 	}
 
-	template <typename B, class F, class S>
-	void serialize (B& s, std::shared_ptr<GpsRoute<F, S>>& route) {
+	//template<typename B, class R, typename std::enable_if<std::is_base_of<GpsRoute<typename R::GpsFactory, typename R::Segment>, R>::value, bool>::type = 0>
+	template<typename B, GpsRouteTrait R>
+	void serialize (B& s, std::shared_ptr<R>& route) {
 
 		if constexpr (is_instance<B, bitsery::Serializer>{}) {
 			std::cout << "GpsRoute Serializer function" << std::endl;

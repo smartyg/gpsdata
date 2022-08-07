@@ -7,7 +7,7 @@
 #include <gpsdata/traits/GpsFactory.hpp>
 
 namespace gpsdata::internal {
-	template<GpsDataFactory F>
+	template<GpsFactoryTrait F>
 	class GpsFactoryUserBase {
 
 	protected:

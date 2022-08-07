@@ -5,9 +5,10 @@
 #include <vector>
 #include <memory>
 
+#include <gpsdata/traits/GpsFactory.hpp>
+#include <gpsdata/traits/GpsPoint.hpp>
 #include <gpsdata/types/ObjectTime.hpp>
 #include <gpsdata/GpsValue.hpp>
-#include <gpsdata/traits/GpsFactory.hpp>
 #include <gpsdata/GpsFactoryUserBase.hpp>
 
 namespace bitsery {
@@ -15,7 +16,7 @@ namespace bitsery {
 }
 
 namespace gpsdata {
-	template<GpsDataFactory F>
+	template<GpsFactoryTrait F>
 	class GpsPoint : virtual public internal::GpsFactoryUserBase<F>, std::enable_shared_from_this<GpsPoint<F>> {
 		friend class bitsery::Access;
 		template <typename B, class F2>
@@ -57,7 +58,7 @@ namespace gpsdata {
 		GpsPoint& operator= (GpsPoint&&) noexcept = delete; // move assignment
 
 	public:
-		template <class P = GpsPoint<F>>
+		template<GpsPointTrait P = GpsPoint<F>>
 		[[nodiscard]] static std::shared_ptr<P> create (const ObjectTime& time, const std::shared_ptr<const typename P::GpsFactory>& factory) {
 			return std::shared_ptr<P>(new P (time, factory));
 		}

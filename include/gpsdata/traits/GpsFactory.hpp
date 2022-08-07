@@ -1,5 +1,5 @@
-#ifndef _X_GPSDATA_GPSFACTORY_
-#define _X_GPSDATA_GPSFACTORY_
+#ifndef _X_GPSDATA_TRAIT_GPSFACTORY_
+#define _X_GPSDATA_TRAIT_GPSFACTORY_
 
 #include <cstdint>
 #include <string>
@@ -8,16 +8,7 @@
 
 #include <gpsdata/GpsDataValueType.hpp>
 #include <gpsdata/GpsValue.hpp>
-
-#if __cplusplus >= 202002L
-#define SAME_TYPE(type) std::same_as<type>
-#define CONVERTIBLE_TYPE(type) std::convertible_to<type>
-#define CONCEPT_RETURN
-#else
-#define SAME_TYPE(type) type
-#define CONVERTIBLE_TYPE(type) type
-#define CONCEPT_RETURN bool
-#endif
+#include <gpsdata/traits/common.hpp>
 
 namespace gpsdata {
 	using ListDataTypes = const std::vector<std::string>;
@@ -26,7 +17,7 @@ namespace gpsdata {
 
 	inline namespace traits {
 		template<class T>
-		concept CONCEPT_RETURN GpsDataFactory = requires(const T t) {
+		concept CONCEPT_RETURN GpsFactoryTrait = requires(const T t) {
 			typename T::DataType;
 			typename T::ActivityType;
 		} && requires(const T t, const std::string& s, const typename T::DataType& a1, const typename T::ActivityType& a2) {
@@ -88,4 +79,4 @@ namespace gpsdata {
 	}
 }
 
-#endif /* _X_GPSDATA_GPSFACTORY_ */
+#endif /* _X_GPSDATA_TRAIT_GPSFACTORY_ */
