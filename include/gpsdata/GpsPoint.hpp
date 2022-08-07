@@ -36,7 +36,7 @@ namespace gpsdata {
 		using const_iterator = typename Container::const_iterator;
 
 	protected:
-		const ObjectTime _time;
+		ObjectTime _time;
 		Container _data;
 
 		GpsPoint (const ObjectTime& time, const std::shared_ptr<const F>& factory) : internal::GpsFactoryUserBase<F> (factory), _time(time) {
