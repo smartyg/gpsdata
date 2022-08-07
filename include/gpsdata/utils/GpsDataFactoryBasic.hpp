@@ -104,7 +104,6 @@ namespace gpsdata::utils {
 		}
 
 		gpsdata::GpsDataValueType getDataValueType (const DataType& type) const {
-			return gpsdata::GpsDataValueType::S_CHAR_T;
 			try {
 				const auto& value = this->data_type_map.at (type);
 				return std::get<1>(value);
