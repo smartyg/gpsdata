@@ -69,7 +69,7 @@ AX_DEFINE_SUBST([LIBRARY_REVISION_VERSION], [0], [current revision of the interf
 AX_DEFINE_SUBST([LIBRARY_AGE_VERSION], [0], [age of the interface])
 
 # Checks for programs.
-AC_PROG_CXX
+AC_PROG_CXX([g++-11 c++-11 g++ c++])
 AC_PROG_CC
 AC_PROG_AWK
 AC_PROG_CPP
@@ -79,6 +79,7 @@ AC_PROG_MAKE_SET
 
 # this allows us specify individual liking flags for each target
 AM_PROG_CC_C_O
+AC_PROG_CXX_C_O
 
 # Initialize Libtool
 LT_INIT
@@ -132,12 +133,14 @@ AC_ARG_ENABLE([gtest],
 AX_CXX_COMPILE_STDCXX_11(ext, mandatory)
 AX_CXX_COMPILE_STDCXX_14(ext, mandatory)
 AX_CXX_COMPILE_STDCXX_17(ext, mandatory)
+AX_CXX_COMPILE_STDCXX(20, ext, mandatory)
 
 # Define large file symbol
 AC_SYS_LARGEFILE
 
 # Checks for header files.
 AC_CHECK_HEADERS([fcntl.h string.h sys/stat.h locale.h time.h])
+AC_CHECK_HEADERS([bitsery/bitsery.h bitsery/traits/string.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_CHECK_HEADER_STDBOOL

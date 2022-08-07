@@ -7,17 +7,31 @@
 #include <list>
 #include <memory>
 
+#include <gpsdata/traits/GpsFactory.hpp>
+#include <gpsdata/traits/GpsPoint.hpp>
+#include <gpsdata/traits/GpsSegment.hpp>
 #include <gpsdata/types/ObjectTime.hpp>
 #include <gpsdata/GpsValue.hpp>
-#include <gpsdata/traits/GpsFactory.hpp>
 #include <gpsdata/GpsFactoryUserBase.hpp>
 #include <gpsdata/GpsStatistics.hpp>
 #include <gpsdata/GpsPoint.hpp>
 
+namespace bitsery {
+	class Access;
+}
+
 namespace gpsdata {
-	template<GpsDataFactory F, class P = GpsPoint<F>>
+	template<GpsFactoryTrait F, GpsPointTrait P = GpsPoint<F>>
 	class GpsSegment : virtual public GpsStatistics<F>, virtual public internal::GpsFactoryUserBase<F>, std::enable_shared_from_this<GpsSegment<F, P>> {
-		static_assert (std::is_base_of<GpsPoint<F>, P>::value);
+		friend class bitsery::Access;
+
+		template<typename B, GpsSegmentTrait S>
+		friend void serialize (B&, std::shared_ptr<S>&) requires(std::is_base_of<GpsSegment<typename S::GpsFactory, typename S::Point>, S>::value);
+
+		// Mark the GpsRoute serializer as friend to allow allocation of a new GpsSegment.
+		template<typename B, GpsRouteTrait R>
+		friend void serialize (B&, std::shared_ptr<R>&) requires(std::is_base_of<GpsRoute<typename R::GpsFactory, typename R::Segment>, R>::value);
+
 		static_assert (std::is_same<typename P::GpsFactory, F>::value);
 
 	public:
@@ -44,7 +58,7 @@ namespace gpsdata {
 		}
 
 	private:
-		GpsSegment (void) = delete;
+		GpsSegment (void) = default;
 		GpsSegment (const GpsSegment&) = delete;                // copy constructor
 		GpsSegment (GpsSegment&&) noexcept = delete;            // move constructor
 		GpsSegment& operator= (const GpsSegment&) = delete;     // copy assignment
@@ -56,13 +70,13 @@ namespace gpsdata {
 			this->_points.clear ();
 		}
 
-		template <class S = GpsSegment<F, P>>
+		template<GpsSegmentTrait S = GpsSegment<F, P>>
 		[[nodiscard]] static std::shared_ptr<S> create (const std::shared_ptr<const typename S::GpsFactory>& factory) {
 			DEBUG_MSG("GpsSegment::%s (%p)\n", __func__, &factory);
 			return std::shared_ptr<S>(new S (factory));
 		}
 
-		template <class S = GpsSegment<F, P>>
+		template<GpsSegmentTrait S = GpsSegment<F, P>>
 		[[nodiscard]] static std::shared_ptr<S> create (const int& n, const std::shared_ptr<const typename S::GpsFactory>& factory) {
 			DEBUG_MSG("GpsSegment::%s (%d, %p)\n", __func__, n, &factory);
 			return std::shared_ptr<S>(new S (n, factory));

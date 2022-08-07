@@ -14,7 +14,7 @@ AM_CXXFLAGS =
 if DEBUG
 COMMON_DEBUG_OPTIONS = -Wall -Wextra -W -Wshadow -Wpointer-arith -Wcast-qual -Wcast-align \
 	-Wmissing-declarations -Wno-missing-braces -Wno-missing-field-initializers \
-	-Wformat=1 -Wswitch-default -Wswitch-enum -Wstrict-overflow=5 -Winline \
+	-Wformat=1 -Wswitch-default -Wswitch-enum -Wstrict-overflow=2 \
 	-Wundef -Wunreachable-code -Wlogical-op -Wfloat-equal -Wno-float-equal \
 	-Wstrict-aliasing=2 -Wredundant-decls -Werror \
 	-fno-omit-frame-pointer -ffloat-store -fno-common -fstrict-aliasing \
@@ -23,7 +23,7 @@ AM_CFLAGS += $(COMMON_DEBUG_OPTIONS) \
 	-Wbad-function-cast -Wstrict-prototypes -Wmissing-prototypes -Wnested-externs \
 	-Wold-style-definition
 AM_CXXFLAGS += $(COMMON_DEBUG_OPTIONS) \
-	-Wabi -Wconversion-null -Wctor-dtor-privacy -Wdelete-non-virtual-dtor \
+	-Wconversion-null -Wctor-dtor-privacy -Wdelete-non-virtual-dtor \
 	-Wnarrowing -Wnoexcept -Wnon-virtual-dtor -Wreorder -Wstrict-null-sentinel \
 	-Wno-non-template-friend  -Wold-style-cast -Woverloaded-virtual -Wno-pmf-conversions \
 	-Wsign-promo
@@ -96,12 +96,27 @@ gpsdata_sub_utils_include_HEADERS = include/gpsdata/utils/Convert.hpp \
 	include/gpsdata/utils/PointDate.hpp \
 	include/gpsdata/utils/ZoneDate.hpp
 
+gpsdata_sub_bitsery_includedir = $(includedir)/gpsdata/bitsery
+gpsdata_sub_bitsery_include_HEADERS = include/gpsdata/bitsery/bitsery.hpp
+
 if EXAMPLE
 bin_PROGRAMS = example1
 example1_LDADD = libgpsdata-utils.la
 example1_LDFLAGS = -Wl,-rpath=$(pkglibdir),--enable-new-dtags
 example1_CPPFLAGS = -Iinclude -DLOCALEDIR=\"$(localedir)\" -DPKGLIBDIR=\"$(pkglibdir)\"
 example1_SOURCES = examples/example1.cpp
+
+bin_PROGRAMS += example2
+example2_LDADD = libgpsdata-utils.la
+example2_LDFLAGS = -Wl,-rpath=$(pkglibdir),--enable-new-dtags
+example2_CPPFLAGS = -Iinclude -DLOCALEDIR=\"$(localedir)\" -DPKGLIBDIR=\"$(pkglibdir)\"
+example2_SOURCES = examples/example2.cpp
+
+bin_PROGRAMS += example3
+example3_LDADD = libgpsdata-utils.la
+example3_LDFLAGS = -Wl,-rpath=$(pkglibdir),--enable-new-dtags
+example3_CPPFLAGS = -Iinclude -DLOCALEDIR=\"$(localedir)\" -DPKGLIBDIR=\"$(pkglibdir)\"
+example3_SOURCES = examples/example3.cpp
 endif
 
 EXTRA_DIST = VERSION ChangeLog README AUTHORS LICENSE @PROGRAM_NAME@.spec

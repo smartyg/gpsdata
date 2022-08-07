@@ -5,14 +5,27 @@
 #include <vector>
 #include <memory>
 
+#include <gpsdata/traits/GpsFactory.hpp>
+#include <gpsdata/traits/GpsPoint.hpp>
 #include <gpsdata/types/ObjectTime.hpp>
 #include <gpsdata/GpsValue.hpp>
-#include <gpsdata/traits/GpsFactory.hpp>
 #include <gpsdata/GpsFactoryUserBase.hpp>
 
+namespace bitsery {
+	class Access;
+}
+
 namespace gpsdata {
-	template<GpsDataFactory F>
+	template<GpsFactoryTrait F>
 	class GpsPoint : virtual public internal::GpsFactoryUserBase<F>, std::enable_shared_from_this<GpsPoint<F>> {
+		friend class bitsery::Access;
+
+		template<typename B, GpsPointTrait P>
+		friend void serialize (B&, std::shared_ptr<P>&) requires(std::is_base_of<GpsPoint<typename P::GpsFactory>, P>::value);
+
+		// Mark the GpsSegment serializer as friend to allow allocation of a new GpsPoint.
+		template<typename B, GpsSegmentTrait S>
+		friend void serialize (B&, std::shared_ptr<S>&) requires(std::is_base_of<GpsSegment<typename S::GpsFactory, typename S::Point>, S>::value);
 
 	public:
 		using GpsFactory = F;
@@ -23,7 +36,7 @@ namespace gpsdata {
 		using const_iterator = typename Container::const_iterator;
 
 	protected:
-		const ObjectTime _time;
+		ObjectTime _time;
 		Container _data;
 
 		GpsPoint (const ObjectTime& time, const std::shared_ptr<const F>& factory) : internal::GpsFactoryUserBase<F> (factory), _time(time) {
@@ -39,14 +52,14 @@ namespace gpsdata {
 		}
 
 	private:
-		GpsPoint (void) = delete;
+		GpsPoint (void) = default;
 		GpsPoint (const GpsPoint&) = delete;                // copy constructor
 		GpsPoint (GpsPoint&&) noexcept = delete;            // move constructor
 		GpsPoint& operator= (const GpsPoint&) = delete;     // copy assignment
 		GpsPoint& operator= (GpsPoint&&) noexcept = delete; // move assignment
 
 	public:
-		template <class P = GpsPoint<F>>
+		template<GpsPointTrait P = GpsPoint<F>>
 		[[nodiscard]] static std::shared_ptr<P> create (const ObjectTime& time, const std::shared_ptr<const typename P::GpsFactory>& factory) {
 			return std::shared_ptr<P>(new P (time, factory));
 		}
