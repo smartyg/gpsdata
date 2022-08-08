@@ -29,11 +29,13 @@ namespace gpsdata {
 
 		GpsPoint (const ObjectTime& time, const std::shared_ptr<const F>& factory) : internal::GpsFactoryUserBase<F> (factory), _time(time) {
 			this->_data.clear ();
+			this->_data.reserve (GPSVALUEVECTOR_MIN_SIZE);
 		}
 
 		GpsPoint (const std::shared_ptr<const F>& factory) : internal::GpsFactoryUserBase<F> (factory) {
 			DEBUG_MSG("GpsPoint::%s (%p)\n", __func__, &factory);
 			this->_data.clear ();
+			this->_data.reserve (GPSVALUEVECTOR_MIN_SIZE);
 		}
 
 	private:

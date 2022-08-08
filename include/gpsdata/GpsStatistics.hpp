@@ -23,6 +23,7 @@ namespace gpsdata {
 		GpsStatistics (const std::shared_ptr<const F>& factory) : internal::GpsFactoryUserBase<F> (factory) {
 			DEBUG_MSG("GpsStatistics::%s (%p)\n", __func__, &factory);
 			this->_statistics.clear ();
+			this->_statistics.reserve (GPSVALUEVECTOR_MIN_SIZE);
 		}
 
 	private:

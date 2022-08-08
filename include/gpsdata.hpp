@@ -23,6 +23,7 @@ namespace gpsdata::utils {
 	inline void empty_func (void) { return; };
 }
 
+#define GPSVALUEVECTOR_MIN_SIZE (static_cast<uint8_t>(12))
 
 #include <gpsdata/traits/GpsFactory.hpp>
 #include <gpsdata/traits/GpsPoint.hpp>
