@@ -80,6 +80,13 @@ gpsdata_sub_include_HEADERS = include/gpsdata/GpsDataValueType.hpp \
 	include/gpsdata/GpsStatistics.hpp \
 	include/gpsdata/GpsValue.hpp
 
+gpsdata_sub_comp_includedir = $(includedir)/gpsdata/comp
+gpsdata_sub_comp_include_HEADERS = include/gpsdata/comp/GpsPoint.hpp \
+	include/gpsdata/comp/GpsRoute.hpp \
+	include/gpsdata/comp/GpsSegment.hpp \
+	include/gpsdata/comp/GpsStatistics.hpp \
+	include/gpsdata/comp/GpsValue.hpp
+
 gpsdata_sub_traits_includedir = $(includedir)/gpsdata/traits
 gpsdata_sub_traits_include_HEADERS = include/gpsdata/traits/common.hpp \
 	include/gpsdata/traits/GpsFactory.hpp \
