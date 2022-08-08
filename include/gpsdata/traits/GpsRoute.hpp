@@ -7,7 +7,7 @@
 
 namespace gpsdata {
 	// Forward declaration of the GpsRoute type.
-	template<GpsFactoryTrait F, GpsSegmentTrait S, GpsPointTrait P>
+	template<GpsFactoryTrait F, GpsSegmentTrait S>
 	class GpsRoute;
 
 	inline namespace traits {
@@ -18,7 +18,7 @@ namespace gpsdata {
 			typename T::Point;
 			typename T::DataType;
 			typename T::ActivityType;
-			std::is_base_of<GpsRoute<typename T::GpsFactory, typename T::Segment, typename T::Point>, T>::value;
+			std::is_base_of<GpsRoute<typename T::GpsFactory, typename T::Segment>, T>::value;
 		};
 	}
 }

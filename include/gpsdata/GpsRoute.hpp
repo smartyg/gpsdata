@@ -8,7 +8,6 @@
 #include <memory>
 
 #include <gpsdata/traits/GpsFactory.hpp>
-#include <gpsdata/traits/GpsPoint.hpp>
 #include <gpsdata/traits/GpsSegment.hpp>
 #include <gpsdata/traits/GpsRoute.hpp>
 #include <gpsdata/types/ObjectId.hpp>
@@ -21,14 +20,14 @@
 
 namespace gpsdata {
 
-	template<GpsFactoryTrait F, GpsSegmentTrait S = GpsSegment<F>, GpsPointTrait P = typename S::Point>
-	class GpsRoute : virtual public GpsStatistics<F>, virtual public internal::GpsFactoryUserBase<F>, std::enable_shared_from_this<GpsRoute<F, S, P>> {
+	template<GpsFactoryTrait F, GpsSegmentTrait S = GpsSegment<F>>
+	class GpsRoute : virtual public GpsStatistics<F>, virtual public internal::GpsFactoryUserBase<F>, std::enable_shared_from_this<GpsRoute<F, S>> {
 		static_assert (std::is_same<typename S::GpsFactory, F>::value);
 
 	public:
 		using GpsFactory = F;
 		using Segment = S;
-		using Point = P;
+		using Point = typename S::Point;
 		using DataType = typename F::DataType;
 		using ActivityType = typename F::ActivityType;
 
@@ -74,17 +73,17 @@ namespace gpsdata {
 			this->_details.clear ();// = nullptr;
 		}
 
-		[[nodiscard]] static std::shared_ptr<GpsRoute<F, S, P>> create (const ObjectId& id, const std::shared_ptr<const F>& factory) {
+		[[nodiscard]] static std::shared_ptr<GpsRoute<F, S>> create (const ObjectId& id, const std::shared_ptr<const F>& factory) {
 			DEBUG_MSG("GpsRoute::%s (%ld, %p)\n", __func__, static_cast<int64_t>(id), &factory);
-			return std::shared_ptr<GpsRoute<F, S, P>>(new GpsRoute<F, S, P> (id, factory));
+			return std::shared_ptr<GpsRoute<F, S>>(new GpsRoute<F, S> (id, factory));
 		}
 
-		[[nodiscard]] static std::shared_ptr<GpsRoute<F, S, P>> create (const std::shared_ptr<const F>& factory) {
+		[[nodiscard]] static std::shared_ptr<GpsRoute<F, S>> create (const std::shared_ptr<const F>& factory) {
 			DEBUG_MSG("GpsRoute::%s (%p)\n", __func__, &factory);
-			return std::shared_ptr<GpsRoute<F, S, P>>(new GpsRoute<F, S, P> (factory));
+			return std::shared_ptr<GpsRoute<F, S>>(new GpsRoute<F, S> (factory));
 		}
 
-		std::shared_ptr<GpsRoute<F, S, P>> getptr (void) {
+		std::shared_ptr<GpsRoute<F, S>> getptr (void) {
 			return this->shared_from_this ();
 		}
 
