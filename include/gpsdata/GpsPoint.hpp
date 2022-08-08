@@ -2,7 +2,7 @@
 #define _X_GPSDATA_GPSPOINT_
 
 #include <type_traits>
-#include <list>
+#include <vector>
 #include <memory>
 
 #include <gpsdata/types/ObjectTime.hpp>
@@ -18,7 +18,7 @@ namespace gpsdata {
 		using GpsFactory = F;
 		using DataType = typename F::DataType;
 
-		using Container = typename std::list<GpsValue<DataType>>;
+		using Container = typename std::vector<GpsValue<DataType>>;
 		using iterator = typename Container::iterator;
 		using const_iterator = typename Container::const_iterator;
 
@@ -27,6 +27,10 @@ namespace gpsdata {
 		Container _data;
 
 		GpsPoint (const ObjectTime& time, const std::shared_ptr<const F>& factory) : internal::GpsFactoryUserBase<F> (factory), _time(time) {
+			this->_data.clear ();
+		}
+
+		GpsPoint (const std::shared_ptr<const F>& factory) : internal::GpsFactoryUserBase<F> (factory) {
 			DEBUG_MSG("GpsPoint::%s (%p)\n", __func__, &factory);
 			this->_data.clear ();
 		}
@@ -78,7 +82,7 @@ namespace gpsdata {
 				if (d.type == type) return d;
 			}
 			GpsValue<DataType> data;
-			//TODO: data.type = GpsDataFactory::gpsDataTypePredefined::NONE;
+			data.type = 0;
 			return data;
 		}
 
