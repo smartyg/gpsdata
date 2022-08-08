@@ -40,7 +40,6 @@ namespace gpsdata {
 		Container _data;
 
 		GpsPoint (const ObjectTime& time, const std::shared_ptr<const F>& factory) : internal::GpsFactoryUserBase<F> (factory), _time(time) {
-			//DEBUG_MSG("GpsPoint::%s (%p, %ld)\n", __func__, &factory, static_cast<const uint64_t>(time));
 			this->_data.clear ();
 			this->_data.reserve (GPSVALUEVECTOR_MIN_SIZE);
 		}
