@@ -7,17 +7,18 @@
 #include <list>
 #include <memory>
 
+#include <gpsdata/traits/GpsFactory.hpp>
+#include <gpsdata/traits/GpsPoint.hpp>
+#include <gpsdata/traits/GpsSegment.hpp>
 #include <gpsdata/types/ObjectTime.hpp>
 #include <gpsdata/GpsValue.hpp>
-#include <gpsdata/traits/GpsFactory.hpp>
 #include <gpsdata/GpsFactoryUserBase.hpp>
 #include <gpsdata/GpsStatistics.hpp>
 #include <gpsdata/GpsPoint.hpp>
 
 namespace gpsdata {
-	template<GpsDataFactory F, class P = GpsPoint<F>>
+	template<GpsFactoryTrait F, GpsPointTrait P = GpsPoint<F>>
 	class GpsSegment : virtual public GpsStatistics<F>, virtual public internal::GpsFactoryUserBase<F>, std::enable_shared_from_this<GpsSegment<F, P>> {
-		static_assert (std::is_base_of<GpsPoint<F>, P>::value);
 		static_assert (std::is_same<typename P::GpsFactory, F>::value);
 
 	public:

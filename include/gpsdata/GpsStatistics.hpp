@@ -11,7 +11,7 @@
 #include <gpsdata/GpsFactoryUserBase.hpp>
 
 namespace gpsdata {
-	template<GpsDataFactory F>
+	template<GpsFactoryTrait F>
 	class GpsStatistics : virtual public internal::GpsFactoryUserBase<F>, std::enable_shared_from_this<GpsStatistics<F>> {
 
 		using DataType = typename F::DataType;

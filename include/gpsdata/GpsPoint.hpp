@@ -5,13 +5,14 @@
 #include <vector>
 #include <memory>
 
+#include <gpsdata/traits/GpsFactory.hpp>
+#include <gpsdata/traits/GpsPoint.hpp>
 #include <gpsdata/types/ObjectTime.hpp>
 #include <gpsdata/GpsValue.hpp>
-#include <gpsdata/traits/GpsFactory.hpp>
 #include <gpsdata/GpsFactoryUserBase.hpp>
 
 namespace gpsdata {
-	template<GpsDataFactory F>
+	template<GpsFactoryTrait F>
 	class GpsPoint : virtual public internal::GpsFactoryUserBase<F>, std::enable_shared_from_this<GpsPoint<F>> {
 
 	public:

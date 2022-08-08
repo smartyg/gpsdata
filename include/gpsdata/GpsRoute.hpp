@@ -7,23 +7,23 @@
 #include <vector>
 #include <memory>
 
+#include <gpsdata/traits/GpsFactory.hpp>
+#include <gpsdata/traits/GpsPoint.hpp>
+#include <gpsdata/traits/GpsSegment.hpp>
+#include <gpsdata/traits/GpsRoute.hpp>
 #include <gpsdata/types/ObjectId.hpp>
 #include <gpsdata/types/ObjectTime.hpp>
 #include <gpsdata/GpsValue.hpp>
-#include <gpsdata/traits/GpsFactory.hpp>
 #include <gpsdata/GpsFactoryUserBase.hpp>
 #include <gpsdata/GpsStatistics.hpp>
 #include <gpsdata/GpsPoint.hpp>
 #include <gpsdata/GpsSegment.hpp>
 
 namespace gpsdata {
-	template<GpsDataFactory F, class S = GpsSegment<F>, class P = typename S::Point>
+
+	template<GpsFactoryTrait F, GpsSegmentTrait S = GpsSegment<F>, GpsPointTrait P = typename S::Point>
 	class GpsRoute : virtual public GpsStatistics<F>, virtual public internal::GpsFactoryUserBase<F>, std::enable_shared_from_this<GpsRoute<F, S, P>> {
-		static_assert (std::is_base_of<GpsSegment<F>, S>::value);
-		static_assert (std::is_base_of<typename S::Point, P>::value);
-		static_assert (std::is_base_of<GpsPoint<F>, P>::value);
 		static_assert (std::is_same<typename S::GpsFactory, F>::value);
-		static_assert (std::is_same<typename P::GpsFactory, F>::value);
 
 	public:
 		using GpsFactory = F;
