@@ -5,7 +5,7 @@
 #include <gpsdata/traits/GpsFactory.hpp>
 
 namespace gpsdata {
-	// Forward declaration of the GpsPoint type.
+	// Forward declaration of the GpsStatistics type.
 	template<GpsFactoryTrait F>
 	class GpsStatistics;
 
