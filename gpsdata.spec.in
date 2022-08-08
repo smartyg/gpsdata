@@ -26,13 +26,14 @@ Summary:        @PROGRAM_SUMMARY@
 Url:            @PACKAGE_HOMEPAGE@
 Group:          System/Libraries
 Source:         @PACKAGE_NAME@-@VERSION@.tar.xz
-BuildRequires:  gcc-c++
+BuildRequires:  gcc-c++ >= 10
 BuildRequires:  fdupes
 BuildRequires:  gtest
 BuildRequires:  gmock
 BuildRequires:  date-devel
 BuildRequires:  ZoneDetect-devel
 BuildRequires:  timezone
+BuildRequires:  autoconf-archive >= 2022.02.11
 BuildRoot:      %{_tmppath}/%{name}-%{srcVersion}-build
 
 %description
