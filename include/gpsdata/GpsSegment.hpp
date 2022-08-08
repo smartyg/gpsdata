@@ -75,6 +75,13 @@ namespace gpsdata {
 			return this->_n;
 		}
 
+		const ObjectTime getTime (void) const {
+			DEBUG_MSG("GpsSegment::%s ()\n", __func__);
+			if (!this->hasPoint ()) throw std::runtime_error ("no points present");
+			const auto it = this->_points.cbegin ();
+			return *it->getTime ();
+		}
+
 		/* GPS Points */
 		bool addPoint (std::shared_ptr<P>& point) {
 			DEBUG_MSG("GpsSegment::%s (%p)\n", __func__, &point);
@@ -122,6 +129,11 @@ namespace gpsdata {
 			DataType type = this->_factory->getDataType (type_str);
 			this->_factory->setValue (data, type, value, best_effort);
 			return this->addPointData (time, data);
+		}
+
+		bool hasPoint () const {
+			DEBUG_MSG("GpsSegment::%s ()\n", __func__);
+			return (this->_points.size () >= 1);
 		}
 
 		bool hasPoint (const ObjectTime& time) const {
