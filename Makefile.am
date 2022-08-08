@@ -75,8 +75,8 @@ gpsdata_sub_includedir = $(includedir)/gpsdata
 gpsdata_sub_include_HEADERS = include/gpsdata/GpsDataValueType.hpp \
 	include/gpsdata/GpsFactoryUserBase.hpp \
 	include/gpsdata/GpsPoint.hpp \
-	include/gpsdata/GpsSegment.hpp \
 	include/gpsdata/GpsRoute.hpp \
+	include/gpsdata/GpsSegment.hpp \
 	include/gpsdata/GpsStatistics.hpp \
 	include/gpsdata/GpsValue.hpp
 
