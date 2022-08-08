@@ -75,13 +75,35 @@ gpsdata_sub_includedir = $(includedir)/gpsdata
 gpsdata_sub_include_HEADERS = include/gpsdata/GpsDataValueType.hpp \
 	include/gpsdata/GpsFactoryUserBase.hpp \
 	include/gpsdata/GpsPoint.hpp \
-	include/gpsdata/GpsSegment.hpp \
 	include/gpsdata/GpsRoute.hpp \
+	include/gpsdata/GpsSegment.hpp \
 	include/gpsdata/GpsStatistics.hpp \
 	include/gpsdata/GpsValue.hpp
 
+gpsdata_sub_bitsery_includedir = $(includedir)/gpsdata/bitsery
+gpsdata_sub_bitsery_include_HEADERS = include/gpsdata/bitsery/GpsPoint.hpp \
+	include/gpsdata/bitsery/GpsRoute.hpp \
+	include/gpsdata/bitsery/GpsSegment.hpp \
+	include/gpsdata/bitsery/GpsStatistics.hpp \
+	include/gpsdata/bitsery/GpsValue.hpp \
+	include/gpsdata/bitsery/ObjectId.hpp \
+	include/gpsdata/bitsery/ObjectTime.hpp
+
+gpsdata_sub_comp_includedir = $(includedir)/gpsdata/comp
+gpsdata_sub_comp_include_HEADERS = include/gpsdata/comp/GpsPoint.hpp \
+	include/gpsdata/comp/GpsRoute.hpp \
+	include/gpsdata/comp/GpsSegment.hpp \
+	include/gpsdata/comp/GpsStatistics.hpp \
+	include/gpsdata/comp/GpsValue.hpp
+
 gpsdata_sub_traits_includedir = $(includedir)/gpsdata/traits
-gpsdata_sub_traits_include_HEADERS = include/gpsdata/traits/GpsFactory.hpp
+gpsdata_sub_traits_include_HEADERS = include/gpsdata/traits/common.hpp \
+	include/gpsdata/traits/GpsFactory.hpp \
+	include/gpsdata/traits/GpsPoint.hpp \
+	include/gpsdata/traits/GpsRoute.hpp \
+	include/gpsdata/traits/GpsSegment.hpp \
+	include/gpsdata/traits/GpsStatistics.hpp \
+	include/gpsdata/traits/is_instance.hpp
 
 gpsdata_sub_types_includedir = $(includedir)/gpsdata/types
 gpsdata_sub_types_include_HEADERS = include/gpsdata/types/Latitude.hpp \
@@ -95,9 +117,6 @@ gpsdata_sub_utils_include_HEADERS = include/gpsdata/utils/Convert.hpp \
 	include/gpsdata/utils/Logger.hpp \
 	include/gpsdata/utils/PointDate.hpp \
 	include/gpsdata/utils/ZoneDate.hpp
-
-gpsdata_sub_bitsery_includedir = $(includedir)/gpsdata/bitsery
-gpsdata_sub_bitsery_include_HEADERS = include/gpsdata/bitsery/bitsery.hpp
 
 if EXAMPLE
 bin_PROGRAMS = example1
