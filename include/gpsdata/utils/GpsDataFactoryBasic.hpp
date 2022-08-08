@@ -24,13 +24,13 @@ namespace gpsdata::utils {
 			{ 2, {"LON", gpsdata::GpsDataValueType::S_LONG_T, "longitude", "longitude of the point"} },
 			{ 3, {"ALT", gpsdata::GpsDataValueType::S_INT_T, "altitude", "altitude of the point"} },
 			{ 4, {"SPEED", gpsdata::GpsDataValueType::FLOAT_T, "speed (km/h)", "current speed in km/h"} },
-			{ 5, {"POWER", gpsdata::GpsDataValueType::FLOAT_T, "power (W)", "current power in W"} },
-			{ 6, {"HEARTRATE", gpsdata::GpsDataValueType::FLOAT_T, "heartrate (bpm)", "heartrate in bpm"} },
-			{ 7, {"CADANCE", gpsdata::GpsDataValueType::FLOAT_T, "cadance (rpm)", "cadance in rpm"} }
+			{ 5, {"POWER", gpsdata::GpsDataValueType::S_INT_T, "power (W)", "current power in W"} },
+			{ 6, {"HEARTRATE", gpsdata::GpsDataValueType::S_INT_T, "heartrate (bpm)", "heartrate in bpm"} },
+			{ 7, {"CADANCE", gpsdata::GpsDataValueType::S_INT_T, "cadance (rpm)", "cadance in rpm"} }
 		};
 
 		const std::map<ActivityType, std::tuple<std::string, std::string, std::string>> activity_type_map = {
-			{ 1, {"CYCING", "cycling", ""} },
+			{ 1, {"CYCLING", "cycling", ""} },
 			{ 2, {"RUNNING", "running", ""} },
 			{ 3, {"WALKING", "walking", ""} },
 			{ 4, {"SWIMMING", "swimming", ""} }
@@ -104,7 +104,6 @@ namespace gpsdata::utils {
 		}
 
 		gpsdata::GpsDataValueType getDataValueType (const DataType& type) const {
-			return gpsdata::GpsDataValueType::S_CHAR_T;
 			try {
 				const auto& value = this->data_type_map.at (type);
 				return std::get<1>(value);
