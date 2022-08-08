@@ -38,7 +38,7 @@ namespace gpsdata {
 
 	protected:
 		ObjectId _id;
-		int_fast32_t _timezone_offset;
+		int32_t _timezone_offset;
 		ActivityType _activity_type;
 		std::string _title;
 		std::string _summary;
@@ -96,7 +96,7 @@ namespace gpsdata {
 			return true;
 		}*/
 
-		bool getTimezoneOffset (int_fast32_t offset) {
+		bool setTimezoneOffset (int32_t offset) {
 			DEBUG_MSG("GpsRoute::%s (%d)\n", __func__, offset);
 			this->_timezone_offset = offset;
 			return true;
@@ -110,26 +110,26 @@ namespace gpsdata {
 
 		template<typename U = std::string, typename std::enable_if<!std::is_same<U, ActivityType>::value, bool>::type = 0>
 		bool setActivityType (const std::string& a_str) {
-			DEBUG_MSG("GpsRoute::%s (%s)\n", __func__, a_str);
+			DEBUG_MSG("GpsRoute::%s (%s)\n", __func__, a_str.c_str ());
 			const ActivityType& a = this->_factory->getActivityType (a_str);
 			this->_activity_type = a;
 			return true;
 		}
 
 		bool setTitle (const std::string& title) {
-			DEBUG_MSG("GpsRoute::%s (%s)\n", __func__, title);
+			DEBUG_MSG("GpsRoute::%s (%s)\n", __func__, title.c_str ());
 			this->_title = title;
 			return true;
 		}
 
 		bool setSummary (const std::string& summary) {
-			DEBUG_MSG("GpsRoute::%s (%s)\n", __func__, summary);
+			DEBUG_MSG("GpsRoute::%s (%s)\n", __func__, summary.c_str ());
 			this->_summary = summary;
 			return true;
 		}
 
 		bool setDetails (const std::string& details) {
-			DEBUG_MSG("GpsRoute::%s (%s)\n", __func__, details);
+			DEBUG_MSG("GpsRoute::%s (%s)\n", __func__, details.c_str ());
 			this->_details = details;
 			return true;
 		}
@@ -142,12 +142,12 @@ namespace gpsdata {
 
 		const ObjectTime getTime (void) const {
 			DEBUG_MSG("GpsRoute::%s ()\n", __func__);
-			//return this->_segments->at(0)->;
-			//TODO: fix
-			return 0;
+			if (!this->hasSegment ()) throw std::runtime_error ("no segments present");
+			const auto it = this->_segments.cbegin ();
+			return *it->getTime ();
 		}
 
-		int_fast32_t getTimezoneOffset (void) const {
+		int32_t getTimezoneOffset (void) const {
 			DEBUG_MSG("GpsRoute::%s ()\n", __func__);
 			return this->_timezone_offset;
 		}
@@ -179,16 +179,21 @@ namespace gpsdata {
 			return true;
 		}
 
-		bool addSegment (const int& segment) {
-			DEBUG_MSG("GpsRoute::%s (%d)\n", __func__, segment);
-			std::shared_ptr<S> s = S::create (segment, this->_factory);
-			return this->addSegment (s);
+		bool addSegment (const int& n_segment) {
+			DEBUG_MSG("GpsRoute::%s (%d)\n", __func__, n_segment);
+			std::shared_ptr<Segment> segment = Segment::create (n_segment, this->_factory);
+			return this->addSegment (segment);
 		}
 
-		bool hasSegment (const int& segment) const {
-			DEBUG_MSG("GpsRoute::%s (%d)\n", __func__, segment);
+		bool hasSegment (void) const {
+			DEBUG_MSG("GpsRoute::%s ()\n", __func__);
+			return (this->_segments.size () >= 1);
+		}
+
+		bool hasSegment (const int& n_segment) const {
+			DEBUG_MSG("GpsRoute::%s (%d)\n", __func__, n_segment);
 			for (const std::shared_ptr<S>& s : this->_segments) {
-				if (s->getSegmentNumber () == segment) return true;
+				if (s->getSegmentNumber () == n_segment) return true;
 			}
 			return false;
 		}
@@ -211,7 +216,7 @@ namespace gpsdata {
 			return true;
 		}
 
-		bool addPoint (const int& segment, std::shared_ptr<P> point) {
+		bool addPoint (const int& segment, std::shared_ptr<Point> point) {
 			DEBUG_MSG("GpsRoute::%s (%d, %p)\n", __func__, segment, point);
 			if (!this->hasSegment (segment)) this->addSegment (segment);
 			return this->_segments[segment]->addPoint (point);
