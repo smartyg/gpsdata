@@ -10,10 +10,19 @@
 #include <gpsdata/GpsValue.hpp>
 #include <gpsdata/GpsFactoryUserBase.hpp>
 
+namespace bitsery {
+	class Access;
+}
+
 namespace gpsdata {
 	template<GpsFactoryTrait F>
 	class GpsStatistics : virtual public internal::GpsFactoryUserBase<F>, std::enable_shared_from_this<GpsStatistics<F>> {
+		friend class bitsery::Access;
 
+		template<typename B, GpsStatisticsTrait S>
+		friend void serialize (B&, S&) requires(std::is_base_of<GpsStatistics<typename S::GpsFactory>, S>::value);
+
+	public:
 		using DataType = typename F::DataType;
 		using Container = typename std::vector<GpsValue<DataType>>;
 
@@ -27,7 +36,7 @@ namespace gpsdata {
 		}
 
 	private:
-		GpsStatistics (void) = delete;
+		GpsStatistics (void) = default;
 		GpsStatistics (const GpsStatistics&) = delete;                // copy constructor
 		GpsStatistics (GpsStatistics&&) noexcept = delete;            // move constructor
 		GpsStatistics& operator= (const GpsStatistics&) = delete;     // copy assignment

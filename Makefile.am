@@ -80,6 +80,15 @@ gpsdata_sub_include_HEADERS = include/gpsdata/GpsDataValueType.hpp \
 	include/gpsdata/GpsStatistics.hpp \
 	include/gpsdata/GpsValue.hpp
 
+gpsdata_sub_bitsery_includedir = $(includedir)/gpsdata/bitsery
+gpsdata_sub_bitsery_include_HEADERS = include/gpsdata/bitsery/GpsPoint.hpp \
+	include/gpsdata/bitsery/GpsRoute.hpp \
+	include/gpsdata/bitsery/GpsSegment.hpp \
+	include/gpsdata/bitsery/GpsStatistics.hpp \
+	include/gpsdata/bitsery/GpsValue.hpp \
+	include/gpsdata/bitsery/ObjectId.hpp \
+	include/gpsdata/bitsery/ObjectTime.hpp
+
 gpsdata_sub_comp_includedir = $(includedir)/gpsdata/comp
 gpsdata_sub_comp_include_HEADERS = include/gpsdata/comp/GpsPoint.hpp \
 	include/gpsdata/comp/GpsRoute.hpp \
@@ -115,6 +124,18 @@ example1_LDADD = libgpsdata-utils.la
 example1_LDFLAGS = -Wl,-rpath=$(pkglibdir),--enable-new-dtags
 example1_CPPFLAGS = -Iinclude -DLOCALEDIR=\"$(localedir)\" -DPKGLIBDIR=\"$(pkglibdir)\"
 example1_SOURCES = examples/example1.cpp
+
+bin_PROGRAMS += example2
+example2_LDADD = libgpsdata-utils.la
+example2_LDFLAGS = -Wl,-rpath=$(pkglibdir),--enable-new-dtags
+example2_CPPFLAGS = -Iinclude -DLOCALEDIR=\"$(localedir)\" -DPKGLIBDIR=\"$(pkglibdir)\"
+example2_SOURCES = examples/example2.cpp
+
+bin_PROGRAMS += example3
+example3_LDADD = libgpsdata-utils.la
+example3_LDFLAGS = -Wl,-rpath=$(pkglibdir),--enable-new-dtags
+example3_CPPFLAGS = -Iinclude -DLOCALEDIR=\"$(localedir)\" -DPKGLIBDIR=\"$(pkglibdir)\"
+example3_SOURCES = examples/example3.cpp
 endif
 
 EXTRA_DIST = VERSION ChangeLog README AUTHORS LICENSE @PROGRAM_NAME@.spec

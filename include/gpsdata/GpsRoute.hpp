@@ -18,10 +18,19 @@
 #include <gpsdata/GpsPoint.hpp>
 #include <gpsdata/GpsSegment.hpp>
 
+namespace bitsery {
+	class Access;
+}
+
 namespace gpsdata {
 
 	template<GpsFactoryTrait F, GpsSegmentTrait S = GpsSegment<F>>
 	class GpsRoute : virtual public GpsStatistics<F>, virtual public internal::GpsFactoryUserBase<F>, std::enable_shared_from_this<GpsRoute<F, S>> {
+		friend class bitsery::Access;
+
+		template<typename B, GpsRouteTrait R>
+		friend void serialize (B&, std::shared_ptr<R>&) requires(std::is_base_of<GpsRoute<typename R::GpsFactory, typename R::Segment>, R>::value);
+
 		static_assert (std::is_same<typename S::GpsFactory, F>::value);
 
 	public:
@@ -58,7 +67,7 @@ namespace gpsdata {
 		GpsRoute (const std::shared_ptr<const F>& factory) : GpsRoute (0, factory) { }
 
 	private:
-		GpsRoute (void) = delete;
+		GpsRoute (void) = default;
 		GpsRoute (const GpsRoute&) = delete;                // copy constructor
 		GpsRoute (GpsRoute&&) noexcept = delete;            // move constructor
 		GpsRoute& operator= (const GpsRoute&) = delete;     // copy assignment

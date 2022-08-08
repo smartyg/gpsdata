@@ -9,6 +9,9 @@
 namespace gpsdata {
 	inline namespace types {
 		class ObjectTime final {
+			template <typename B>
+			friend void serialize (B&, ObjectTime&);
+
 		public:
 			using internalTimeType = uint64_t;
 			using Representation = std::chrono::milliseconds;
