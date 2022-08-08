@@ -14,8 +14,8 @@
 #include <gpsdata/utils/Logger.hpp>
 #include <gpsdata/utils/GpsDataFactoryBasic.hpp>
 #include <gpsdata.hpp>
-#include <gpsdata/bitsery/bitsery.hpp>
-#include <gpsdata/comparision.hpp>
+#include <gpsdata/bitsery/GpsRoute.hpp>
+#include <gpsdata/comp/GpsRoute.hpp>
 
 #include "PrintGpsRoute.hpp"
 
