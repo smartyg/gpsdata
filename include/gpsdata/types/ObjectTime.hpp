@@ -139,13 +139,13 @@ namespace gpsdata {
 			#if LONG_MAX >= UINT64_MAX
 			explicit inline operator long int() const noexcept { return static_cast<long int>(this->_time.count ()); }
 			#endif
-			#if ULONG_MAX >= UINT64_MAX
+			#if ULONG_MAX >= UINT64_MAX && UINT_MAX > UINT64_MAX
 			explicit inline operator long unsigned int() const noexcept { return static_cast<long unsigned int>(this->_time.count ()); }
 			#endif
 			#if LLONG_MAX >= UINT64_MAX
 			explicit inline operator long long int() const noexcept { return static_cast<long long int>(this->_time.count ()); }
 			#endif
-			#if ULLONG_MAX >= UINT64_MAX
+			#if ULLONG_MAX >= UINT64_MAX && UINT_MAX > UINT64_MAX
 			explicit inline operator long long unsigned int() const noexcept { return static_cast<long long unsigned int>(this->_time.count ()); }
 			#endif
 
