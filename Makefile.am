@@ -18,7 +18,7 @@ COMMON_DEBUG_OPTIONS = -Wall -Wextra -W -Wshadow -Wpointer-arith -Wcast-qual -Wc
 	-Wundef -Wunreachable-code -Wlogical-op -Wfloat-equal -Wno-float-equal \
 	-Wstrict-aliasing=2 -Wredundant-decls -Werror \
 	-fno-omit-frame-pointer -ffloat-store -fno-common -fstrict-aliasing \
-	-fvar-tracking -fvar-tracking-assignments -fconcepts -ggdb3 -O0
+	-fvar-tracking -fvar-tracking-assignments -ggdb3 -O0
 AM_CFLAGS += $(COMMON_DEBUG_OPTIONS) \
 	-Wbad-function-cast -Wstrict-prototypes -Wmissing-prototypes -Wnested-externs \
 	-Wold-style-definition
@@ -29,7 +29,7 @@ AM_CXXFLAGS += $(COMMON_DEBUG_OPTIONS) \
 	-Wsign-promo
 else
 AM_CFLAGS += -flto
-AM_CXXFLAGS += -flto -fconcepts
+AM_CXXFLAGS += -flto
 endif
 
 export AM_CFLAGS
