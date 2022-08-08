@@ -57,14 +57,16 @@ namespace gpsdata {
 			this->_points.clear ();
 		}
 
-		[[nodiscard]] static std::shared_ptr<GpsSegment<F, P>> create (const std::shared_ptr<const F>& factory) {
+		template<GpsSegmentTrait S = GpsSegment<F, P>>
+		[[nodiscard]] static std::shared_ptr<S> create (const std::shared_ptr<const typename S::GpsFactory>& factory) {
 			DEBUG_MSG("GpsSegment::%s (%p)\n", __func__, &factory);
-			return std::shared_ptr<GpsSegment<F, P>>(new GpsSegment<F, P> (factory));
+			return std::shared_ptr<S>(new S (factory));
 		}
 
-		[[nodiscard]] static std::shared_ptr<GpsSegment<F, P>> create (const int& n, const std::shared_ptr<const F>& factory) {
+		template<GpsSegmentTrait S = GpsSegment<F, P>>
+		[[nodiscard]] static std::shared_ptr<S> create (const int& n, const std::shared_ptr<const typename S::GpsFactory>& factory) {
 			DEBUG_MSG("GpsSegment::%s (%d, %p)\n", __func__, n, &factory);
-			return std::shared_ptr<GpsSegment<F, P>>(new GpsSegment<F, P> (n, factory));
+			return std::shared_ptr<S>(new S (n, factory));
 		}
 
 		std::shared_ptr<GpsSegment<F, P>> getptr (void) {
@@ -97,7 +99,7 @@ namespace gpsdata {
 			DEBUG_MSG("GpsSegment::%s (%ld)\n", __func__, time.getTime ());
 			auto it = this->getIterator (time);
 			if (GpsSegment::iteratorMatch (it, time)) return false;
-			std::shared_ptr<P> point = P::create (time, this->_factory);
+			std::shared_ptr<Point> point = Point::template create<Point> (time, this->_factory);
 			this->_points.insert (it, point);
 			return true;
 		}
@@ -107,7 +109,7 @@ namespace gpsdata {
 			auto it = this->getIterator (time);
 			// If the point does not (yet) exists, create create the point; otherwise add the data to the point.
 			if (!GpsSegment::iteratorMatch (it, time)) {
-				std::shared_ptr<Point> point = Point::create (time, this->_factory);
+				std::shared_ptr<Point> point = Point::template create<Point> (time, this->_factory);
 				point->addData (value);
 				return this->addPoint (point);
 			}

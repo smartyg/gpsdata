@@ -73,14 +73,16 @@ namespace gpsdata {
 			this->_details.clear ();// = nullptr;
 		}
 
-		[[nodiscard]] static std::shared_ptr<GpsRoute<F, S>> create (const ObjectId& id, const std::shared_ptr<const F>& factory) {
+		template<GpsRouteTrait R = GpsRoute<F, S>>
+		[[nodiscard]] static std::shared_ptr<R> create (const ObjectId& id, const std::shared_ptr<const typename R::GpsFactory>& factory) {
 			DEBUG_MSG("GpsRoute::%s (%ld, %p)\n", __func__, static_cast<int64_t>(id), &factory);
-			return std::shared_ptr<GpsRoute<F, S>>(new GpsRoute<F, S> (id, factory));
+			return std::shared_ptr<R>(new R (id, factory));
 		}
 
-		[[nodiscard]] static std::shared_ptr<GpsRoute<F, S>> create (const std::shared_ptr<const F>& factory) {
+		template<GpsRouteTrait R = GpsRoute<F, S>>
+		[[nodiscard]] static std::shared_ptr<R> create (const std::shared_ptr<const typename R::GpsFactory>& factory) {
 			DEBUG_MSG("GpsRoute::%s (%p)\n", __func__, &factory);
-			return std::shared_ptr<GpsRoute<F, S>>(new GpsRoute<F, S> (factory));
+			return std::shared_ptr<R>(new R (factory));
 		}
 
 		std::shared_ptr<GpsRoute<F, S>> getptr (void) {
@@ -180,7 +182,7 @@ namespace gpsdata {
 
 		bool addSegment (const int& n_segment) {
 			DEBUG_MSG("GpsRoute::%s (%d)\n", __func__, n_segment);
-			std::shared_ptr<Segment> segment = Segment::create (n_segment, this->_factory);
+			std::shared_ptr<Segment> segment = Segment::template create<Segment> (n_segment, this->_factory);
 			return this->addSegment (segment);
 		}
 

@@ -19,7 +19,7 @@ using GpsRouteType = gpsdata::GpsRoute<GpsFactoryType, GpsSegmentType>;
 int main(void) {
 	gpsdata::ObjectId id = 1;
 	auto factory = GpsFactoryType::create ();
-	auto route = GpsRouteType::create (id, factory);
+	auto route = GpsRouteType::create<GpsRouteType> (id, factory);
 
 	route->addSegment (0);
 	gpsdata::ObjectTime t1 = static_cast<gpsdata::ObjectTime::internalTimeType>(10);

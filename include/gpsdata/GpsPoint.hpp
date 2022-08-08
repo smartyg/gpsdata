@@ -46,8 +46,9 @@ namespace gpsdata {
 		GpsPoint& operator= (GpsPoint&&) noexcept = delete; // move assignment
 
 	public:
-		[[nodiscard]] static std::shared_ptr<GpsPoint<F>> create (const ObjectTime& time, const std::shared_ptr<const F>& factory) {
-			return std::shared_ptr<GpsPoint<F>>(new GpsPoint<F> (time, factory));
+		template<GpsPointTrait P = GpsPoint<F>>
+		[[nodiscard]] static std::shared_ptr<P> create (const ObjectTime& time, const std::shared_ptr<const typename P::GpsFactory>& factory) {
+			return std::shared_ptr<P>(new P (time, factory));
 		}
 
 		std::shared_ptr<GpsPoint<F>> getptr (void) {
