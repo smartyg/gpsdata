@@ -50,7 +50,7 @@ AC_DEFUN([AX_CPP_CHECK_LIB], [
 AX_DEFINE_SUBST([PROGRAM_NAME], [gpsdata], [program name])
 AX_DEFINE_SUBST([PROGRAM_SUMMARY], [Headers and utility library for GPS data handling], [program summary])
 AX_DEFINE_SUBST([PROGRAM_DESCRIPTION], [Package containing base data structures, types and utilities to handle gps data in C++ programs.], [program description])
-AX_DEFINE_SUBST([LAST_CHANGE], [31-07-2022], [Date of last change])
+AX_DEFINE_SUBST([LAST_CHANGE], [15-08-2022], [Date of last change])
 AX_DEFINE_SUBST([AUTHOR], [Martijn Goedhart], [Author])
 AX_DEFINE_SUBST([COPYRIGHT], [Copyright (C) 2022 Martijn Goedhart], [Copyright])
 AX_DEFINE_SUBST([LICENSE], [GNU General Public License], [License name])
@@ -69,7 +69,7 @@ AX_DEFINE_SUBST([LIBRARY_REVISION_VERSION], [0], [current revision of the interf
 AX_DEFINE_SUBST([LIBRARY_AGE_VERSION], [0], [age of the interface])
 
 # Checks for programs.
-AC_PROG_CXX([g++-11 c++-11 g++ c++])
+AC_PROG_CXX
 AC_PROG_CC
 AC_PROG_AWK
 AC_PROG_CPP
@@ -129,7 +129,7 @@ AC_ARG_ENABLE([gtest],
 	esac],
 	[gtest=false])
 
-# Check for GNU C++17 standard
+# Check for GNU C++20 standard
 AX_CXX_COMPILE_STDCXX_11(ext, mandatory)
 AX_CXX_COMPILE_STDCXX_14(ext, mandatory)
 AX_CXX_COMPILE_STDCXX_17(ext, mandatory)

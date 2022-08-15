@@ -17,6 +17,7 @@
 %define libName @PACKAGE_NAME@
 %define srcVersion @VERSION@
 %define majorVersion @LIBRARY_OLD_INTERFACE@
+%define gcc_version 11
 
 Name:           @PROGRAM_NAME@
 Version:        @GIT_VERSION@
@@ -26,7 +27,7 @@ Summary:        @PROGRAM_SUMMARY@
 Url:            @PACKAGE_HOMEPAGE@
 Group:          System/Libraries
 Source:         @PACKAGE_NAME@-@VERSION@.tar.xz
-BuildRequires:  gcc-c++ >= 10
+BuildRequires:  gcc%{gcc_version}-c++
 BuildRequires:  fdupes
 BuildRequires:  gtest
 BuildRequires:  gmock
@@ -61,6 +62,7 @@ Requires:       timezone
 %setup -q -n %{libName}-%{srcVersion}
 
 %build
+export CXX=g++-%{gcc_version}
 %configure --disable-static --disable-debug --enable-release --enable-gtest
 make %{?_smp_mflags}
 
