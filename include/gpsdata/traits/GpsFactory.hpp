@@ -20,7 +20,7 @@ namespace gpsdata {
 		concept CONCEPT_RETURN GpsFactoryTrait = requires(const T t) {
 			typename T::DataType;
 			typename T::ActivityType;
-		} && requires(const T t, const std::string& s, const typename T::DataType& a1, const typename T::ActivityType& a2) {
+		} && requires(const T t, const std::string_view s, const typename T::DataType& a1, const typename T::ActivityType& a2) {
 			{ t.getDataType (s) } -> SAME_TYPE(typename T::DataType);
 			{ t.getDataTypeString (a1) } -> CONVERTIBLE_TYPE(const std::string);
 			{ t.getDataTypesString () } -> CONVERTIBLE_TYPE(ListDataTypes);

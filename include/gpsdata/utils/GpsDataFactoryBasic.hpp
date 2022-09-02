@@ -19,7 +19,7 @@ namespace gpsdata::utils {
 		using ActivityType = uint8_t;
 
 	private:
-		const std::map<DataType, std::tuple<std::string, gpsdata::GpsDataValueType, std::string, std::string>> data_type_map = {
+		const std::map<DataType, std::tuple<const std::string_view, gpsdata::GpsDataValueType, const std::string_view, const std::string_view>> data_type_map = {
 			{ 1, {"LAT", gpsdata::GpsDataValueType::S_LONG_T, "latitude", "latitude of the point"} },
 			{ 2, {"LON", gpsdata::GpsDataValueType::S_LONG_T, "longitude", "longitude of the point"} },
 			{ 3, {"ALT", gpsdata::GpsDataValueType::S_INT_T, "altitude", "altitude of the point"} },
@@ -29,7 +29,7 @@ namespace gpsdata::utils {
 			{ 7, {"CADANCE", gpsdata::GpsDataValueType::S_INT_T, "cadance (rpm)", "cadance in rpm"} }
 		};
 
-		const std::map<ActivityType, std::tuple<std::string, std::string, std::string>> activity_type_map = {
+		const std::map<ActivityType, std::tuple<const std::string_view, const std::string_view, const std::string_view>> activity_type_map = {
 			{ 1, {"CYCLING", "cycling", ""} },
 			{ 2, {"RUNNING", "running", ""} },
 			{ 3, {"WALKING", "walking", ""} },
@@ -49,7 +49,7 @@ namespace gpsdata::utils {
 			return this->shared_from_this ();
 		}
 
-		DataType getDataType (const std::string& type_str) const {
+		DataType getDataType (const std::string_view type_str) const {
 			for (const auto& [type, value] : this->data_type_map) {
 				if (std::get<0>(value).compare (type_str) == 0)
 					return type;
@@ -60,7 +60,7 @@ namespace gpsdata::utils {
 		const std::string getDataTypeString (const DataType& type) const {
 			try {
 				const auto& value = this->data_type_map.at (type);
-				return std::get<0>(value);
+				return std::string (std::get<0>(value));
 			} catch (std::out_of_range& e) {
 				return std::string ();
 			}
@@ -70,7 +70,7 @@ namespace gpsdata::utils {
 			std::vector<std::string> result (this->data_type_map.size ());
 			for (const auto& [type, value] : this->data_type_map) {
 				(void)type;
-				result.push_back (std::get<0>(value));
+				result.push_back (std::string (std::get<0>(value)));
 			}
 			return result;
 		}
@@ -80,7 +80,7 @@ namespace gpsdata::utils {
 			std::vector<std::tuple<const std::string, const std::string, const std::string>> result (this->data_type_map.size ());
 			for (const auto& [type, value] : this->data_type_map) {
 				(void)type;
-				std::tuple<const std::string, const std::string, const std::string> entry = std::make_tuple(std::get<0>(value), std::get<2>(value), std::get<3>(value));
+				std::tuple<const std::string, const std::string, const std::string> entry = std::make_tuple(std::string (std::get<0>(value)), std::string (std::get<2>(value)), std::string (std::get<3>(value)));
 				result.push_back (entry);
 			}
 			return result;
@@ -89,7 +89,7 @@ namespace gpsdata::utils {
 		const std::string getDataTypeFullName (const DataType& type) const {
 			try {
 				const auto& value = this->data_type_map.at (type);
-				return std::get<2>(value);
+				return std::string (std::get<2>(value));
 			} catch (std::out_of_range& e) {
 				return std::string ();
 			}
@@ -97,7 +97,7 @@ namespace gpsdata::utils {
 		const std::string getDataTypeDescription (const DataType& type) const {
 			try {
 				const auto& value = this->data_type_map.at (type);
-				return std::get<3>(value);
+				return std::string (std::get<3>(value));
 			} catch (std::out_of_range& e) {
 				return std::string ();
 			}
@@ -112,7 +112,7 @@ namespace gpsdata::utils {
 			}
 		}
 
-		ActivityType getActivityType (const std::string& type_str) const {
+		ActivityType getActivityType (const std::string_view type_str) const {
 			for (const auto& [type, value] : this->activity_type_map) {
 				if (std::get<0>(value).compare (type_str) == 0)
 					return type;
@@ -123,7 +123,7 @@ namespace gpsdata::utils {
 		const std::string getActivityTypeString (const ActivityType& type) const {
 			try {
 				const auto& value = this->activity_type_map.at (type);
-				return std::get<0>(value);
+				return std::string (std::get<0>(value));
 			} catch (std::out_of_range& e) {
 				return std::string ();
 			}
@@ -133,7 +133,7 @@ namespace gpsdata::utils {
 			std::vector<std::string> result (this->activity_type_map.size ());
 			for (const auto& [type, value] : this->activity_type_map) {
 				(void)type;
-				result.push_back (std::get<0>(value));
+				result.push_back (std::string (std::get<0>(value)));
 			}
 			return result;
 		}
