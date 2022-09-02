@@ -95,7 +95,7 @@ namespace gpsdata {
 			DEBUG_MSG("GpsSegment::%s ()\n", __func__);
 			if (!this->hasPoint ()) throw std::runtime_error ("no points present");
 			const auto it = this->_points.cbegin ();
-			return *it->getTime ();
+			return (*it)->getTime ();
 		}
 
 		/* GPS Points */

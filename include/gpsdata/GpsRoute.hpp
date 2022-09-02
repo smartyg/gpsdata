@@ -154,7 +154,7 @@ namespace gpsdata {
 			DEBUG_MSG("GpsRoute::%s ()\n", __func__);
 			if (!this->hasSegment ()) throw std::runtime_error ("no segments present");
 			const auto it = this->_segments.cbegin ();
-			return *it->getTime ();
+			return (*it)->getTime ();
 		}
 
 		int32_t getTimezoneOffset (void) const {
