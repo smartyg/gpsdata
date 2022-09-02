@@ -22,7 +22,7 @@ namespace gpsdata {
 		if constexpr (is_instance<B, bitsery::Serializer>{}) {
 			s.object (route->_id);
 			s.value4b (route->_timezone_offset);
-			s.text1b (route->getFactory ()->getActivityTypeString (route->_activity_type), 128);
+			s.text1b (std::string (route->getFactory ()->getActivityTypeString (route->_activity_type)), 128);
 			s.text1b (route->_title, 128);
 			s.text1b (route->_summary, 128);
 			s.text1b (route->_details, 128);

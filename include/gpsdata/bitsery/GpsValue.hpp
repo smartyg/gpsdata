@@ -22,7 +22,7 @@ namespace gpsdata {
 		s.value1b (n_elements);
 		auto it = v.cbegin ();
 		for (int i = 0; i < n_elements; ++i) {
-			const std::string type_string = factory->getDataTypeString ((*it).type);
+			const std::string type_string = std::string (factory->getDataTypeString ((*it).type));
 			assert (type_string.size () < 64);
 
 			s.text1b (type_string, 64);
