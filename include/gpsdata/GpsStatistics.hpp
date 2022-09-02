@@ -16,7 +16,7 @@ namespace bitsery {
 
 namespace gpsdata {
 	template<GpsFactoryTrait F>
-	class GpsStatistics : virtual public internal::GpsFactoryUserBase<F>, std::enable_shared_from_this<GpsStatistics<F>> {
+	class GpsStatistics : virtual public internal::GpsFactoryUserBase<F> {
 		friend class bitsery::Access;
 
 		template<typename B, GpsStatisticsTrait S>
