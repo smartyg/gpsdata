@@ -25,7 +25,7 @@ AM_CFLAGS += $(COMMON_DEBUG_OPTIONS) \
 AM_CXXFLAGS += $(COMMON_DEBUG_OPTIONS) \
 	-Wconversion-null -Wctor-dtor-privacy -Wdelete-non-virtual-dtor \
 	-Wnarrowing -Wnoexcept -Wnon-virtual-dtor -Wreorder -Wstrict-null-sentinel \
-	-Wno-non-template-friend  -Wold-style-cast -Woverloaded-virtual -Wno-pmf-conversions \
+	-Wno-non-template-friend -Wold-style-cast -Woverloaded-virtual -Wno-pmf-conversions \
 	-Wsign-promo
 else
 AM_CFLAGS += -flto
