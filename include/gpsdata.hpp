@@ -19,9 +19,12 @@
 #ifndef INFO_MSG
 #define INFO_MSG(format, ...) (gpsdata::utils::empty_func())
 #endif
+#ifndef EMPTY_FUNC_DEFINED
+#define EMPTY_FUNC_DEFINED
 namespace gpsdata::utils {
-	inline void empty_func (void) { return; };
+	inline const void empty_func (void) { return; };
 }
+#endif /* EMPTY_FUNC_DEFINED */
 
 #define GPSVALUEVECTOR_MIN_SIZE (static_cast<uint8_t>(12))
 

@@ -13,9 +13,12 @@
 
 #ifdef _RELEASE
 #define DEBUG_MSG(format, ...) (gpsdata::utils::empty_func())
+#ifndef EMPTY_FUNC_DEFINED
+#define EMPTY_FUNC_DEFINED
 namespace gpsdata::utils {
 	inline const void empty_func (void) { return; };
 }
+#endif /* EMPTY_FUNC_DEFINED */
 #else
 #define DEBUG_MSG(format, ...) (gpsdata::utils::Logger::Log (gpsdata::utils::Logger::DEBUG, __FILE__, __func__, __LINE__, format, __VA_ARGS__))
 #endif
