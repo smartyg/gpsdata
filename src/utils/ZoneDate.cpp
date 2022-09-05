@@ -89,7 +89,7 @@ date::local_time<std::chrono::milliseconds> ZoneDate::getUtcTime (const date::sy
 
 const ObjectTime ZoneDate::getUtcTimeAsObjectTime (const date::sys_time<std::chrono::milliseconds>& tp) const noexcept {
 	date::local_time<std::chrono::milliseconds> local_tp = this->getUtcTime (tp);
-	return local_tp.time_since_epoch ();
+	return ObjectTime (local_tp.time_since_epoch ());
 }
 
 date::sys_time<std::chrono::milliseconds> ZoneDate::getZoneTime (const date::local_time<std::chrono::milliseconds>& utc_tp) const noexcept {

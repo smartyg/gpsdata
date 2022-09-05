@@ -87,7 +87,7 @@ const date::local_time<std::chrono::milliseconds> PointDate::parseTimeInt (const
 
 const ObjectTime PointDate::parseTime (const std::string& time_string, const std::vector<std::string>& formats) {
 	const date::local_time<std::chrono::milliseconds> tp = PointDate::parseTimeInt (time_string, formats);
-	return tp.time_since_epoch();
+	return ObjectTime (tp.time_since_epoch());
 }
 
 
