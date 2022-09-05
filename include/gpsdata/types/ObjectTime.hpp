@@ -84,13 +84,13 @@ namespace gpsdata {
 				this->_time = std::chrono::duration_cast<timeType>(time);
 			}
 
-			ObjectTime (int year, int month = 1, int day = 1, int hour = 0, int minutes = 0, double seconds = 0.0) noexcept {
+			ObjectTime (int year, int month, int day, int hour = 0, int minutes = 0, double seconds = 0.0) noexcept {
 				date::year_month_day ymd{date::year(year), date::month(month), date::day(day)};
 
+				this->_time = std::chrono::duration_cast<timeType>(date::sys_days(ymd).time_since_epoch ());
 				this->_time += std::chrono::duration_cast<timeType>(std::chrono::hours(hour));
 				this->_time += std::chrono::duration_cast<timeType>(std::chrono::minutes(minutes));
 				this->_time += std::chrono::duration_cast<timeType>(std::chrono::duration<double, std::ratio<1, 1>>(seconds));
-				this->_time += std::chrono::duration_cast<timeType>(date::sys_days(ymd).time_since_epoch ());
 			}
 
 			ObjectTime (const ObjectTime& other) noexcept : ObjectTime(other._time) {} // copy constructor
