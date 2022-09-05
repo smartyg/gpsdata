@@ -16,7 +16,7 @@
 #ifndef EMPTY_FUNC_DEFINED
 #define EMPTY_FUNC_DEFINED
 namespace gpsdata::utils {
-	inline const void empty_func (void) { return; };
+	inline void empty_func (void) { return; };
 }
 #endif /* EMPTY_FUNC_DEFINED */
 #else
