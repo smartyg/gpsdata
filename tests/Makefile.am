@@ -10,6 +10,12 @@ test_zonedate_LDADD = @GTEST_LIBS@ @GMOCK_LIBS@ ../libgpsdata-utils.la
 test_zonedate_LDFLAGS = -pthread
 test_zonedate_CPPFLAGS = @GTEST_CFLAGS@ @GMOCK_CFLAGS@ -pthread -I../include -I../src
 
-TESTS = test-zonedate test-pointdate
+check_PROGRAMS += test-ObjectTime
+test_ObjectTime_SOURCES = test-ObjectTime.cpp
+test_ObjectTime_LDADD = @GTEST_LIBS@ @GMOCK_LIBS@
+test_ObjectTime_LDFLAGS = -pthread
+test_ObjectTime_CPPFLAGS = @GTEST_CFLAGS@ @GMOCK_CFLAGS@ -pthread -I../include -I../src
+
+TESTS = test-ObjectTime test-zonedate test-pointdate
 
 EXTRA_DIST = out_v1/country16.bin out_v1/country21.bin out_v1/timezone16.bin out_v1/timezone21.bin
