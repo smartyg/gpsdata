@@ -72,15 +72,15 @@ namespace gpsdata {
 		public:
 			ObjectTime (void) noexcept { this->_time = timeType::zero (); }
 
-			explicit ObjectTime (internalTimeType time) noexcept {
+			ObjectTime (const internalTimeType& time) noexcept {
 				this->_time = timeType{time};
 			}
 
-			ObjectTime (const timeType& time) noexcept {
+			explicit ObjectTime (const timeType& time) noexcept {
 				this->_time = time;
 			}
 
-			ObjectTime (const Representation& time) noexcept {
+			explicit ObjectTime (const Representation& time) noexcept {
 				this->_time = std::chrono::duration_cast<timeType>(time);
 			}
 
