@@ -95,7 +95,10 @@ namespace gpsdata {
 
 			ObjectTime (const ObjectTime& other) noexcept : ObjectTime(other._time) {} // copy constructor
 
-			ObjectTime (ObjectTime&& other) noexcept { this->_time = other._time; } // move constructor
+			ObjectTime (ObjectTime&& other) noexcept { // move constructor
+				this->_time = other._time;
+				other._time = timeType::zero ();
+			}
 
 			ObjectTime& operator=(const ObjectTime& other) noexcept { // copy assignment
 				this->_time = other._time;
@@ -104,6 +107,7 @@ namespace gpsdata {
 
 			ObjectTime& operator=(ObjectTime&& other) noexcept { // move assignment
 				this->_time = other._time;
+				other._time = timeType::zero ();
 				return *this;
 			}
 
