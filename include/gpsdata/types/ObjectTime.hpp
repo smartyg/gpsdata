@@ -56,15 +56,15 @@ namespace gpsdata {
 
 			friend ObjectTime operator+(ObjectTime lhs, const ObjectTime& rhs) noexcept;
 			friend ObjectTime operator+(ObjectTime lhs, const ObjectTime::Representation& rhs) noexcept;
-			friend ObjectTime operator+(ObjectTime::Representation lhs, const ObjectTime& rhs) noexcept;
+			friend ObjectTime::Representation operator+(ObjectTime::Representation lhs, const ObjectTime& rhs) noexcept;
 			friend ObjectTime operator+(ObjectTime lhs, const ObjectTime::internalTimeType& rhs) noexcept;
-			friend ObjectTime operator+(ObjectTime::internalTimeType lhs, const ObjectTime& rhs) noexcept;
+			friend ObjectTime::internalTimeType operator+(ObjectTime::internalTimeType lhs, const ObjectTime& rhs) noexcept;
 
 			friend ObjectTime operator-(ObjectTime lhs, const ObjectTime& rhs) noexcept;
 			friend ObjectTime operator-(ObjectTime lhs, const ObjectTime::Representation& rhs) noexcept;
-			friend ObjectTime operator-(ObjectTime::Representation lhs, const ObjectTime& rhs) noexcept;
+			friend ObjectTime::Representation operator-(ObjectTime::Representation lhs, const ObjectTime& rhs) noexcept;
 			friend ObjectTime operator-(ObjectTime lhs, const ObjectTime::internalTimeType& rhs) noexcept;
-			friend ObjectTime operator-(ObjectTime::internalTimeType lhs, const ObjectTime& rhs) noexcept;
+			friend ObjectTime::internalTimeType operator-(ObjectTime::internalTimeType lhs, const ObjectTime& rhs) noexcept;
 
 		private:
 			timeType _time;
@@ -241,15 +241,15 @@ namespace gpsdata {
 
 		inline ObjectTime operator+(ObjectTime lhs, const ObjectTime& rhs)       noexcept { lhs._time += rhs._time; return lhs; }
 		inline ObjectTime operator+(ObjectTime lhs, const ObjectTime::Representation& rhs)   noexcept { lhs._time += std::chrono::duration_cast<ObjectTime::timeType>(rhs); return lhs; }
-		inline ObjectTime operator+(ObjectTime::Representation lhs, const ObjectTime& rhs)   noexcept { lhs += std::chrono::duration_cast<ObjectTime::Representation>(rhs._time); return lhs; }
+		inline ObjectTime::Representation operator+(ObjectTime::Representation lhs, const ObjectTime& rhs)   noexcept { lhs += std::chrono::duration_cast<ObjectTime::Representation>(rhs._time); return lhs; }
 		inline ObjectTime operator+(ObjectTime lhs, const ObjectTime::internalTimeType& rhs) noexcept { lhs._time += ObjectTime::timeType{rhs}; return lhs; }
-		inline ObjectTime operator+(ObjectTime::internalTimeType lhs, const ObjectTime& rhs) noexcept { lhs += rhs._time.count (); return lhs; }
+		inline ObjectTime::internalTimeType operator+(ObjectTime::internalTimeType lhs, const ObjectTime& rhs) noexcept { lhs += rhs._time.count (); return lhs; }
 
 		inline ObjectTime operator-(ObjectTime lhs, const ObjectTime& rhs)       noexcept { lhs._time -= rhs._time; return lhs; }
 		inline ObjectTime operator-(ObjectTime lhs, const ObjectTime::Representation& rhs)   noexcept { lhs._time -= std::chrono::duration_cast<ObjectTime::timeType>(rhs); return lhs; }
-		inline ObjectTime operator-(ObjectTime::Representation lhs, const ObjectTime& rhs)   noexcept { lhs -= std::chrono::duration_cast<ObjectTime::Representation>(rhs._time); return lhs; }
+		inline ObjectTime::Representation operator-(ObjectTime::Representation lhs, const ObjectTime& rhs)   noexcept { lhs -= std::chrono::duration_cast<ObjectTime::Representation>(rhs._time); return lhs; }
 		inline ObjectTime operator-(ObjectTime lhs, const ObjectTime::internalTimeType& rhs) noexcept { lhs._time -= ObjectTime::timeType{rhs}; return lhs; }
-		inline ObjectTime operator-(ObjectTime::internalTimeType lhs, const ObjectTime& rhs) noexcept { lhs -= rhs._time.count (); return lhs; }
+		inline ObjectTime::internalTimeType operator-(ObjectTime::internalTimeType lhs, const ObjectTime& rhs) noexcept { lhs -= rhs._time.count (); return lhs; }
 	}
 }
 
