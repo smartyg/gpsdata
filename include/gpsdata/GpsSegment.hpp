@@ -188,6 +188,11 @@ namespace gpsdata {
 			return this->_points.cend ();
 		}
 
+		constexpr
+		operator bool (void) const {
+			return true;
+		}
+
 	private:
 		iterator getIterator (const ObjectTime& time) {
 			DEBUG_MSG("GpsSegment::%s (%ld)\n", __func__, time.getTime ());

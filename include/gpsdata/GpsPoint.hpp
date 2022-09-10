@@ -179,6 +179,10 @@ namespace gpsdata {
 		const_iterator cend (void) const {
 			return this->_data.cend ();
 		}
+
+		operator bool (void) const {
+			return (this->_time);
+		}
 	};
 }
 

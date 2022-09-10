@@ -286,6 +286,10 @@ namespace gpsdata {
 		const_iterator cend (void) const {
 			return this->_segments.cend ();
 		}
+
+		operator bool (void) const {
+			return (this->_id);
+		}
 	};
 }
 
