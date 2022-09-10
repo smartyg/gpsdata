@@ -105,6 +105,12 @@ namespace gpsdata {
 			this->_time = time;
 			return true;
 		}*/
+		bool setId (const ObjectId& id) {
+			DEBUG_MSG("GpsRoute::%s ()\n", __func__);
+			if (!this->_id)
+				this->_id = id;
+			return (this->_id == id);
+		}
 
 		bool setTimezoneOffset (int32_t offset) {
 			DEBUG_MSG("GpsRoute::%s (%d)\n", __func__, offset);
