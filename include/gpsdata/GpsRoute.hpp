@@ -115,13 +115,13 @@ namespace gpsdata {
 		bool setTimezoneOffset (int32_t offset) {
 			DEBUG_MSG("GpsRoute::%s (%d)\n", __func__, offset);
 			this->_timezone_offset = offset;
-			return true;
+			return (this->_timezone_offset == offset);
 		}
 
 		bool setActivityType (const ActivityType& a) {
 			DEBUG_MSG("GpsRoute::%s (%d)\n", __func__, a);
 			this->_activity_type = a;
-			return true;
+			return (this->_activity_type == a);
 		}
 
 		template<typename U = std::string, typename std::enable_if<!std::is_same<U, ActivityType>::value, bool>::type = 0>
@@ -129,7 +129,7 @@ namespace gpsdata {
 			DEBUG_MSG("GpsRoute::%s (%s)\n", __func__, a_str.c_str ());
 			const ActivityType& a = this->_factory->getActivityType (a_str);
 			this->_activity_type = a;
-			return true;
+			return (this->_activity_type == a);
 		}
 
 		bool setTitle (const std::string& title) {
