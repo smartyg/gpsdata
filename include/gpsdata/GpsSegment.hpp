@@ -91,7 +91,7 @@ namespace gpsdata {
 			return this->_n;
 		}
 
-		bool setSegmentNumber (const int& n) const {
+		bool setSegmentNumber (const int& n) {
 			DEBUG_MSG("GpsSegment::%s ()\n", __func__);
 			if (this->_n < 0)
 				this->_n = n;
