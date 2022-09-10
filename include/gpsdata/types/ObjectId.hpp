@@ -11,12 +11,15 @@ namespace gpsdata {
 			template <typename B>
 			friend void serialize (B&, ObjectId&);
 
+		public:
+			typedef uint32_t Type;
+
 		private:
-			uint32_t _id;
+			Type _id;
 
 		public:
 			ObjectId (void) noexcept { this->_id = 0; }
-			ObjectId (uint32_t id) noexcept {
+			ObjectId (Type id) noexcept {
 				this->_id = id;
 			}
 
@@ -39,15 +42,15 @@ namespace gpsdata {
 				return *this;
 			}
 
-			inline uint32_t getId (void) const noexcept { return this->_id; }
+			inline Type getId (void) const noexcept { return this->_id; }
 
 			void* operator new (size_t) = delete;
 			void operator delete (void*) = delete;
 
 			inline bool operator==(const ObjectId& rhs) const noexcept { return (this->_id == rhs._id); }
-			inline bool operator==(const uint32_t& rhs) const noexcept { return (this->_id == rhs); }
+			inline bool operator==(const Type& rhs) const noexcept { return (this->_id == rhs); }
 			inline bool operator!=(const ObjectId& rhs) const noexcept { return (this->_id != rhs._id); }
-			inline bool operator!=(const uint32_t& rhs) const noexcept { return (this->_id != rhs); }
+			inline bool operator!=(const Type& rhs) const noexcept { return (this->_id != rhs); }
 
 			inline bool operator< (const ObjectId&) const noexcept = delete;
 			inline bool operator> (const ObjectId&) const noexcept = delete;
@@ -69,7 +72,7 @@ namespace gpsdata {
 
 			explicit inline operator bool() const noexcept { return (this->_id > 0); }
 
-			inline operator uint32_t() const noexcept { return this->_id; }
+			inline operator Type() const noexcept { return this->_id; }
 			#if INT_MAX >= UINT32_MAX
 			explicit inline operator int() const noexcept { return this->_id; }
 			#endif
