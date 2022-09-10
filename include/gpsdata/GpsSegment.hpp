@@ -91,6 +91,13 @@ namespace gpsdata {
 			return this->_n;
 		}
 
+		bool setSegmentNumber (const int& n) const {
+			DEBUG_MSG("GpsSegment::%s ()\n", __func__);
+			if (this->_n < 0)
+				this->_n = n;
+			return (this->_n == n);
+		}
+
 		const ObjectTime getTime (void) const {
 			DEBUG_MSG("GpsSegment::%s ()\n", __func__);
 			if (!this->hasPoint ()) throw std::runtime_error ("no points present");
