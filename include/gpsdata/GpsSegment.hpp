@@ -86,7 +86,7 @@ namespace gpsdata {
 			return this->shared_from_this ();
 		}
 
-		int getSegmentNumber (void) const  {
+		int getSegmentNumber (void) const {
 			DEBUG_MSG("GpsSegment::%s ()\n", __func__);
 			return this->_n;
 		}
