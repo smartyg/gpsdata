@@ -63,6 +63,11 @@ namespace gpsdata {
 			return std::shared_ptr<P>(new P (time, factory));
 		}
 
+		template<GpsPointTrait P = GpsPoint<F>>
+		[[nodiscard]] static std::shared_ptr<P> create (const std::shared_ptr<const typename P::GpsFactory>& factory) {
+			return std::shared_ptr<P>(new P (factory));
+		}
+
 		std::shared_ptr<GpsPoint<F>> getptr (void) {
 			return this->shared_from_this ();
 		}
@@ -90,6 +95,13 @@ namespace gpsdata {
 		const ObjectTime getTime (void) const {
 			DEBUG_MSG("GpsPoint::%s ()\n", __func__);
 			return this->_time;
+		}
+
+		bool setTime (const ObjectTime& time) {
+			DEBUG_MSG("GpsPoint::%s ()\n", __func__);
+			if (!this->_time)
+				this->_time = time;
+			return (this->_time == time);
 		}
 
 		const GpsValue<DataType> getData (const DataType& type) const {
