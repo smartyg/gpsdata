@@ -106,8 +106,11 @@ namespace gpsdata {
 		}
 
 		/* GPS Points */
-		bool addPoint (std::shared_ptr<P>& point) {
+		// TODO: provide a hint where to insert the point
+		bool addPoint (std::shared_ptr<P> point) {
 			DEBUG_MSG("GpsSegment::%s (%p)\n", __func__, &point);
+			// Only add point that are valid (having the time set).
+			if (!point) return false;
 			const ObjectTime time = point->getTime ();
 			auto it = this->getIterator (time);
 			if (GpsSegment::iteratorMatch (it, time)) return false;
