@@ -70,7 +70,7 @@ TEST(ZoneDateTest, getUtcTime3)
 	ASSERT_NO_THROW((zd = ZoneDate::create ("Asia/Jakarta")));
 
 	auto zone_time = zd->getZoneTime(1634419175000);
-	EXPECT_EQ(zd->getUtcTimeAsObjectTime(zone_time).getTime (), 1634419175000);
+	EXPECT_EQ(zd->getUtcTimeAsObjectTime(zone_time).get (), 1634419175000);
 }
 
 TEST(ZoneDateTest, getUtcOffset1)

@@ -72,12 +72,12 @@ TEST_F(PointDateTest, InitTest3)
 
 TEST_F(PointDateTest, parseTime)
 {
-	EXPECT_EQ(PointDate::parseTime("12-06-2020 05:20:56", { "%d-%m-%Y %T" }).getTime (), 1591939256000);
-	EXPECT_EQ(PointDate::parseTime("12-06-2020 05:20:56", { "%T", "%d-%m-%Y", "%d-%m-%Y %T" }).getTime (), 1591939256000);
-	EXPECT_EQ(PointDate::parseTime("12-06-2020 05:20:56", { "%d-%m-%Y %T", "%d-%m-%Y", "%T" }).getTime (), 1591939256000);
-	EXPECT_EQ(PointDate::parseTime("12-06-2020 05:20:56.98", { "%T", "%d-%m-%Y", "%d-%m-%Y %T" }).getTime (), 1591939256980);
-	EXPECT_EQ(PointDate::parseTime("12-06-2020 05:20:56.981", { "%T", "%d-%m-%Y", "%d-%m-%Y %T" }).getTime (), 1591939256981);
-	EXPECT_EQ(PointDate::parseTime("12-06-2020 05:20:56.980", { "%T", "%d-%m-%Y", "%d-%m-%Y %T" }).getTime (), 1591939256980);
+	EXPECT_EQ(PointDate::parseTime("12-06-2020 05:20:56", { "%d-%m-%Y %T" }).get (), 1591939256000);
+	EXPECT_EQ(PointDate::parseTime("12-06-2020 05:20:56", { "%T", "%d-%m-%Y", "%d-%m-%Y %T" }).get (), 1591939256000);
+	EXPECT_EQ(PointDate::parseTime("12-06-2020 05:20:56", { "%d-%m-%Y %T", "%d-%m-%Y", "%T" }).get (), 1591939256000);
+	EXPECT_EQ(PointDate::parseTime("12-06-2020 05:20:56.98", { "%T", "%d-%m-%Y", "%d-%m-%Y %T" }).get (), 1591939256980);
+	EXPECT_EQ(PointDate::parseTime("12-06-2020 05:20:56.981", { "%T", "%d-%m-%Y", "%d-%m-%Y %T" }).get (), 1591939256981);
+	EXPECT_EQ(PointDate::parseTime("12-06-2020 05:20:56.980", { "%T", "%d-%m-%Y", "%d-%m-%Y %T" }).get (), 1591939256980);
 	EXPECT_THROW(PointDate::parseTime("12-06-2020 05:20:56", { "%T", "%d-%m-%Y" }), std::runtime_error);
 	EXPECT_THROW(PointDate::parseTime("12-14-2020 05:20:56", { "%T", "%d-%m-%Y", "%d-%m-%Y %T" }), std::runtime_error);
 }

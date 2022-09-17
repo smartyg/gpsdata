@@ -11,7 +11,7 @@ namespace gpsdata {
 		void serialize (B& s, ObjectTime& o) {
 			if constexpr (is_instance<B, bitsery::Serializer>{}) {
 				// First cast to ObjectTime::internalTimeType (which is a 64 bit value).
-				ObjectTime::internalTimeType value = o.getTime ();
+				ObjectTime::internalTimeType value = o.get ();
 				s.value8b (value);
 			}
 

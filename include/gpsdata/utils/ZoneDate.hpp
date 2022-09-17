@@ -46,7 +46,7 @@ namespace gpsdata::utils {
 		}
 
 		inline date::sys_time<std::chrono::milliseconds> getZoneTime (const ObjectTime& utc_time) const noexcept {
-			std::chrono::milliseconds utc_time_ms = std::chrono::duration_cast<std::chrono::milliseconds>(utc_time.get ());
+			std::chrono::milliseconds utc_time_ms = std::chrono::duration_cast<std::chrono::milliseconds>(utc_time.getTime ());
 			return this->getZoneTime (utc_time_ms);
 		}
 
@@ -61,7 +61,7 @@ namespace gpsdata::utils {
 		}
 
 		inline int getUtcOffset (const ObjectTime& utc_time) const noexcept {
-			std::chrono::milliseconds utc_time_ms = std::chrono::duration_cast<std::chrono::milliseconds>(utc_time.get ());
+			std::chrono::milliseconds utc_time_ms = std::chrono::duration_cast<std::chrono::milliseconds>(utc_time.getTime ());
 			return this->getUtcOffset (utc_time_ms);
 		}
 
@@ -76,7 +76,7 @@ namespace gpsdata::utils {
 		}
 
 		inline const date::sys_info getZoneInfo (const ObjectTime& utc_time) const noexcept {
-			std::chrono::milliseconds utc_time_ms = std::chrono::duration_cast<std::chrono::milliseconds>(utc_time.get ());
+			std::chrono::milliseconds utc_time_ms = std::chrono::duration_cast<std::chrono::milliseconds>(utc_time.getTime ());
 			return this->getZoneInfo (utc_time_ms);
 		}
 

@@ -31,7 +31,7 @@ namespace gpsdata::utils {
 		}
 
 		static inline time_t convertToTimeT (const ObjectTime& t) noexcept {
-			const auto tp = std::chrono::milliseconds(t);
+			const std::chrono::milliseconds tp = std::chrono::duration_cast<std::chrono::milliseconds>(t.getTime ());
 			return PointDate::convertToTimeT(tp);
 		}
 

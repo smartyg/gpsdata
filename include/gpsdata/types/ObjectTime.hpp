@@ -14,57 +14,40 @@ namespace gpsdata {
 
 		public:
 			using internalTimeType = uint64_t;
-			using Representation = std::chrono::milliseconds;
-			using internalPrecision = Representation::period;
-			using timeType = std::chrono::duration<internalTimeType, internalPrecision>;
+			using internalPrecision = std::milli;
+			using Representation = std::chrono::duration<internalTimeType, internalPrecision>;
+
+			using timeType = Representation;
 
 			friend bool operator==(const ObjectTime& lhs, const ObjectTime& rhs) noexcept;
 			friend bool operator==(const ObjectTime& lhs, const ObjectTime::Representation& rhs) noexcept;
 			friend bool operator==(const ObjectTime::Representation& lhs, const ObjectTime& rhs) noexcept;
-			friend bool operator==(const ObjectTime& lhs, const ObjectTime::internalTimeType& rhs) noexcept;
-			friend bool operator==(const ObjectTime::internalTimeType& lhs, const ObjectTime& rhs) noexcept;
 
 			friend bool operator!=(const ObjectTime& lhs, const ObjectTime& rhs) noexcept;
 			friend bool operator!=(const ObjectTime& lhs, const ObjectTime::Representation& rhs) noexcept;
 			friend bool operator!=(const ObjectTime::Representation& lhs, const ObjectTime& rhs) noexcept;
-			friend bool operator!=(const ObjectTime& lhs, const ObjectTime::internalTimeType& rhs) noexcept;
-			friend bool operator!=(const ObjectTime::internalTimeType& lhs, const ObjectTime& rhs) noexcept;
 
 			friend bool operator< (const ObjectTime& lhs, const ObjectTime& rhs) noexcept;
 			friend bool operator< (const ObjectTime& lhs, const ObjectTime::Representation& rhs) noexcept;
 			friend bool operator< (const ObjectTime::Representation& lhs, const ObjectTime& rhs) noexcept;
-			friend bool operator< (const ObjectTime& lhs, const ObjectTime::internalTimeType& rhs) noexcept;
-			friend bool operator< (const ObjectTime::internalTimeType& lhs, const ObjectTime& rhs) noexcept;
 
 			friend bool operator> (const ObjectTime& lhs, const ObjectTime& rhs) noexcept;
 			friend bool operator> (const ObjectTime& lhs, const ObjectTime::Representation& rhs) noexcept;
 			friend bool operator> (const ObjectTime::Representation& lhs, const ObjectTime& rhs) noexcept;
-			friend bool operator> (const ObjectTime& lhs, const ObjectTime::internalTimeType& rhs) noexcept;
-			friend bool operator> (const ObjectTime::internalTimeType& lhs, const ObjectTime& rhs) noexcept;
 
 			friend bool operator<=(const ObjectTime& lhs, const ObjectTime& rhs) noexcept;
 			friend bool operator<=(const ObjectTime& lhs, const ObjectTime::Representation& rhs) noexcept;
 			friend bool operator<=(const ObjectTime::Representation& lhs, const ObjectTime& rhs) noexcept;
-			friend bool operator<=(const ObjectTime& lhs, const ObjectTime::internalTimeType& rhs) noexcept;
-			friend bool operator<=(const ObjectTime::internalTimeType& lhs, const ObjectTime& rhs) noexcept;
 
 			friend bool operator>=(const ObjectTime& lhs, const ObjectTime& rhs) noexcept;
 			friend bool operator>=(const ObjectTime& lhs, const ObjectTime::Representation& rhs) noexcept;
 			friend bool operator>=(const ObjectTime::Representation& lhs, const ObjectTime& rhs) noexcept;
-			friend bool operator>=(const ObjectTime& lhs, const ObjectTime::internalTimeType& rhs) noexcept;
-			friend bool operator>=(const ObjectTime::internalTimeType& lhs, const ObjectTime& rhs) noexcept;
 
-			friend ObjectTime operator+(ObjectTime lhs, const ObjectTime& rhs) noexcept;
-			friend ObjectTime operator+(ObjectTime lhs, const ObjectTime::Representation& rhs) noexcept;
-			friend ObjectTime::Representation operator+(ObjectTime::Representation lhs, const ObjectTime& rhs) noexcept;
-			friend ObjectTime operator+(ObjectTime lhs, const ObjectTime::internalTimeType& rhs) noexcept;
-			friend ObjectTime::internalTimeType operator+(ObjectTime::internalTimeType lhs, const ObjectTime& rhs) noexcept;
+			friend ObjectTime operator+(const ObjectTime& lhs, const ObjectTime::Representation& rhs) noexcept;
+			friend ObjectTime operator+(const ObjectTime::Representation& rhs, const ObjectTime& lhs) noexcept;
 
-			friend ObjectTime operator-(ObjectTime lhs, const ObjectTime& rhs) noexcept;
-			friend ObjectTime operator-(ObjectTime lhs, const ObjectTime::Representation& rhs) noexcept;
-			friend ObjectTime::Representation operator-(ObjectTime::Representation lhs, const ObjectTime& rhs) noexcept;
-			friend ObjectTime operator-(ObjectTime lhs, const ObjectTime::internalTimeType& rhs) noexcept;
-			friend ObjectTime::internalTimeType operator-(ObjectTime::internalTimeType lhs, const ObjectTime& rhs) noexcept;
+			friend ObjectTime operator- (const ObjectTime& lhs, const ObjectTime::Representation& rhs) noexcept;
+			friend ObjectTime::Representation operator- (const ObjectTime& lhs, const ObjectTime& rhs) noexcept;
 
 		private:
 			timeType _time;
@@ -76,11 +59,12 @@ namespace gpsdata {
 				this->_time = timeType{time};
 			}
 
-			explicit ObjectTime (const timeType& time) noexcept {
-				this->_time = time;
+			explicit ObjectTime (const Representation& time) noexcept {
+				this->_time = std::chrono::duration_cast<timeType>(time);
 			}
 
-			explicit ObjectTime (const Representation& time) noexcept {
+			template<class Rep, class Period>
+			explicit ObjectTime (const std::chrono::duration<Rep, Period>& time) noexcept {
 				this->_time = std::chrono::duration_cast<timeType>(time);
 			}
 
@@ -119,72 +103,49 @@ namespace gpsdata {
 			void* operator new (size_t) = delete;
 			void operator delete (void*) = delete;
 
-			inline ObjectTime& operator+=(const ObjectTime& rhs)                noexcept { this->_time += rhs._time; return *this; }
-			inline ObjectTime& operator+=(const Representation& rhs) noexcept { this->_time += std::chrono::duration_cast<timeType>(rhs); return *this; }
-			inline ObjectTime& operator+=(const internalTimeType& rhs)          noexcept { this->_time += timeType{rhs}; return *this; }
+			template<class Rep, class Period>
+			inline ObjectTime& operator+=(const std::chrono::duration<Rep, Period>& rhs) noexcept { this->_time += std::chrono::duration_cast<timeType>(rhs); return *this; }
 
-			inline ObjectTime& operator-=(const ObjectTime& rhs)                noexcept { this->_time -= rhs._time; return *this; }
-			inline ObjectTime& operator-=(const Representation& rhs) noexcept { this->_time -= std::chrono::duration_cast<timeType>(rhs); return *this; }
-			inline ObjectTime& operator-=(const internalTimeType& rhs)          noexcept { this->_time -= timeType{rhs}; return *this; }
+			template<class Rep, class Period>
+			inline ObjectTime& operator-=(const std::chrono::duration<Rep, Period>& rhs) noexcept { this->_time -= std::chrono::duration_cast<timeType>(rhs); return *this; }
 
 			inline ObjectTime& operator++(void) noexcept = delete;
 			inline ObjectTime  operator++(int)  noexcept = delete;
 			inline ObjectTime& operator--(void) noexcept = delete;
 			inline ObjectTime  operator--(int)  noexcept = delete;
 
-			explicit inline operator bool() const noexcept { return (this->_time != timeType::zero ()); }
+			inline operator bool() const noexcept { return (this->_time != timeType::zero ()); }
+			inline operator Representation (void) noexcept { return this->_time; }
 
-			inline operator internalTimeType() const noexcept { return this->_time.count (); }
-			explicit inline operator Representation() noexcept { return std::chrono::duration_cast<Representation>(this->_time); }
-
-			#if INT_MAX >= UINT64_MAX
-			explicit inline operator int() const noexcept { return static_cast<int>(this->_time.count ()); }
-			#endif
-			#if UINT_MAX >= UINT64_MAX
-			explicit inline operator unsigned int() const noexcept { return static_cast<unsigned int>(this->_time.count ()); }
-			#endif
-			#if LONG_MAX >= UINT64_MAX
-			explicit inline operator long int() const noexcept { return static_cast<long int>(this->_time.count ()); }
-			#endif
-			#if ULONG_MAX >= UINT64_MAX && UINT_MAX > UINT64_MAX
-			explicit inline operator long unsigned int() const noexcept { return static_cast<long unsigned int>(this->_time.count ()); }
-			#endif
-			#if LLONG_MAX >= UINT64_MAX
-			explicit inline operator long long int() const noexcept { return static_cast<long long int>(this->_time.count ()); }
-			#endif
-			#if ULLONG_MAX >= UINT64_MAX && UINT_MAX > UINT64_MAX
-			explicit inline operator long long unsigned int() const noexcept { return static_cast<long long unsigned int>(this->_time.count ()); }
-			#endif
-
-			inline Representation get (void) const noexcept {
-				return std::chrono::duration_cast<Representation>(this->_time);
-			}
-
-			inline internalTimeType getTime (void) const noexcept {
+			inline internalTimeType get (void) const noexcept {
 				return this->_time.count ();
 			}
 
+			inline Representation getTime (void) const noexcept {
+				return this->_time;
+			}
+
 			inline int getHours (void) const noexcept {
-				auto d = this->_time - std::chrono::duration_cast<date::days>(date::detail::abs(this->_time));
-				std::chrono::hours h = std::chrono::duration_cast<std::chrono::hours>(date::detail::abs(d));
+				auto d = this->_time - std::chrono::duration_cast<date::days>(date::detail::abs (this->_time));
+				std::chrono::hours h = std::chrono::duration_cast<std::chrono::hours>(date::detail::abs (d));
 				return h.count ();
 			}
 
 			inline int getMinutes (void) const noexcept {
-				auto d = this->_time - std::chrono::duration_cast<std::chrono::hours>(date::detail::abs(this->_time));
-				std::chrono::minutes m = std::chrono::duration_cast<std::chrono::minutes>(date::detail::abs(d));
+				auto d = this->_time - std::chrono::duration_cast<std::chrono::hours>(date::detail::abs (this->_time));
+				std::chrono::minutes m = std::chrono::duration_cast<std::chrono::minutes>(date::detail::abs (d));
 				return m.count ();
 			}
 
 			inline int getSeconds (void) const noexcept {
-				auto d = this->_time - std::chrono::duration_cast<std::chrono::minutes>(date::detail::abs(this->_time));
-				std::chrono::seconds s = std::chrono::duration_cast<std::chrono::seconds>(date::detail::abs(d));
+				auto d = this->_time - std::chrono::duration_cast<std::chrono::minutes>(date::detail::abs (this->_time));
+				std::chrono::seconds s = std::chrono::duration_cast<std::chrono::seconds>(date::detail::abs (d));
 				return s.count ();
 			}
 
 			inline int getMilliseconds (void) const noexcept {
-				auto d = this->_time - std::chrono::duration_cast<std::chrono::seconds>(date::detail::abs(this->_time));
-				Representation ms = std::chrono::duration_cast<std::chrono::milliseconds>(date::detail::abs(d));
+				auto d = this->_time - std::chrono::duration_cast<std::chrono::seconds>(date::detail::abs (this->_time));
+				Representation ms = std::chrono::duration_cast<std::chrono::milliseconds>(date::detail::abs (d));
 				return ms.count ();
 			}
 
@@ -210,50 +171,31 @@ namespace gpsdata {
 		inline bool operator==(const ObjectTime& lhs, const ObjectTime& rhs)       noexcept { return (lhs._time == rhs._time); }
 		inline bool operator==(const ObjectTime& lhs, const ObjectTime::Representation& rhs)   noexcept { return (lhs._time == std::chrono::duration_cast<ObjectTime::timeType>(rhs)); }
 		inline bool operator==(const ObjectTime::Representation& lhs, const ObjectTime& rhs)   noexcept { return (std::chrono::duration_cast<ObjectTime::timeType>(lhs) == rhs._time); }
-		inline bool operator==(const ObjectTime& lhs, const ObjectTime::internalTimeType& rhs) noexcept { return (lhs._time.count () == rhs); }
-		inline bool operator==(const ObjectTime::internalTimeType& lhs, const ObjectTime& rhs) noexcept { return (lhs == rhs._time.count ()); }
 
 		inline bool operator!=(const ObjectTime& lhs, const ObjectTime& rhs)       noexcept { return (lhs._time != rhs._time); }
 		inline bool operator!=(const ObjectTime& lhs, const ObjectTime::Representation& rhs)   noexcept { return (lhs._time != std::chrono::duration_cast<ObjectTime::timeType>(rhs)); }
 		inline bool operator!=(const ObjectTime::Representation& lhs, const ObjectTime& rhs)   noexcept { return (std::chrono::duration_cast<ObjectTime::timeType>(lhs) != rhs._time); }
-		inline bool operator!=(const ObjectTime& lhs, const ObjectTime::internalTimeType& rhs) noexcept { return (lhs._time.count () != rhs); }
-		inline bool operator!=(const ObjectTime::internalTimeType& lhs, const ObjectTime& rhs) noexcept { return (lhs != rhs._time.count ()); }
 
 		inline bool operator< (const ObjectTime& lhs, const ObjectTime& rhs)       noexcept { return (lhs._time < rhs._time); }
 		inline bool operator< (const ObjectTime& lhs, const ObjectTime::Representation& rhs)   noexcept { return (lhs._time < std::chrono::duration_cast<ObjectTime::timeType>(rhs)); }
 		inline bool operator< (const ObjectTime::Representation& lhs, const ObjectTime& rhs)   noexcept { return (std::chrono::duration_cast<ObjectTime::timeType>(lhs) < rhs._time); }
-		inline bool operator< (const ObjectTime& lhs, const ObjectTime::internalTimeType& rhs) noexcept { return (lhs._time.count () < rhs); }
-		inline bool operator< (const ObjectTime::internalTimeType& lhs, const ObjectTime& rhs) noexcept { return (lhs < rhs._time.count ()); }
 
 		inline bool operator> (const ObjectTime& lhs, const ObjectTime& rhs)       noexcept { return (lhs._time > rhs._time); }
 		inline bool operator> (const ObjectTime& lhs, const ObjectTime::Representation& rhs)   noexcept { return (lhs._time > std::chrono::duration_cast<ObjectTime::timeType>(rhs)); }
 		inline bool operator> (const ObjectTime::Representation& lhs, const ObjectTime& rhs)   noexcept { return (std::chrono::duration_cast<ObjectTime::timeType>(lhs) > rhs._time); }
-		inline bool operator> (const ObjectTime& lhs, const ObjectTime::internalTimeType& rhs) noexcept { return (lhs._time.count () > rhs); }
-		inline bool operator> (const ObjectTime::internalTimeType& lhs, const ObjectTime& rhs) noexcept { return (lhs > rhs._time.count ()); }
 
 		inline bool operator<=(const ObjectTime& lhs, const ObjectTime& rhs)       noexcept { return (lhs._time <= rhs._time); }
 		inline bool operator<=(const ObjectTime& lhs, const ObjectTime::Representation& rhs)   noexcept { return (lhs._time <= std::chrono::duration_cast<ObjectTime::timeType>(rhs)); }
 		inline bool operator<=(const ObjectTime::Representation& lhs, const ObjectTime& rhs)   noexcept { return (std::chrono::duration_cast<ObjectTime::timeType>(lhs) <= rhs._time); }
-		inline bool operator<=(const ObjectTime& lhs, const ObjectTime::internalTimeType& rhs) noexcept { return (lhs._time.count () <= rhs); }
-		inline bool operator<=(const ObjectTime::internalTimeType& lhs, const ObjectTime& rhs) noexcept { return (lhs <= rhs._time.count ()); }
 
 		inline bool operator>=(const ObjectTime& lhs, const ObjectTime& rhs)       noexcept { return (lhs._time >= rhs._time); }
 		inline bool operator>=(const ObjectTime& lhs, const ObjectTime::Representation& rhs)   noexcept { return (lhs._time >= std::chrono::duration_cast<ObjectTime::timeType>(rhs)); }
 		inline bool operator>=(const ObjectTime::Representation& lhs, const ObjectTime& rhs)   noexcept { return (std::chrono::duration_cast<ObjectTime::timeType>(lhs) >= rhs._time); }
-		inline bool operator>=(const ObjectTime& lhs, const ObjectTime::internalTimeType& rhs) noexcept { return (lhs._time.count () >= rhs); }
-		inline bool operator>=(const ObjectTime::internalTimeType& lhs, const ObjectTime& rhs) noexcept { return (lhs >= rhs._time.count ()); }
 
-		inline ObjectTime operator+(ObjectTime lhs, const ObjectTime& rhs)       noexcept { lhs._time += rhs._time; return lhs; }
-		inline ObjectTime operator+(ObjectTime lhs, const ObjectTime::Representation& rhs)   noexcept { lhs._time += std::chrono::duration_cast<ObjectTime::timeType>(rhs); return lhs; }
-		inline ObjectTime::Representation operator+(ObjectTime::Representation lhs, const ObjectTime& rhs)   noexcept { lhs += std::chrono::duration_cast<ObjectTime::Representation>(rhs._time); return lhs; }
-		inline ObjectTime operator+(ObjectTime lhs, const ObjectTime::internalTimeType& rhs) noexcept { lhs._time += ObjectTime::timeType{rhs}; return lhs; }
-		inline ObjectTime::internalTimeType operator+(ObjectTime::internalTimeType lhs, const ObjectTime& rhs) noexcept { lhs += rhs._time.count (); return lhs; }
-
-		inline ObjectTime operator-(ObjectTime lhs, const ObjectTime& rhs)       noexcept { lhs._time -= rhs._time; return lhs; }
-		inline ObjectTime operator-(ObjectTime lhs, const ObjectTime::Representation& rhs)   noexcept { lhs._time -= std::chrono::duration_cast<ObjectTime::timeType>(rhs); return lhs; }
-		inline ObjectTime::Representation operator-(ObjectTime::Representation lhs, const ObjectTime& rhs)   noexcept { lhs -= std::chrono::duration_cast<ObjectTime::Representation>(rhs._time); return lhs; }
-		inline ObjectTime operator-(ObjectTime lhs, const ObjectTime::internalTimeType& rhs) noexcept { lhs._time -= ObjectTime::timeType{rhs}; return lhs; }
-		inline ObjectTime::internalTimeType operator-(ObjectTime::internalTimeType lhs, const ObjectTime& rhs) noexcept { lhs -= rhs._time.count (); return lhs; }
+		inline ObjectTime operator+ (const ObjectTime& lhs, const ObjectTime::Representation& rhs) noexcept { ObjectTime::Representation r = lhs._time + rhs; return ObjectTime (r); };
+		inline ObjectTime operator+ (const ObjectTime::Representation& lhs, const ObjectTime& rhs) noexcept { ObjectTime::Representation r = rhs._time + lhs; return ObjectTime (r); };
+		inline ObjectTime operator- (const ObjectTime& lhs, const ObjectTime::Representation& rhs) noexcept { ObjectTime::Representation r = lhs._time - rhs; return ObjectTime (r); };
+		inline ObjectTime::Representation operator- (const ObjectTime& lhs, const ObjectTime& rhs) noexcept { ObjectTime::Representation r = lhs._time - rhs._time; return r; };
 	}
 }
 
