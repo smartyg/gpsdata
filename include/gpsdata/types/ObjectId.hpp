@@ -74,24 +74,6 @@ namespace gpsdata {
 			explicit inline operator bool() const noexcept { return (this->_id > 0); }
 
 			inline operator Type() const noexcept { return this->_id; }
-			#if INT_MAX >= UINT32_MAX
-			explicit inline operator int() const noexcept { return this->_id; }
-			#endif
-			#if UINT_MAX >= UINT32_MAX && UINT_MAX != UINT32_MAX
-			explicit inline operator unsigned int() const noexcept { return this->_id; }
-			#endif
-			#if LONG_MAX >= UINT32_MAX
-			explicit inline operator long int() const noexcept { return this->_id; }
-			#endif
-			#if ULONG_MAX >= UINT32_MAX
-			explicit inline operator long unsigned int() const noexcept { return this->_id; }
-			#endif
-			#if LLONG_MAX >= UINT32_MAX
-			explicit inline operator long long int() const noexcept { return this->_id; }
-			#endif
-			#if ULLONG_MAX >= UINT32_MAX
-			explicit inline operator long long unsigned int() const noexcept { return this->_id; }
-			#endif
 		};
 	}
 }
