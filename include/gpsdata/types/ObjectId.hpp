@@ -25,7 +25,7 @@ namespace gpsdata {
 
 			explicit ObjectId (const ObjectId& other) : ObjectId(other._id) {} // copy constructor
 
-			ObjectId (ObjectId&& other) { this->_id = other._id; } // move constructor
+			ObjectId (ObjectId&& other) { this->_id = other._id; other._id = 0; } // move constructor
 
 			ObjectId& operator=(const ObjectId& other) {// copy assignment
 				this->_id = other._id;
@@ -34,6 +34,7 @@ namespace gpsdata {
 
 			ObjectId& operator=(ObjectId&& other) { // move assignment
 				this->_id = other._id;
+				other._id = 0;
 				return *this;
 			}
 
