@@ -35,14 +35,14 @@ int main(void) {
 
 	route->addSegment (0);
 
-	gpsdata::ObjectTime t1 (static_cast<gpsdata::ObjectTime::internalTimeType>(10));
+	gpsdata::ObjectTime t1 (10l);
 	route->addPointData (0, t1, "SPEED", 10, true);
 	route->addPointData (0, t1, "ALT", 1000, true);
 	route->addPointData (0, t1, "CADANCE", 98, true);
-	gpsdata::ObjectTime t2 (static_cast<gpsdata::ObjectTime::internalTimeType>(20));
+	gpsdata::ObjectTime t2 (20l);
 	route->addPointData (0, t2, "SPEED", 20, true);
 	route->addPointData (0, t2, "CADANCE", 90, true);
-	gpsdata::ObjectTime t3 (static_cast<gpsdata::ObjectTime::internalTimeType>(30));
+	gpsdata::ObjectTime t3 (30l);
 	route->addPointData (0, t3, "CADANCE", 101, true);
 	route->setTitle ("test ride");
 	route->setSummary ("long test ride");
