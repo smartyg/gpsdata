@@ -77,7 +77,7 @@ jobs:
     - name: Compile
       run: |
         autoreconf -vif
-        ./configure --enable-debug --enable-gtest --enable-example
+        ./configure --enable-debug --disable-gtest --enable-example
         make
 
     - name: Perform CodeQL Analysis
