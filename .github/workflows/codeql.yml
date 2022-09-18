@@ -12,18 +12,23 @@
 name: "CodeQL"
 
 on:
+  workflow_dispatch:
   push:
-    branches: [ "master" ]
+    branches:
+    - master
+    - development
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ "master" ]
+    branches:
+    - master
+    - development
   schedule:
     - cron: '36 16 * * 6'
 
 jobs:
   analyze:
     name: Analyze
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     permissions:
       actions: read
       contents: read
@@ -53,16 +58,21 @@ jobs:
         # Details on CodeQL's query packs refer to : https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#using-queries-in-ql-packs
         # queries: security-extended,security-and-quality
 
-    #   Command-line programs to run using the OS shell.
-    #   See https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsrun
+        # Command-line programs to run using the OS shell.
+        # See https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsrun
 
-    #   If the Autobuild fails above, remove it and uncomment the following three lines. 
-    #   modify them (or add more) to build your code if your project, please refer to the EXAMPLE below for guidance.
+        # If the Autobuild fails above, remove it and uncomment the following three lines.
+        # modify them (or add more) to build your code if your project, please refer to the EXAMPLE below for guidance.
+
+    - name: download dependencies
+      run: |
+        wget http://archive.ubuntu.com/ubuntu/pool/universe/a/autoconf-archive/autoconf-archive_20220903-1_all.deb
 
     - name: Install dependencies
       run: |
         sudo apt-get update -q
-        sudo apt-get install -y build-essential autoconf automake autoconf-archive gcc cpp git
+        sudo apt install ./autoconf-archive_20220903-1_all.deb -y
+        sudo apt-get install -y build-essential autoconf automake gcc cpp git
 
     - name: Compile
       run: |
