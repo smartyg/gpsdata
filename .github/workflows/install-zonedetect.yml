@@ -1,0 +1,20 @@
+name: "install zonedetect"
+
+on:
+  workflow_call:
+
+jobs:
+  install_zonedetect_job:
+    name: Install zonedetect
+
+    steps:
+    - name: Install zonedetect
+      run: |
+        git clone https://github.com/BertoldVdb/ZoneDetect.git ./third_party/zonedetect
+        cd ./third_party/zonedetect
+        cd library
+        make
+        export libdir=/usr/lib64
+        export prefix=/usr
+        export includedir=/usr/include
+        sudo make install

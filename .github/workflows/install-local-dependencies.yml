@@ -1,0 +1,21 @@
+name: "install local dependencies"
+
+on:
+  workflow_call:
+
+jobs:
+  install_local_dependencies_job:
+    name: Install local dependencies
+
+    steps:
+    - name: Install autoconf-archive
+      uses: ./.github/workflows/install-autoconf-archive.yml
+
+    - name: Install date/tz
+      uses: ./.github/workflows/install-date_tz.yml
+
+    - name: Install zonedetect
+      uses: ./.github/workflows/install-zonedetect.yml
+
+    - name: Install bitsery
+      uses: ./.github/workflows/install-bitsery.yml
