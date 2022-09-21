@@ -84,10 +84,10 @@ jobs:
         cd build
         cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DINCLUDE_INSTALL_DIR:PATH=/usr/include -DLIB_INSTALL_DIR:PATH=/usr/lib64 -DSYSCONF_INSTALL_DIR:PATH=/etc -DSHARE_INSTALL_PREFIX:PATH=/usr/share -DCMAKE_INSTALL_LIBDIR:PATH=lib64 -DCMAKE_INSTALL_LIBEXECDIR=/usr/lib -DCMAKE_BUILD_TYPE=RelWithDebInfo '-DCMAKE_C_FLAGS=-fmessage-length=0 -grecord-gcc-switches -O2 -Wall -D_FORTIFY_SOURCE=2 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -g -DNDEBUG' '-DCMAKE_CXX_FLAGS=-fmessage-length=0 -grecord-gcc-switches -O2 -Wall -D_FORTIFY_SOURCE=2 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -g -DNDEBUG' '-DCMAKE_Fortran_FLAGS=-fmessage-length=0 -grecord-gcc-switches -O2 -Wall -D_FORTIFY_SOURCE=2 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -g -DNDEBUG' '-DCMAKE_EXE_LINKER_FLAGS= -Wl,--as-needed -Wl,--no-undefined -Wl,-z,now' '-DCMAKE_MODULE_LINKER_FLAGS= -Wl,--as-needed' '-DCMAKE_SHARED_LINKER_FLAGS= -Wl,--as-needed -Wl,--no-undefined -Wl,-z,now' -DLIB_SUFFIX=64 -DCMAKE_SKIP_RPATH:BOOL=ON -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=ON -DBUILD_STATIC_LIBS:BOOL=OFF -DCMAKE_COLOR_MAKEFILE:BOOL=OFF -DCMAKE_INSTALL_DO_STRIP:BOOL=OFF -DCMAKE_MODULES_INSTALL_DIR=/usr/share/cmake/Modules -DUSE_SYSTEM_TZ_DB=ON -DBUILD_SHARED_LIBS=ON -DENABLE_DATE_TESTING=ON -DDISABLE_STRING_VIEW=OFF -DBUILD_TZ_LIB=ON ..
         cd ..
-        make install -C build
-        install -m 644 include/date/iso_week.h /usr/include/date/iso_week.h
-        install -m 644 include/date/julian.h /usr/include/date/julian.h
-        install -m 644 include/date/islamic.h /usr/include/date/islamic.h
+        sudo make install -C build
+        sudo install -m 644 include/date/iso_week.h /usr/include/date/iso_week.h
+        sudo install -m 644 include/date/julian.h /usr/include/date/julian.h
+        sudo install -m 644 include/date/islamic.h /usr/include/date/islamic.h
 
     - name: Install zonedetect
       run: |
@@ -98,7 +98,7 @@ jobs:
         export libdir=/usr/lib64
         export prefix=/usr
         export includedir=/usr/include
-        make install
+        sudo make install
 
     - name: Compile
       run: |
