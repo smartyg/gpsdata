@@ -26,7 +26,7 @@ namespace gpsdata::utils {
 			{ 4, {"SPEED", gpsdata::GpsDataValueType::FLOAT_T, "speed (km/h)", "current speed in km/h"} },
 			{ 5, {"POWER", gpsdata::GpsDataValueType::S_INT_T, "power (W)", "current power in W"} },
 			{ 6, {"HEARTRATE", gpsdata::GpsDataValueType::S_INT_T, "heartrate (bpm)", "heartrate in bpm"} },
-			{ 7, {"CADANCE", gpsdata::GpsDataValueType::S_INT_T, "cadance (rpm)", "cadance in rpm"} }
+			{ 7, {"CADENCE", gpsdata::GpsDataValueType::S_INT_T, "cadence (rpm)", "cadence in rpm"} }
 		};
 
 		const std::map<ActivityType, std::tuple<const std::string_view, const std::string_view, const std::string_view>> activity_type_map = {
