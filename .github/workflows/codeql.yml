@@ -17,22 +17,9 @@ on:
     - cron: '36 16 * * 6'
 
 jobs:
-  setup:
-    name: Setup environment
-    runs-on: ubuntu-22.04
-    steps:
-
-
-  dependencies:
-    name: Install local dependencies
-    runs-on: ubuntu-22.04
-    uses: ./.github/workflows/install-local-dependencies.yml
-    needs: setup
-
   analyze:
     name: Analyze
     runs-on: ubuntu-22.04
-    needs: [setup, dependencies]
     permissions:
       actions: read
       contents: read
