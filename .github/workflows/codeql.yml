@@ -50,7 +50,7 @@ jobs:
       uses: ./.github/actions/InstallAutoconfArchive
 
     - name: Install date/tz
-      uses: ./.github/actions/Install-DateTz
+      uses: ./.github/actions/InstallDateTz
 
     - name: Install zonedetect
       uses: ./.github/actions/InstallZonedetect
