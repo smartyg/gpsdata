@@ -17,9 +17,28 @@ on:
     - cron: '36 16 * * 6'
 
 jobs:
+  setup:
+    name: Setup environment
+    runs-on: ubuntu-22.04
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update -q
+        sudo apt-get install -y build-essential autoconf automake gcc cpp git cmake
+
+  dependencies:
+    name: Install local dependencies
+    runs-on: ubuntu-22.04
+    uses: ./.github/workflows/install-local-dependencies.yml
+    needs: setup
+
   analyze:
     name: Analyze
     runs-on: ubuntu-22.04
+    needs: [setup, dependencies]
     permissions:
       actions: read
       contents: read
@@ -30,24 +49,12 @@ jobs:
       matrix:
         language: [ 'cpp' ]
 
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
       with:
         languages: ${{ matrix.language }}
         queries: security-and-quality
-
-    - name: Install dependencies
-      run: |
-        sudo apt-get update -q
-        sudo apt-get install -y build-essential autoconf automake gcc cpp git cmake
-
-    - name: Install local dependencies
-      uses: ./.github/workflows/install-local-dependencies.yml
 
     - name: Compile
       run: |

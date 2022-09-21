@@ -4,18 +4,17 @@ on:
   workflow_call:
 
 jobs:
-  install_local_dependencies_job:
-    name: Install local dependencies
+  install_autoconf-archive:
+    uses: ./.github/workflows/install-autoconf-archive.yml
 
-    steps:
-    - name: Install autoconf-archive
-      uses: ./.github/workflows/install-autoconf-archive.yml
+  install_date_tz:
+    uses: ./.github/workflows/install-date_tz.yml
+    needs: install_autoconf-archive
 
-    - name: Install date/tz
-      uses: ./.github/workflows/install-date_tz.yml
+  install_zonedetect:
+    uses: ./.github/workflows/install-zonedetect.yml
+    needs: install_autoconf-archive
 
-    - name: Install zonedetect
-      uses: ./.github/workflows/install-zonedetect.yml
-
-    - name: Install bitsery
-      uses: ./.github/workflows/install-bitsery.yml
+  install_bitsery:
+    uses: ./.github/workflows/install-bitsery.yml
+    needs: install_autoconf-archive
