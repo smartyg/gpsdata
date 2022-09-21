@@ -4,10 +4,8 @@ description: "Install correct version of autoconf-archive"
 runs:
   using: "composite"
   steps:
-  - name: Download autoconf-archive
-    run: |
-      wget http://archive.ubuntu.com/ubuntu/pool/universe/a/autoconf-archive/autoconf-archive_20220903-1_all.deb
-
   - name: Install autoconf-archive
-    run: |
+    shell: bash
+    run:
+      wget http://archive.ubuntu.com/ubuntu/pool/universe/a/autoconf-archive/autoconf-archive_20220903-1_all.deb
       sudo apt install ./autoconf-archive_20220903-1_all.deb -y

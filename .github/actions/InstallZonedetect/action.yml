@@ -5,6 +5,7 @@ runs:
   using: "composite"
   steps:
   - name: Install zonedetect
+    shell: bash
     run: |
       git clone https://github.com/BertoldVdb/ZoneDetect.git ./third_party/zonedetect
       cd ./third_party/zonedetect

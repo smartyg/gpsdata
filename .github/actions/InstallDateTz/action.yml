@@ -5,6 +5,7 @@ runs:
   using: "composite"
   steps:
   - name: Install date/tz
+    shell: bash
     run: |
       git clone https://github.com/HowardHinnant/date.git ./third_party/date
       cd ./third_party/date

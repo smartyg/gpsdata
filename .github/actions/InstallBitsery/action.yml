@@ -5,6 +5,7 @@ runs:
   using: "composite"
   steps:
   - name: Install bitsery
+    shell: bash
     run: |
       git clone https://github.com/fraillt/bitsery.git ./third_party/bitsery
       cd ./third_party/bitsery
