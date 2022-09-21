@@ -1,0 +1,16 @@
+name: "install zonedetect"
+description: "Install zonedetect from github repo"
+
+runs:
+  using: "composite"
+  steps:
+  - name: Install zonedetect
+    run: |
+      git clone https://github.com/BertoldVdb/ZoneDetect.git ./third_party/zonedetect
+      cd ./third_party/zonedetect
+      cd library
+      make
+      export libdir=/usr/lib64
+      export prefix=/usr
+      export includedir=/usr/include
+      sudo make install
