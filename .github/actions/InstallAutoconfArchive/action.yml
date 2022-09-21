@@ -6,6 +6,6 @@ runs:
   steps:
   - name: Install autoconf-archive
     shell: bash
-    run:
+    run: |
       wget http://archive.ubuntu.com/ubuntu/pool/universe/a/autoconf-archive/autoconf-archive_20220903-1_all.deb
       sudo apt install ./autoconf-archive_20220903-1_all.deb -y
