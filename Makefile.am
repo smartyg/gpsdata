@@ -9,6 +9,8 @@ ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS} -I m4
 
 AM_CFLAGS =
 AM_CXXFLAGS =
+AM_LDFLAGS =
+AM_LIBS =
 
 ## Only use the compiler flags when we build a debug version.
 if DEBUG
@@ -32,8 +34,17 @@ AM_CFLAGS += -flto
 AM_CXXFLAGS += -flto
 endif
 
+if COVERAGE
+AM_CFLAGS += -fprofile-arcs -ftest-coverage
+AM_CXXFLAGS += -fprofile-arcs -ftest-coverage
+AM_LDFLAGS += -fprofile-arcs -ftest-coverage
+AM_LIBS += -lgcov
+endif
+
 export AM_CFLAGS
 export AM_CXXFLAGS
+export AM_LDFLAGS
+export AM_LIBS
 
 ## Install the generated pkg-config file (.pc) into the expected location for
 ## architecture-dependent package configuration information.  Occasionally,
@@ -154,6 +165,52 @@ VERSION:
 
 distclean-local:
 	@rm -f ChangeLog VERSION
+endif
+
+if COVERAGE
+COVERAGE_INFO_FILE = $(top_builddir)/coverage.info
+COVERAGE_REPORT_DIR = $(top_builddir)/coverage
+
+.PHONY: coverage coverage-report clean-coverage-report clean-coverage
+
+coverage: clean-coverage all-am check-am check coverage-report
+
+coverage-report: check
+	@echo "Start to create coverage reports..."
+	$(LCOV) --capture \
+		--directory "$(top_builddir)/include" \
+		--directory "$(top_builddir)/src" \
+		--directory "$(top_builddir)/tests" \
+		--base-directory "$(abspath $(top_builddir))" \
+		--output-file $(COVERAGE_INFO_FILE) \
+		--gcov-tool $(GCOV) \
+		--compat-libtool --checksum
+	$(LCOV) --extract $(COVERAGE_INFO_FILE) "$(abspath $(top_srcdir))/include/*" \
+		--extract $(COVERAGE_INFO_FILE) "$(abspath $(top_srcdir))/src/*" \
+		--extract $(COVERAGE_INFO_FILE) "$(abspath $(top_srcdir))/test/*" \
+		--gcov-tool $(GCOV) \
+		--output-file $(COVERAGE_INFO_FILE)
+	$(GENHTML) --prefix "$(abspath $(top_srcdir))" \
+		--output-directory $(COVERAGE_REPORT_DIR) \
+                --title $(PACKAGE_NAME) \
+		--legend --show-details \
+		$(GENHTML_OPTIONS) \
+		$(COVERAGE_INFO_FILE)
+	@echo "Successfully created coverage reports into $(COVERAGE_REPORT_DIR) directory."
+
+clean-coverage-report:
+	-rm -rf $(COVERAGE_INFO_FILE)
+	-rm -rf $(COVERAGE_REPORT_DIR)
+
+clean-coverage: clean-coverage-report
+	-$(LCOV) --gcov-tool $(GCOV) --zerocounters --directory $(top_builddir)
+	@if xargs --version 2>/dev/null; then \
+		find $(top_builddir) -name "*.gcno" | xargs --no-run-if-empty rm; \
+	else \
+		find $(top_builddir) -name "*.gcno" | xargs rm; \
+	fi
+
+clean-local: clean-coverage
 endif
 
 if GTEST
