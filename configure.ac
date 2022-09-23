@@ -134,9 +134,9 @@ AC_ARG_ENABLE([gtest],
 	[gtest=false])
 
 # Check for GNU C++20 standard
-AX_CXX_COMPILE_STDCXX_11(ext, mandatory)
-AX_CXX_COMPILE_STDCXX_14(ext, mandatory)
-AX_CXX_COMPILE_STDCXX_17(ext, mandatory)
+AX_CXX_COMPILE_STDCXX(11, ext, mandatory)
+AX_CXX_COMPILE_STDCXX(14, ext, mandatory)
+AX_CXX_COMPILE_STDCXX(17, ext, mandatory)
 AX_CXX_COMPILE_STDCXX(20, ext, mandatory)
 
 # Define large file symbol

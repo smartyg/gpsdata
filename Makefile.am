@@ -143,7 +143,7 @@ EXTRA_DIST = VERSION ChangeLog README AUTHORS LICENSE @PROGRAM_NAME@.spec
 ## Only try to update the ChangeLog file when git is availible to report all the changes.
 if HAVE_GIT
 ## Force to recreate the ChangeLog file every time
-.PHONY: ChangeLog
+.PHONY: ChangeLog VERSION
 
 ## Dynamicly create the changelog file when a distribution tarball is created.
 ChangeLog:
