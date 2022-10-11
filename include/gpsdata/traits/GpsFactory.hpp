@@ -12,7 +12,7 @@
 
 namespace gpsdata {
 	using ListDataTypes = const std::vector<std::string>;
-	using ListDataTypesFull = const std::vector<std::tuple<const std::string, const std::string, const std::string>>;
+	using ListDataTypesFull = const std::vector<std::tuple<const std::string, const std::string, const std::string, const std::string>>;
 	using ListActivityTypes = const std::vector<std::string>;
 
 	inline namespace traits {
@@ -27,6 +27,7 @@ namespace gpsdata {
 			{ t.getDataTypesStringFull () } -> CONVERTIBLE_TYPE(ListDataTypesFull);
 			{ t.getDataTypeFullName (a1) } -> CONVERTIBLE_TYPE(const std::string);
 			{ t.getDataTypeDescription (a1) } -> CONVERTIBLE_TYPE(const std::string);
+			{ t.getDataTypeUnit (a1) } -> CONVERTIBLE_TYPE(const std::string);
 			{ t.getDataValueType (a1) } -> SAME_TYPE(GpsDataValueType);
 			{ t.getActivityType (s) } -> SAME_TYPE(typename T::ActivityType);
 			{ t.getActivityTypeString (a2) } -> CONVERTIBLE_TYPE(const std::string);

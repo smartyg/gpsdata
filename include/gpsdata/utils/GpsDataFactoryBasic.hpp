@@ -19,14 +19,14 @@ namespace gpsdata::utils {
 		using ActivityType = uint8_t;
 
 	private:
-		const std::map<DataType, std::tuple<const std::string_view, gpsdata::GpsDataValueType, const std::string_view, const std::string_view>> data_type_map = {
-			{ 1, {"LAT", gpsdata::GpsDataValueType::S_LONG_T, "latitude", "latitude of the point"} },
-			{ 2, {"LON", gpsdata::GpsDataValueType::S_LONG_T, "longitude", "longitude of the point"} },
-			{ 3, {"ALT", gpsdata::GpsDataValueType::S_INT_T, "altitude", "altitude of the point"} },
-			{ 4, {"SPEED", gpsdata::GpsDataValueType::FLOAT_T, "speed (km/h)", "current speed in km/h"} },
-			{ 5, {"POWER", gpsdata::GpsDataValueType::S_INT_T, "power (W)", "current power in W"} },
-			{ 6, {"HEARTRATE", gpsdata::GpsDataValueType::S_INT_T, "heartrate (bpm)", "heartrate in bpm"} },
-			{ 7, {"CADENCE", gpsdata::GpsDataValueType::S_INT_T, "cadence (rpm)", "cadence in rpm"} }
+		const std::map<DataType, std::tuple<const std::string_view, gpsdata::GpsDataValueType, const std::string_view, const std::string_view, const std::string_view>> data_type_map = {
+			{ 1, {"LAT", gpsdata::GpsDataValueType::S_LONG_T, "latitude", "latitude of the point", "N"} },
+			{ 2, {"LON", gpsdata::GpsDataValueType::S_LONG_T, "longitude", "longitude of the point", "W"} },
+			{ 3, {"ALT", gpsdata::GpsDataValueType::S_INT_T, "altitude", "altitude of the point", "m"} },
+			{ 4, {"SPEED", gpsdata::GpsDataValueType::FLOAT_T, "speed (km/h)", "current speed in km/h", "km/h"} },
+			{ 5, {"POWER", gpsdata::GpsDataValueType::S_INT_T, "power (W)", "current power in W", "W"} },
+			{ 6, {"HEARTRATE", gpsdata::GpsDataValueType::S_INT_T, "heartrate (bpm)", "heartrate in bpm", "bpm"} },
+			{ 7, {"CADENCE", gpsdata::GpsDataValueType::S_INT_T, "cadence (rpm)", "cadence in rpm", "rpm"} }
 		};
 
 		const std::map<ActivityType, std::tuple<const std::string_view, const std::string_view, const std::string_view>> activity_type_map = {
@@ -75,12 +75,12 @@ namespace gpsdata::utils {
 			return result;
 		}
 
-		const std::vector<std::tuple<const std::string, const std::string, const std::string>>
+		const std::vector<std::tuple<const std::string, const std::string, const std::string, const std::string>>
 		getDataTypesStringFull (void) const {
-			std::vector<std::tuple<const std::string, const std::string, const std::string>> result (this->data_type_map.size ());
+			std::vector<std::tuple<const std::string, const std::string, const std::string, const std::string>> result (this->data_type_map.size ());
 			for (const auto& [type, value] : this->data_type_map) {
 				(void)type;
-				std::tuple<const std::string, const std::string, const std::string> entry = std::make_tuple(std::string (std::get<0>(value)), std::string (std::get<2>(value)), std::string (std::get<3>(value)));
+				std::tuple<const std::string, const std::string, const std::string, const std::string> entry = std::make_tuple(std::string (std::get<0>(value)), std::string (std::get<2>(value)), std::string (std::get<3>(value)), std::string (std::get<4>(value)));
 				result.push_back (entry);
 			}
 			return result;
@@ -94,10 +94,20 @@ namespace gpsdata::utils {
 				return std::string ();
 			}
 		}
+
 		const std::string getDataTypeDescription (const DataType& type) const {
 			try {
 				const auto& value = this->data_type_map.at (type);
 				return std::string (std::get<3>(value));
+			} catch (std::out_of_range& e) {
+				return std::string ();
+			}
+		}
+
+		const std::string getDataTypeUnit (const DataType& type) const {
+			try {
+				const auto& value = this->data_type_map.at (type);
+				return std::string (std::get<4>(value));
 			} catch (std::out_of_range& e) {
 				return std::string ();
 			}
