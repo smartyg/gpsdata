@@ -7,6 +7,7 @@
 
 #include <gpsdata/traits/GpsFactory.hpp>
 #include <gpsdata/traits/GpsPoint.hpp>
+#include <gpsdata/traits/GpsSegment.hpp>
 #include <gpsdata/types/ObjectTime.hpp>
 #include <gpsdata/GpsValue.hpp>
 #include <gpsdata/GpsFactoryUserBase.hpp>
@@ -121,34 +122,37 @@ namespace gpsdata {
 			return this->getData (type);
 		}
 
-		bool addData (const GpsValue<DataType>& data) {
+		bool addData (const GpsValue<DataType>& data, const bool& update = false) {
 			DEBUG_MSG("GpsPoint::%s ()\n", __func__);
-			for (const GpsValue<DataType>& d : this->_data) {
-				if (d.type == data.type) return false;
+			for (GpsValue<DataType>& d : this->_data) {
+				if (d.type == data.type && !update) return false;
+				else if (d.type == data.type && update) {
+					d.value._raw = data.value._raw;
+				}
 			}
 			this->_data.push_back (data);
 			return true;
 		}
 
 		template<class T>
-		bool addData (const DataType& type, const T& value, bool best_effort = false) {
+		bool addData (const DataType& type, const T& value, const bool& best_effort = false, const bool& update = false) {
 			DEBUG_MSG("GpsPoint::%s (%d, ..., %d)\n", __func__, type, best_effort);
 			for (const GpsValue<DataType>& data : this->_data) {
 				if (data.type == type) return false;
 			}
 			GpsValue<DataType> data;
 			if (!this->_factory->setValue (data, type, value, best_effort)) return false;
-			this->_data.push_back (data);
+			this->_data.push_back (data, update);
 			return true;
 		}
 
 		template<class T, typename U = std::string, typename std::enable_if<!std::is_same<U, DataType>::value, bool>::type = 0>
-		inline bool addData (const std::string& type_str, const T& value, bool best_effort = false) {
+		inline bool addData (const std::string& type_str, const T& value, const bool& best_effort = false, const bool& update = false) {
 			DEBUG_MSG("GpsPoint::%s (%s, ..., %d)\n", __func__, type_str.c_str (), best_effort);
 			GpsValue<DataType> data;
 			DataType type = this->_factory->getDataType (type_str);
-			if(this->_factory->setValue (data, type, value, best_effort))
-				return this->addData (data);
+			if (this->_factory->setValue (data, type, value, best_effort))
+				return this->addData (data, update);
 			return false;
 		}
 
