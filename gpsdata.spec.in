@@ -43,6 +43,8 @@ BuildRoot:      %{_tmppath}/%{name}-%{srcVersion}-build
 %package devel
 Summary:        Development files for libgchart
 Group:          Development/Sources
+Requires:       date-devel
+Requires:       ZoneDetect-devel
 Requires:       libgpsdata-utils%{majorVersion} = %{version}
 
 %description devel
