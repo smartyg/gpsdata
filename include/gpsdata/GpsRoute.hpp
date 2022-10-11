@@ -224,6 +224,15 @@ namespace gpsdata {
 			return this->_segments;
 		}
 
+		const std::shared_ptr<S> getSegment (const int& n_segment) const {
+			DEBUG_MSG("GpsRoute::%s ()\n", __func__);
+			for (const std::shared_ptr<S>& s : this->_segments) {
+				if (s->getSegmentNumber () == n_segment)
+					return s;
+			}
+			return {};
+		}
+
 		/* GPS Points */
 		bool hasPoint (const ObjectTime& time) const {
 			DEBUG_MSG("GpsRoute::%s (%ld)\n", __func__, time.getTime ());
