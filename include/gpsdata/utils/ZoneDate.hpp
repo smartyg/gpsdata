@@ -13,7 +13,7 @@ namespace gpsdata::utils { class ZoneDate; }
 
 namespace gpsdata::utils {
 	class ZoneDate final : std::enable_shared_from_this<ZoneDate> {
-		const date::time_zone *_zone;
+		const date::time_zone* _zone;
 		std::string _zone_name;
 		std::string _country_name;
 		std::string _country_code;
@@ -83,6 +83,10 @@ namespace gpsdata::utils {
 		inline const date::sys_info getZoneInfo (const std::chrono::milliseconds& utc_time) const noexcept {
 			date::local_time<std::chrono::milliseconds> utc_tp{utc_time};
 			return this->getZoneInfo (utc_tp);
+		}
+
+		inline const date::time_zone* getZonePtr (void) const noexcept {
+			return this->_zone;
 		}
 
 		[[nodiscard]] static std::shared_ptr<ZoneDate> create (const std::string& zone_name) {

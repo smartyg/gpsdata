@@ -4,24 +4,28 @@
 
 #include "gpsdata/utils/PointDate.hpp"
 #include "gpsdata/utils/ZoneDate.hpp"
+#include "gpsdata/utils/GpsDataFactoryBasic.hpp"
 
 using gpsdata::utils::PointDate;
 using gpsdata::utils::ZoneDate;
+using gpsdata::GpsPoint;
+using gpsdata::utils::GpsDataFactoryBasic;
+
 
 class PointDateTest : public testing::Test {
 public:
 	// Per-test-suite set-up.
 	// Called before the first test in this test suite.
 	// Can be omitted if not needed.
-	static void SetUpTestSuite() {
+	static void SetUpTestSuite (void) {
 		// Avoid reallocating static objects if called in subclasses of FooTest.
-		PointDate::init("./out_v1/timezone21.bin");
+		PointDate::init ("./out_v1/timezone21.bin");
 	}
 
 	// Per-test-suite tear-down.
 	// Called after the last test in this test suite.
 	// Can be omitted if not needed.
-	static void TearDownTestSuite() {
+	static void TearDownTestSuite (void) {
 		PointDate::destroy ();
 	}
 };
@@ -94,4 +98,17 @@ TEST_F(PointDateTest, convertToTimeT2)
 {
 	std::chrono::milliseconds t{1591939256000};
 	EXPECT_EQ(PointDate::convertToTimeT(t), 1591939256);
+}
+
+TEST_F(PointDateTest, getPointLocalTime)
+{
+	gpsdata::ObjectTime t1 (2015, 3, 15, 14, 31, 23.012);
+	const auto point = GpsPoint<GpsDataFactoryBasic>::template create<GpsPoint<GpsDataFactoryBasic>>(t1, GpsDataFactoryBasic::create ());
+	point->addData ("LON", 1300000000, true);
+	point->addData ("LAT", 5200000800, true);
+	const auto zoned_time = PointDate::getZonedTime (point);
+	EXPECT_EQ(zoned_time.get_sys_time ().time_since_epoch ().count (), t1.getTime ().count ());
+	gpsdata::ObjectTime t_ref (2015, 3, 15, 15, 31, 23.012);
+	EXPECT_EQ(zoned_time.get_local_time ().time_since_epoch ().count (), t_ref.getTime ().count ());
+	EXPECT_STREQ(date::format("%F %T %z", zoned_time).c_str (), "2015-03-15 15:31:23.012 +0100");
 }

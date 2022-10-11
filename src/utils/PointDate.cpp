@@ -9,7 +9,6 @@
 #include <cstring>
 #include <memory>
 
-#include "gpsdata/utils/Logger.hpp"
 #include "gpsdata/utils/ZoneDate.hpp"
 #include "gpsdata/types/ObjectTime.hpp"
 
@@ -90,4 +89,9 @@ const ObjectTime PointDate::parseTime (const std::string& time_string, const std
 	return ObjectTime (tp.time_since_epoch());
 }
 
-
+const date::zoned_time<ObjectTime::timeType> PointDate::makeZonedTime (const double& lat, const double& lon, const ObjectTime& time) {
+	//const auto zd = PointDate::getTimeZone (lat, lon);
+	const std::chrono::time_point<std::chrono::system_clock, ObjectTime::Representation> t(time.getTime ());
+	const date::zoned_time ret(PointDate::getTimeZone (lat, lon)->getZonePtr (), t);
+	return ret;
+}
