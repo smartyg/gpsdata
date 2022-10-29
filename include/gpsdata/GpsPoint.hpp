@@ -137,13 +137,9 @@ namespace gpsdata {
 		template<class T>
 		bool addData (const DataType& type, const T& value, const bool& best_effort = false, const bool& update = false) {
 			DEBUG_MSG("GpsPoint::%s (%d, ..., %d)\n", __func__, type, best_effort);
-			for (const GpsValue<DataType>& data : this->_data) {
-				if (data.type == type) return false;
-			}
 			GpsValue<DataType> data;
 			if (!this->_factory->setValue (data, type, value, best_effort)) return false;
-			this->_data.push_back (data, update);
-			return true;
+			return this->addData (data, update);
 		}
 
 		template<class T, typename U = std::string, typename std::enable_if<!std::is_same<U, DataType>::value, bool>::type = 0>
