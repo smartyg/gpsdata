@@ -4,6 +4,7 @@
 #include <type_traits>
 #include <memory>
 #include <cstdlib>
+#include <Logger.hpp>
 
 #include <bitsery/bitsery.h>
 #include <bitsery/traits/string.h>
@@ -53,7 +54,7 @@ namespace gpsdata {
 				route->_segments.reserve (n_segments);
 
 				typename R::Segment *block = static_cast<typename R::Segment *>(calloc (n_segments, sizeof(typename R::Segment)));
-				DEBUG_MSG("reserved block at %p\n", static_cast<void *>(block));
+				DEBUG_MSG ("reserved block at {:p}\n", static_cast<void *>(block));
 				std::shared_ptr<void> block_ptr (static_cast<void *>(block), [] (void *ptr) -> void {
 					// This lambda function is called once all references to the shared pointer to this block have gone out of scope.
 					// Now we can safely release the reserved memory as well.
@@ -62,7 +63,7 @@ namespace gpsdata {
 				});
 
 				auto deleter = [block_ptr] (void *ptr) -> void {
-					DEBUG_MSG("call deleter on GpsSegment at %p\n", ptr);
+					DEBUG_MSG ("call deleter on GpsSegment at {:p}\n", ptr);
 					// Convert the pointer `ptr` back to it's original object
 					typename R::Segment *obj = reinterpret_cast<typename R::Segment *>(ptr);
 					// Now call the destructor, this allows to release all resources owned by the object without releasing the memory the object is in.

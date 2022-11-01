@@ -4,6 +4,7 @@
 #include <type_traits>
 #include <vector>
 #include <memory>
+#include <Logger.hpp>
 
 #include <gpsdata/traits/GpsFactory.hpp>
 #include <gpsdata/traits/GpsPoint.hpp>
@@ -41,12 +42,13 @@ namespace gpsdata {
 		Container _data;
 
 		GpsPoint (const ObjectTime& time, const std::shared_ptr<const F>& factory) : internal::GpsFactoryUserBase<F> (factory), _time(time) {
+			DEBUG_MSG ("GpsPoint::{:s} ({:d}, {:p})\n", __func__, time.get (), fmt::ptr (factory));
 			this->_data.clear ();
 			this->_data.reserve (GPSVALUEVECTOR_MIN_SIZE);
 		}
 
 		GpsPoint (const std::shared_ptr<const F>& factory) : internal::GpsFactoryUserBase<F> (factory) {
-			DEBUG_MSG("GpsPoint::%s (%p)\n", __func__, &factory);
+			DEBUG_MSG ("GpsPoint::{:s} ({:p})\n", __func__, fmt::ptr (factory));
 			this->_data.clear ();
 			this->_data.reserve (GPSVALUEVECTOR_MIN_SIZE);
 		}
@@ -74,12 +76,12 @@ namespace gpsdata {
 		}
 
 		~GpsPoint (void) {
-			DEBUG_MSG("GpsPoint::%s ()\n", __func__);
+			DEBUG_MSG ("GpsPoint::{:s} ()\n", __func__);
 			this->_data.clear ();
 		}
 
 		bool hasDataType (const DataType& type) const {
-			DEBUG_MSG("GpsPoint::%s (%d)\n", __func__, type);
+			DEBUG_MSG ("GpsPoint::{:s} ({:d})\n", __func__, type);
 			for (const GpsValue<DataType>& d : this->_data) {
 				if (d.type == type) return true;
 			}
@@ -88,25 +90,25 @@ namespace gpsdata {
 
 		template<typename U = std::string, typename std::enable_if<!std::is_same<U, DataType>::value, bool>::type = 0>
 		inline bool hasDataType (const std::string& type_str) const {
-			DEBUG_MSG("GpsPoint::%s (%s)\n", __func__, type_str.c_str ());
+			DEBUG_MSG ("GpsPoint::{:s} ({:s})\n", __func__, type_str);
 			const DataType& type = this->_factory->getDataType (type_str);
 			return this->hasDataType (type);
 		}
 
 		const ObjectTime getTime (void) const {
-			DEBUG_MSG("GpsPoint::%s ()\n", __func__);
+			DEBUG_MSG ("GpsPoint::{:s} ()\n", __func__);
 			return this->_time;
 		}
 
 		bool setTime (const ObjectTime& time) {
-			DEBUG_MSG("GpsPoint::%s ()\n", __func__);
+			DEBUG_MSG ("GpsPoint::{:s} ({:d})\n", __func__, time.get ());
 			if (!this->_time)
 				this->_time = time;
 			return (this->_time == time);
 		}
 
 		const GpsValue<DataType> getData (const DataType& type) const {
-			DEBUG_MSG("GpsPoint::%s (%d)\n", __func__, type);
+			DEBUG_MSG ("GpsPoint::{:s} ({:d})\n", __func__, type);
 			for (const GpsValue<DataType>& d : this->_data) {
 				if (d.type == type) return d;
 			}
@@ -117,13 +119,13 @@ namespace gpsdata {
 
 		template<typename U = std::string, typename std::enable_if<!std::is_same<U, DataType>::value, bool>::type = 0>
 		inline const GpsValue<DataType> getData (const std::string& type_str) const {
-			DEBUG_MSG("GpsPoint::%s (%s)\n", __func__, type_str.c_str ());
+			DEBUG_MSG ("GpsPoint::{:s} ({:s})\n", __func__, type_str);
 			const DataType& type = this->_factory->getDataType (type_str);
 			return this->getData (type);
 		}
 
 		bool addData (const GpsValue<DataType>& data, const bool& update = false) {
-			DEBUG_MSG("GpsPoint::%s ()\n", __func__);
+			DEBUG_MSG ("GpsPoint::{:s} (..., {:d})\n", __func__, update);
 			for (GpsValue<DataType>& d : this->_data) {
 				if (d.type == data.type && !update) return false;
 				else if (d.type == data.type && update) {
@@ -136,7 +138,7 @@ namespace gpsdata {
 
 		template<class T>
 		bool addData (const DataType& type, const T& value, const bool& best_effort = false, const bool& update = false) {
-			DEBUG_MSG("GpsPoint::%s (%d, ..., %d)\n", __func__, type, best_effort);
+			DEBUG_MSG ("GpsPoint::{:s} ({:d}, {}, {:d}, {:d})\n", __func__, type, value, best_effort, update);
 			GpsValue<DataType> data;
 			if (!this->_factory->setValue (data, type, value, best_effort)) return false;
 			return this->addData (data, update);
@@ -144,7 +146,7 @@ namespace gpsdata {
 
 		template<class T, typename U = std::string, typename std::enable_if<!std::is_same<U, DataType>::value, bool>::type = 0>
 		inline bool addData (const std::string& type_str, const T& value, const bool& best_effort = false, const bool& update = false) {
-			DEBUG_MSG("GpsPoint::%s (%s, ..., %d)\n", __func__, type_str.c_str (), best_effort);
+			DEBUG_MSG ("GpsPoint::{:s} ({:s}, {}, {:d})\n", __func__, type_str, value, best_effort, update);
 			GpsValue<DataType> data;
 			DataType type = this->_factory->getDataType (type_str);
 			if (this->_factory->setValue (data, type, value, best_effort))

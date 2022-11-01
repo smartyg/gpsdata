@@ -174,9 +174,11 @@ AC_TYPE_UINT64_T
 # Checks for programs.
 AC_CHECK_PROGS([GIT], [git])
 
+# Checks for packages.
+PKG_CHECK_MODULES([CPPLOGGER], [cpplogger])
+
 # Checks for libraries.
 AX_CHECK_LIB([zonedetect], [ZDCloseDatabase], [ZONEDETECT], [-lm])
-
 AX_CPP_CHECK_LIB([date-tz], [date::sys_info r], [date/tz.h], [DATE_TZ], [])
 
 if test "x$gtest" == xtrue; then

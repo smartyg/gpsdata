@@ -6,6 +6,7 @@
 #include <type_traits>
 #include <list>
 #include <memory>
+#include <Logger.hpp>
 
 #include <gpsdata/traits/GpsFactory.hpp>
 #include <gpsdata/traits/GpsPoint.hpp>
@@ -48,12 +49,12 @@ namespace gpsdata {
 		Container _points;
 
 		GpsSegment (const std::shared_ptr<const F>& factory) : internal::GpsFactoryUserBase<F> (factory), GpsStatistics<F> (factory) {
-			DEBUG_MSG("GpsSegment::%s (%p)\n", __func__, &factory);
+			DEBUG_MSG ("GpsSegment::{:s} ({:p})\n", __func__, fmt::ptr (factory));
 			this->_n = -1;
 		}
 
 		GpsSegment (const int& n, const std::shared_ptr<const F>& factory) : internal::GpsFactoryUserBase<F> (factory), GpsStatistics<F> (factory) {
-			DEBUG_MSG("GpsSegment::%s (%d, %p)\n", __func__, n, &factory);
+			DEBUG_MSG ("GpsSegment::{:s} ({:d}, {:p})\n", __func__, n, fmt::ptr (factory));
 			this->_n = n;
 		}
 
@@ -66,19 +67,19 @@ namespace gpsdata {
 
 	public:
 		~GpsSegment (void) {
-			DEBUG_MSG("GpsSegment::%s ()\n", __func__);
+			DEBUG_MSG ("GpsSegment::{:s} ()\n", __func__);
 			this->_points.clear ();
 		}
 
 		template<GpsSegmentTrait S = GpsSegment<F, P>>
 		[[nodiscard]] static std::shared_ptr<S> create (const std::shared_ptr<const typename S::GpsFactory>& factory) {
-			DEBUG_MSG("GpsSegment::%s (%p)\n", __func__, &factory);
+			DEBUG_MSG ("GpsSegment::{:s} ({:p})\n", __func__, fmt::ptr (factory));
 			return std::shared_ptr<S>(new S (factory));
 		}
 
 		template<GpsSegmentTrait S = GpsSegment<F, P>>
 		[[nodiscard]] static std::shared_ptr<S> create (const int& n, const std::shared_ptr<const typename S::GpsFactory>& factory) {
-			DEBUG_MSG("GpsSegment::%s (%d, %p)\n", __func__, n, &factory);
+			DEBUG_MSG ("GpsSegment::{:s} ({:d}, {:p})\n", __func__, n, fmt::ptr (factory));
 			return std::shared_ptr<S>(new S (n, factory));
 		}
 
@@ -87,19 +88,19 @@ namespace gpsdata {
 		}
 
 		int getSegmentNumber (void) const {
-			DEBUG_MSG("GpsSegment::%s ()\n", __func__);
+			DEBUG_MSG ("GpsSegment::{:s} ()\n", __func__);
 			return this->_n;
 		}
 
 		bool setSegmentNumber (const int& n) {
-			DEBUG_MSG("GpsSegment::%s ()\n", __func__);
+			DEBUG_MSG ("GpsSegment::{:s} ({:d})\n", __func__, n);
 			if (this->_n < 0)
 				this->_n = n;
 			return (this->_n == n);
 		}
 
 		const ObjectTime getTime (void) const {
-			DEBUG_MSG("GpsSegment::%s ()\n", __func__);
+			DEBUG_MSG ("GpsSegment::{:s} ()\n", __func__);
 			if (!this->hasPoint ()) throw std::runtime_error ("no points present");
 			const auto it = this->_points.cbegin ();
 			return (*it)->getTime ();
@@ -108,7 +109,7 @@ namespace gpsdata {
 		/* GPS Points */
 		// TODO: provide a hint where to insert the point
 		bool addPoint (std::shared_ptr<P> point) {
-			DEBUG_MSG("GpsSegment::%s (%p)\n", __func__, &point);
+			DEBUG_MSG ("GpsSegment::{:s} ({:p})\n", __func__, fmt::ptr (point));
 			// Only add point that are valid (having the time set).
 			if (!point) return false;
 			const ObjectTime time = point->getTime ();
@@ -119,7 +120,7 @@ namespace gpsdata {
 		};
 
 		bool addPoint (const ObjectTime& time) {
-			DEBUG_MSG("GpsSegment::%s (%ld)\n", __func__, time.getTime ());
+			DEBUG_MSG ("GpsSegment::{:s} ({:d})\n", __func__, time.get ());
 			auto it = this->getIterator (time);
 			if (GpsSegment::iteratorMatch (it, time)) return false;
 			std::shared_ptr<Point> point = Point::template create<Point> (time, this->_factory);
@@ -128,7 +129,7 @@ namespace gpsdata {
 		}
 
 		bool addPointData (const ObjectTime& time, const GpsValue<DataType>& value) {
-			DEBUG_MSG("GpsSegment::%s (%ld, ...)\n", __func__, time.getTime ());
+			DEBUG_MSG ("GpsSegment::{:s} ({:d}, ...)\n", __func__, time.get ());
 			auto it = this->getIterator (time);
 			// If the point does not (yet) exists, create create the point; otherwise add the data to the point.
 			if (!GpsSegment::iteratorMatch (it, time)) {
@@ -142,7 +143,7 @@ namespace gpsdata {
 
 		template<class T>
 		inline bool addPointData (const ObjectTime& time, const DataType& type, const T& value, bool best_effort = false) {
-			DEBUG_MSG("GpsSegment::%s (%ld, %d, ..., %d)\n", __func__, time.getTime (), type, best_effort);
+			DEBUG_MSG ("GpsSegment::{:s} ({:d}, {:d}, {}, {:d})\n", __func__, time.get (), type, value, best_effort);
 			GpsValue<DataType> data;
 			this->_factory->setValue (data, type, value, best_effort);
 			return this->addPointData (time, data);
@@ -150,7 +151,7 @@ namespace gpsdata {
 
 		template<class T, typename U = std::string, typename std::enable_if<!std::is_same<U, DataType>::value, bool>::type = 0>
 		inline bool addPointData (const ObjectTime& time, const std::string& type_str, const T& value, bool best_effort = false) {
-			DEBUG_MSG("GpsSegment::%s (%ld, %s, ..., %d)\n", __func__, time.getTime (), type_str.c_str (), best_effort);
+			DEBUG_MSG ("GpsSegment::{:s} (%ld, {:s}, {}, {:d})\n", __func__, time.get (), type_str, value, best_effort);
 			GpsValue<DataType> data;
 			DataType type = this->_factory->getDataType (type_str);
 			this->_factory->setValue (data, type, value, best_effort);
@@ -158,19 +159,19 @@ namespace gpsdata {
 		}
 
 		bool hasPoint () const {
-			DEBUG_MSG("GpsSegment::%s ()\n", __func__);
+			DEBUG_MSG ("GpsSegment::{:s} ()\n", __func__);
 			return (this->_points.size () >= 1);
 		}
 
 		bool hasPoint (const ObjectTime& time) const {
-			DEBUG_MSG("GpsSegment::%s (%ld)\n", __func__, time.getTime ());
+			DEBUG_MSG ("GpsSegment::{:s} ({:d})\n", __func__, time.get ());
 			auto it = this->getIterator (time);
 			if ((*it)->getTime () == time) return true;
 			return false;
 		}
 
 		const std::list<std::shared_ptr<P>> getPoints (void) {
-			DEBUG_MSG("GpsSegment::%s ()\n", __func__);
+			DEBUG_MSG ("GpsSegment::{:s} ()\n", __func__);
 			return this->_points;
 		}
 
@@ -205,7 +206,7 @@ namespace gpsdata {
 
 	private:
 		iterator getIterator (const ObjectTime& time) {
-			DEBUG_MSG("GpsSegment::%s (%ld)\n", __func__, time.getTime ());
+			DEBUG_MSG ("GpsSegment::{:s} ({:d})\n", __func__, time.get ());
 			auto it = this->_points.end ();
 			--it;
 			for (; it != this->_points.begin (); --it) {
@@ -216,7 +217,7 @@ namespace gpsdata {
 		}
 
 		const_iterator getIterator (const ObjectTime& time) const {
-			DEBUG_MSG("GpsSegment::%s (%ld)\n", __func__, time.getTime ());
+			DEBUG_MSG ("GpsSegment::{:s} ({:d})\n", __func__, time.get ());
 			auto it = this->_points.end ();
 			--it;
 			for (; it != this->_points.begin (); --it) {
@@ -227,7 +228,7 @@ namespace gpsdata {
 		}
 
 		static bool iteratorMatch (iterator it, const ObjectTime& time) {
-			DEBUG_MSG("GpsSegment::%s (%p, %ld)\n", __func__, &it, time.getTime ());
+			DEBUG_MSG ("GpsSegment::{:s} ({:p}, {:d})\n", __func__, fmt::ptr (&it), time.get ());
 			if (*it == nullptr) return false;
 			return ((*it)->getTime () == time);
 		}

@@ -1,6 +1,8 @@
 #ifndef _GPSDATA_COMP_GPSSEGMENT_
 #define _GPSDATA_COMP_GPSSEGMENT_
 
+#include <Logger.hpp>
+
 #include <gpsdata/traits/GpsFactory.hpp>
 #include <gpsdata/traits/GpsPoint.hpp>
 #include <gpsdata/GpsSegment.hpp>
@@ -11,7 +13,7 @@
 namespace gpsdata {
 	template<GpsFactoryTrait F, GpsPointTrait P>
 	bool operator== (const GpsSegment<F, P>& a, const GpsSegment<F, P>& b) {
-		DEBUG_MSG("%s: compare GpsSegment\n", __func__);
+		DEBUG_MSG ("{:s}: compare GpsSegment\n", __func__);
 		if (a.getFactory () != b.getFactory ()) return false;
 
 		if (a.getSegmentNumber () != b.getSegmentNumber ()) return false;

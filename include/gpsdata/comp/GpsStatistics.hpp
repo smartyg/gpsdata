@@ -1,6 +1,8 @@
 #ifndef _GPSDATA_COMP_GPSSTATISTICS_
 #define _GPSDATA_COMP_GPSSTATISTICS_
 
+#include <Logger.hpp>
+
 #include <gpsdata/traits/GpsFactory.hpp>
 #include <gpsdata/GpsStatistics.hpp>
 
@@ -9,7 +11,7 @@
 namespace gpsdata {
 	template<GpsFactoryTrait F>
 	bool operator== (const GpsStatistics<F>& a, const GpsStatistics<F>& b) {
-		DEBUG_MSG("%s: compare GpsStatistics\n", __func__);
+		DEBUG_MSG ("{:s}: compare GpsStatistics\n", __func__);
 		if (a.getFactory () != b.getFactory ()) return false;
 
 		// Get the an iterator to the first element of both lists

@@ -4,6 +4,7 @@
 #include <type_traits>
 #include <memory>
 #include <cstdlib>
+#include <Logger.hpp>
 
 #include <bitsery/bitsery.h>
 
@@ -36,16 +37,16 @@ namespace gpsdata {
 			s.value4b (n_points);
 			if (n_points > 0) {
 				typename S::Point *block = static_cast<typename S::Point *>(calloc (n_points, sizeof(typename S::Point)));
-				DEBUG_MSG("reserved block at %p\n", static_cast<void *>(block));
+				DEBUG_MSG ("reserved block at {:p}\n", static_cast<void *>(block));
 				std::shared_ptr<void> block_ptr (static_cast<void *>(block), [] (void *ptr) -> void {
 					// This lambda function is called once all references to the shared pointer to this block have gone out of scope.
 					// Now we can safely release the reserved memory as well.
-					DEBUG_MSG("free block at %p\n", ptr);
+					DEBUG_MSG ("free block at {:p}\n", ptr);
 					free (ptr);
 				});
 
 				auto deleter = [block_ptr] (void *ptr) -> void {
-					DEBUG_MSG("call deleter on GpsPoint at %p\n", ptr);
+					DEBUG_MSG ("call deleter on GpsPoint at {:p}\n", ptr);
 					// Convert the pointer `ptr` back to it's original object
 					typename S::Point *obj = reinterpret_cast<typename S::Point *>(ptr);
 					// Now call the destructor, this allows to release all resources owned by the object without releasing the memory the object is in.

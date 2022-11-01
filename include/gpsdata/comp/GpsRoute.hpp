@@ -1,6 +1,8 @@
 #ifndef _GPSDATA_COMP_GPSROUTE_
 #define _GPSDATA_COMP_GPSROUTE_
 
+#include <Logger.hpp>
+
 #include <gpsdata/traits/GpsFactory.hpp>
 #include <gpsdata/traits/GpsSegment.hpp>
 #include <gpsdata/GpsRoute.hpp>
@@ -11,7 +13,7 @@
 namespace gpsdata {
 	template<GpsFactoryTrait F, GpsSegmentTrait S>
 	bool operator== (const GpsRoute<F, S>& a, const GpsRoute<F, S>& b) {
-		DEBUG_MSG("%s: compare GpsRoute\n", __func__);
+		DEBUG_MSG ("{:s}: compare GpsRoute\n", __func__);
 		if (a.getFactory () != b.getFactory ()) return false;
 		if (a.getId () != b.getId ()) return false;
 		if (a.getTimezoneOffset () != b.getTimezoneOffset ()) return false;

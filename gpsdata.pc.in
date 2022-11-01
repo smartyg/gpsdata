@@ -7,5 +7,5 @@ Name: @PACKAGE_NAME@
 Description: @PROGRAM_DESCRIPTION@
 Version: @PACKAGE_VERSION@
 URL: @PACKAGE_URL@
-Libs: -L${libdir} -ldate-tz
+Libs: -L${libdir} -ldate-tz -lcpplogger
 Cflags: -I${includedir}

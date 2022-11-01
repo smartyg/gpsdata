@@ -34,7 +34,8 @@ BuildRequires:  gmock
 BuildRequires:  date-devel
 BuildRequires:  ZoneDetect-devel
 BuildRequires:  timezone
-BuildRequires:  autoconf-archive >= 2022.02.11
+BuildRequires:  pkgconfig
+BuildRequires:  pkgconfig(cpplogger)
 BuildRoot:      %{_tmppath}/%{name}-%{srcVersion}-build
 
 %description

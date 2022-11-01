@@ -8,9 +8,6 @@
 #include <bitsery/adapter/buffer.h>
 #include <bitsery/traits/vector.h>
 
-// Include this file before gpsdata.h to enable debug messages, if _RELEASE is defined also DEBUG_MSG is enabled.
-//#include <gpsdata-utils.hpp>
-#include <gpsdata/utils/Logger.hpp>
 #include <gpsdata/utils/GpsDataFactoryBasic.hpp>
 #include <gpsdata.hpp>
 #include <gpsdata/bitsery/GpsRoute.hpp>

@@ -1,6 +1,8 @@
 #ifndef _GPSDATA_COMP_GPSPOINT_
 #define _GPSDATA_COMP_GPSPOINT_
 
+#include <Logger.hpp>
+
 #include <gpsdata/traits/GpsFactory.hpp>
 #include <gpsdata/GpsPoint.hpp>
 
@@ -9,7 +11,7 @@
 namespace gpsdata {
 	template<GpsFactoryTrait F>
 	bool operator== (const GpsPoint<F>& a, const GpsPoint<F>& b) {
-		DEBUG_MSG("%s: compare GpsPoint\n", __func__);
+		DEBUG_MSG ("{:s}: compare GpsPoint\n", __func__);
 		if (a.getFactory () != b.getFactory ()) return false;
 
 		if (a.getTime () != b.getTime ()) return false;
