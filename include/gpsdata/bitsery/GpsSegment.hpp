@@ -1,5 +1,5 @@
-#ifndef _X_GPSDATA_BITSERY_GPSEGMENT_
-#define _X_GPSDATA_BITSERY_GPSEGMENT_
+#ifndef _GPSDATA_BITSERY_GPSEGMENT_
+#define _GPSDATA_BITSERY_GPSEGMENT_
 
 #include <type_traits>
 #include <memory>
@@ -72,4 +72,4 @@ namespace gpsdata {
 	};
 }
 
-#endif /* _X_GPSDATA_BITSERY_GPSEGMENT_ */
+#endif /* _GPSDATA_BITSERY_GPSEGMENT_ */

@@ -1,5 +1,5 @@
-#ifndef _X_GPSDATA_COMP_GPSROUTE_
-#define _X_GPSDATA_COMP_GPSROUTE_
+#ifndef _GPSDATA_COMP_GPSROUTE_
+#define _GPSDATA_COMP_GPSROUTE_
 
 #include <gpsdata/traits/GpsFactory.hpp>
 #include <gpsdata/traits/GpsSegment.hpp>
@@ -37,4 +37,4 @@ namespace gpsdata {
 	}
 }
 
-#endif /* _X_GPSDATA_COMP_GPSROUTE_ */
+#endif /* _GPSDATA_COMP_GPSROUTE_ */

@@ -1,5 +1,5 @@
-#ifndef _X_GPSDATA_BITSERY_GPSROUTE_
-#define _X_GPSDATA_BITSERY_GPSROUTE_
+#ifndef _GPSDATA_BITSERY_GPSROUTE_
+#define _GPSDATA_BITSERY_GPSROUTE_
 
 #include <type_traits>
 #include <memory>
@@ -88,4 +88,4 @@ namespace gpsdata {
 	};
 }
 
-#endif /* _X_GPSDATA_BITSERY_GPSROUTE_ */
+#endif /* _GPSDATA_BITSERY_GPSROUTE_ */

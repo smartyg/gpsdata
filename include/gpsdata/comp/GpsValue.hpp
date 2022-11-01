@@ -1,5 +1,5 @@
-#ifndef _X_GPSDATA_COMP_GPSVALUE_
-#define _X_GPSDATA_COMP_GPSVALUE_
+#ifndef _GPSDATA_COMP_GPSVALUE_
+#define _GPSDATA_COMP_GPSVALUE_
 
 #include <gpsdata/GpsValue.hpp>
 
@@ -13,4 +13,4 @@ namespace gpsdata {
 	}
 }
 
-#endif /* _X_GPSDATA_COMP_GPSVALUE_ */
+#endif /* _GPSDATA_COMP_GPSVALUE_ */

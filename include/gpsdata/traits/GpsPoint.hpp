@@ -1,5 +1,5 @@
-#ifndef _X_GPSDATA_TRAITS_GPSPOINT_
-#define _X_GPSDATA_TRAITS_GPSPOINT_
+#ifndef _GPSDATA_TRAITS_GPSPOINT_
+#define _GPSDATA_TRAITS_GPSPOINT_
 
 #include <gpsdata/traits/common.hpp>
 #include <gpsdata/traits/GpsFactory.hpp>
@@ -19,4 +19,4 @@ namespace gpsdata {
 	}
 }
 
-#endif /* _X_GPSDATA_TRAITS_GPSPOINT_ */
+#endif /* _GPSDATA_TRAITS_GPSPOINT_ */

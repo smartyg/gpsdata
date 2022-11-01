@@ -1,5 +1,5 @@
-#ifndef _X_GPSDATA_GPSSEGMENT_
-#define _X_GPSDATA_GPSSEGMENT_
+#ifndef _GPSDATA_GPSSEGMENT_
+#define _GPSDATA_GPSSEGMENT_
 
 #include <cstdint>
 #include <string>
@@ -234,4 +234,4 @@ namespace gpsdata {
 	};
 }
 
-#endif /* _X_GPSDATA_GPSSEGMENT_ */
+#endif /* _GPSDATA_GPSSEGMENT_ */

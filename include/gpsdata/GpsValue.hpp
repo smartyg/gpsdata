@@ -1,5 +1,5 @@
-#ifndef _X_GPSDATA_GPSVALUE_
-#define _X_GPSDATA_GPSVALUE_
+#ifndef _GPSDATA_GPSVALUE_
+#define _GPSDATA_GPSVALUE_
 
 #include <cstdint>
 #include <type_traits>
@@ -26,4 +26,4 @@ namespace gpsdata {
 	};
 }
 
-#endif /* _X_GPSDATA_GPSVALUE_ */
+#endif /* _GPSDATA_GPSVALUE_ */

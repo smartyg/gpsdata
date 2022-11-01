@@ -1,5 +1,5 @@
-#ifndef _X_GPSDATA_COMP_GPSSTATISTICS_
-#define _X_GPSDATA_COMP_GPSSTATISTICS_
+#ifndef _GPSDATA_COMP_GPSSTATISTICS_
+#define _GPSDATA_COMP_GPSSTATISTICS_
 
 #include <gpsdata/traits/GpsFactory.hpp>
 #include <gpsdata/GpsStatistics.hpp>
@@ -27,4 +27,4 @@ namespace gpsdata {
 	}
 }
 
-#endif /* _X_GPSDATA_COMP_GPSSTATISTICS_ */
+#endif /* _GPSDATA_COMP_GPSSTATISTICS_ */

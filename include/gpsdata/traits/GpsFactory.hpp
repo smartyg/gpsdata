@@ -1,5 +1,5 @@
-#ifndef _X_GPSDATA_TRAIT_GPSFACTORY_
-#define _X_GPSDATA_TRAIT_GPSFACTORY_
+#ifndef _GPSDATA_TRAIT_GPSFACTORY_
+#define _GPSDATA_TRAIT_GPSFACTORY_
 
 #include <cstdint>
 #include <string>
@@ -80,4 +80,4 @@ namespace gpsdata {
 	}
 }
 
-#endif /* _X_GPSDATA_TRAIT_GPSFACTORY_ */
+#endif /* _GPSDATA_TRAIT_GPSFACTORY_ */

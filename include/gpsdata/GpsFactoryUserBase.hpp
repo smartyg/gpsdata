@@ -1,5 +1,5 @@
-#ifndef _X_GPRDATA_GPSFACTORYUSERBASE_
-#define _X_GPRDATA_GPSFACTORYUSERBASE_
+#ifndef _GPRDATA_GPSFACTORYUSERBASE_
+#define _GPRDATA_GPSFACTORYUSERBASE_
 
 #include <type_traits>
 #include <memory>
@@ -23,4 +23,4 @@ namespace gpsdata::internal {
 	};
 }
 
-#endif /* _X_GPRDATA_GPSFACTORYUSERBASE_ */
+#endif /* _GPRDATA_GPSFACTORYUSERBASE_ */

@@ -1,5 +1,5 @@
-#ifndef _X_GPSDATA_OBJECTID_
-#define _X_GPSDATA_OBJECTID_
+#ifndef _GPSDATA_TYPE_OBJECTID_
+#define _GPSDATA_TYPE_OBJECTID_
 
 #include <cstdint>
 #include <climits>
@@ -78,4 +78,4 @@ namespace gpsdata {
 	}
 }
 
-#endif /* _X_GPSDATA_OBJECTID_ */
+#endif /* _GPSDATA_TYPE_OBJECTID_ */

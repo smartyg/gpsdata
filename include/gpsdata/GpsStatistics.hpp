@@ -1,5 +1,5 @@
-#ifndef _X_GPSDATA_GPSSTATISTICS_
-#define _X_GPSDATA_GPSSTATISTICS_
+#ifndef _GPSDATA_GPSSTATISTICS_
+#define _GPSDATA_GPSSTATISTICS_
 
 #include <string>
 #include <type_traits>

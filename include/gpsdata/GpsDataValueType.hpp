@@ -1,5 +1,5 @@
-#ifndef _X_GPSDATA_TYPES_
-#define _X_GPSDATA_TYPES_
+#ifndef _GPSDATA_TYPES_
+#define _GPSDATA_TYPES_
 
 #include <cstdint>
 
@@ -20,4 +20,4 @@ namespace gpsdata {
 	};
 }
 
-#endif /* _X_GPSDATA_TYPES_ */
+#endif /* _GPSDATA_TYPES_ */

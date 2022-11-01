@@ -1,5 +1,5 @@
-#ifndef _X_GPSDATA_GPSROUTE_
-#define _X_GPSDATA_GPSROUTE_
+#ifndef _GPSDATA_GPSROUTE_
+#define _GPSDATA_GPSROUTE_
 
 #include <cstdint>
 #include <string>
@@ -308,4 +308,4 @@ namespace gpsdata {
 	};
 }
 
-#endif /* _X_GPSDATA_GPSROUTE_ */
+#endif /* _GPSDATA_GPSROUTE_ */

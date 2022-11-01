@@ -1,5 +1,5 @@
-#ifndef _X_GPSDATA_POINTDATE_
-#define _X_GPSDATA_POINTDATE_
+#ifndef _GPSDATA_UTILS_POINTDATE_
+#define _GPSDATA_UTILS_POINTDATE_
 
 namespace gpsdata::utils { class PointDate; }
 
@@ -82,4 +82,4 @@ namespace gpsdata::utils {
 	};
 }
 
-#endif /* _X_GPSDATA_POINTDATE_ */
+#endif /* _GPSDATA_UTILS_POINTDATE_ */

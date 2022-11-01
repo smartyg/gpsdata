@@ -1,5 +1,5 @@
-#ifndef _X_GPSDATA_GPSPOINT_
-#define _X_GPSDATA_GPSPOINT_
+#ifndef _GPSDATA_GPSPOINT_
+#define _GPSDATA_GPSPOINT_
 
 #include <type_traits>
 #include <vector>
@@ -186,4 +186,4 @@ namespace gpsdata {
 	};
 }
 
-#endif /* _X_GPSDATA_GPSPOINT_ */
+#endif /* _GPSDATA_GPSPOINT_ */

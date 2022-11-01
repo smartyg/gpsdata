@@ -1,5 +1,5 @@
-#ifndef _X_GPSDATA_
-#define _X_GPSDATA_
+#ifndef _GPSDATA_
+#define _GPSDATA_
 
 #ifndef DEBUG_MSG
 #define DEBUG_MSG(format, ...) (gpsdata::utils::empty_func())
@@ -45,4 +45,4 @@ namespace gpsdata::utils {
 #include <gpsdata/GpsSegment.hpp>
 #include <gpsdata/GpsRoute.hpp>
 
-#endif /* _X_GPSDATA_ */
+#endif /* _GPSDATA_ */

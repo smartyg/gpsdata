@@ -1,5 +1,5 @@
-#ifndef _X_GPSDATA_ZONEDATE_
-#define _X_GPSDATA_ZONEDATE_
+#ifndef _GPSDATA_UTILS_ZONEDATE_
+#define _GPSDATA_UTILS_ZONEDATE_
 
 namespace gpsdata::utils { class ZoneDate; }
 
@@ -108,4 +108,4 @@ namespace gpsdata::utils {
 	};
 }
 
-#endif /* _X_GPSDATA_ZONEDATE_ */
+#endif /* _GPSDATA_UTILS_ZONEDATE_ */
