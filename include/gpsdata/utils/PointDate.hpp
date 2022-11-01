@@ -9,7 +9,6 @@ namespace gpsdata::utils { class PointDate; }
 #include <sstream>
 #include <memory>
 
-#include <gpsdata/utils/Logger.hpp>
 #include <gpsdata.hpp>
 #include <gpsdata/utils/ZoneDate.hpp>
 #include <gpsdata/types/ObjectTime.hpp>
