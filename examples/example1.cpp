@@ -1,4 +1,4 @@
-#include <features.h>
+#include "config.h"
 
 #include <memory>
 #include <iostream>

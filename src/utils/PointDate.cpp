@@ -2,12 +2,13 @@
 
 #include "gpsdata/utils/PointDate.hpp"
 
+#include <memory>
+#include <sstream>
+#include <string>
+#include <chrono>
+#include <cstring>
 #include <date/date.h>
 #include <zonedetect.h>
-#include <chrono>
-#include <sstream>
-#include <cstring>
-#include <memory>
 
 #include "gpsdata/utils/ZoneDate.hpp"
 #include "gpsdata/types/ObjectTime.hpp"

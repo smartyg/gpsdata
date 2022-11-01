@@ -1,10 +1,9 @@
-#include <features.h>
+#include "config.h"
 
 #include <memory>
 #include <iostream>
 #include <string>
 #include <vector>
-
 #include <bitsery/bitsery.h>
 #include <bitsery/adapter/buffer.h>
 #include <bitsery/traits/vector.h>
