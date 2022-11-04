@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([gpsdata], [0.0.2], [goedhart.martijn@gmail.com])
+AC_INIT([gpsdata], [0.0.3], [goedhart.martijn@gmail.com])
 AC_CONFIG_SRCDIR([include/gpsdata.hpp])
 AC_CONFIG_HEADERS([config.h])
 AH_BOTTOM([#include <features.h>])
@@ -50,7 +50,7 @@ AC_DEFUN([AX_CPP_CHECK_LIB], [
 AX_DEFINE_SUBST([PROGRAM_NAME], [gpsdata], [program name])
 AX_DEFINE_SUBST([PROGRAM_SUMMARY], [Headers and utility library for GPS data handling], [program summary])
 AX_DEFINE_SUBST([PROGRAM_DESCRIPTION], [Package containing base data structures, types and utilities to handle gps data in C++ programs.], [program description])
-AX_DEFINE_SUBST([LAST_CHANGE], [29-10-2022], [Date of last change])
+AX_DEFINE_SUBST([LAST_CHANGE], [04-11-2022], [Date of last change])
 AX_DEFINE_SUBST([AUTHOR], [Martijn Goedhart], [Author])
 AX_DEFINE_SUBST([COPYRIGHT], [Copyright (C) 2022 Martijn Goedhart], [Copyright])
 AX_DEFINE_SUBST([LICENSE], [GNU General Public License], [License name])
