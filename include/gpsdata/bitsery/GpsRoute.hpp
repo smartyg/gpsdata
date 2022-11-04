@@ -22,7 +22,6 @@ namespace gpsdata {
 	void serialize (B& s, std::shared_ptr<R>& route) requires(std::is_base_of<GpsRoute<typename R::GpsFactory, typename R::Segment>, R>::value) {
 		if constexpr (is_instance<B, bitsery::Serializer>{}) {
 			s.object (route->_id);
-			s.value4b (route->_timezone_offset);
 			s.text1b (std::string (route->getFactory ()->getActivityTypeString (route->_activity_type)), 128);
 			s.text1b (route->_title, 128);
 			s.text1b (route->_summary, 128);
@@ -38,7 +37,6 @@ namespace gpsdata {
 
 		if constexpr (is_instance<B, bitsery::Deserializer>{}) {
 			s.object (route->_id);
-			s.value4b (route->_timezone_offset);
 			std::string activity_string;
 			s.text1b (activity_string, 128);
 			route->_activity_type = route->getFactory ()->getActivityType (activity_string);

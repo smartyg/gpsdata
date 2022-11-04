@@ -195,7 +195,6 @@ int main (void) {
 	route->setSummary ("long test ride");
 	route->setDetails ("A very nice ling test ride.");
 	route->setActivityType ("CYCLING");
-	route->setTimezoneOffset (3600);
 
 	auto res = GpsRouteType::create<GpsRouteType> (id, factory);
 

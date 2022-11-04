@@ -18,6 +18,7 @@
 #include <gpsdata/GpsStatistics.hpp>
 #include <gpsdata/GpsPoint.hpp>
 #include <gpsdata/GpsSegment.hpp>
+#include <gpsdata/utils/PointDate.hpp>
 
 namespace bitsery {
 	class Access;
@@ -47,7 +48,6 @@ namespace gpsdata {
 
 	protected:
 		ObjectId _id;
-		int32_t _timezone_offset;
 		ActivityType _activity_type;
 		std::string _title;
 		std::string _summary;
@@ -58,8 +58,6 @@ namespace gpsdata {
 		GpsRoute (const ObjectId& id, const std::shared_ptr<const F>& factory) : internal::GpsFactoryUserBase<F> (factory), GpsStatistics<F> (factory) {
 			DEBUG_MSG ("GpsRoute::{:s} ({:d}, {:p})\n", __func__, static_cast<int64_t>(id), fmt::ptr (factory));
 			this->_id = id;
-			//this->_time = 0;
-			this-> _timezone_offset = 0;
 			this->_title = {};
 			this->_summary = {};
 			this->_details = {};
@@ -102,23 +100,11 @@ namespace gpsdata {
 		}
 
 		/* Route data setters */
-		/*
-		bool setTime (const ObjectTime& time) {
-			DEBUG_MSG("GpsRoute::{:s} ({:d})\n", __func__, time);
-			this->_time = time;
-			return true;
-		}*/
 		bool setId (const ObjectId& id) {
 			DEBUG_MSG ("GpsRoute::{:s} ({:d})\n", __func__, id);
 			if (!this->_id)
 				this->_id = id;
 			return (this->_id == id);
-		}
-
-		bool setTimezoneOffset (int32_t offset) {
-			DEBUG_MSG ("GpsRoute::{:s} ({:d})\n", __func__, offset);
-			this->_timezone_offset = offset;
-			return (this->_timezone_offset == offset);
 		}
 
 		bool setActivityType (const ActivityType& a) {
@@ -166,9 +152,24 @@ namespace gpsdata {
 			return (*it)->getTime ();
 		}
 
-		int32_t getTimezoneOffset (void) const {
+		const date::zoned_time<ObjectTime::timeType> getTimezone (void) const {
 			DEBUG_MSG ("GpsRoute::{:s} ()\n", __func__);
-			return this->_timezone_offset;
+			if (!this->hasSegment ()) throw std::runtime_error ("no segments present");
+			const std::shared_ptr<Segment>& segment = *(this->cbegin ());
+			if (segment) {
+				const std::shared_ptr<Point>& point = *(segment->cbegin ());
+				if (point) {
+					return utils::PointDate::getZonedTime (point);
+				}
+			}
+			return {};
+		}
+
+		int64_t getTimezoneOffset (void) const {
+			DEBUG_MSG ("GpsRoute::{:s} ()\n", __func__);
+			const date::zoned_time<ObjectTime::timeType> zone = this->getTimezone ();
+			const std::chrono::seconds offset = zone.get_info ().offset;
+			return static_cast <int64_t>(offset.count ());
 		}
 
 		const ActivityType getActivityType (void) const {

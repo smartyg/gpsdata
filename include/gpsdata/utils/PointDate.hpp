@@ -9,20 +9,26 @@ namespace gpsdata::utils { class PointDate; }
 #include <sstream>
 #include <memory>
 
-#include <gpsdata.hpp>
+#include <gpsdata/traits/GpsFactory.hpp>
+#include <gpsdata/traits/GpsSegment.hpp>
+#include <gpsdata/traits/GpsRoute.hpp>
 #include <gpsdata/utils/ZoneDate.hpp>
 #include <gpsdata/types/ObjectTime.hpp>
 
 namespace gpsdata::utils {
 	class PointDate {
+		PointDate (void);
+		~PointDate (void);
+
+		PointDate (const PointDate&)                = delete; // copy constructor
+		PointDate (PointDate&&) noexcept            = delete; // move constructor
+		PointDate& operator= (const PointDate&)     = delete; // copy assignment
+		PointDate& operator= (PointDate&&) noexcept = delete; // move assignment
+
 	public:
-		static bool init (const std::string&);
-		static void destroy (void) noexcept;
-
-		static bool isValid (void) noexcept;
-
 		static const std::shared_ptr<ZoneDate> getTimeZone (const double& lat, const double& lon) noexcept;
 		static const std::shared_ptr<ZoneDate> getTimeZone (const std::string&) noexcept;
+		static const ObjectTime parseTime (const std::string&, const std::vector<std::string>&);
 
 		template<GpsPointTrait Point>
 		static const date::zoned_time<ObjectTime::timeType> getZonedTime (const std::shared_ptr<Point> point) {
@@ -42,14 +48,23 @@ namespace gpsdata::utils {
 				f->getValue (lon_value, lon, true);
 
 				return PointDate::makeZonedTime (lat / 100000000, lon / 100000000, point->getTime ());
-				//const auto zd = PointDate::getTimeZone (lat / 100000000, lon / 100000000);
-				//const date::zoned_time ret(zd->getZonePtr (), zd->getZoneTime (point->getTime ()));
-				//return ret;
 			}
 			return {};
 		}
 
-		static const ObjectTime parseTime (const std::string&, const std::vector<std::string>&);
+		template<GpsRouteTrait Route>
+		inline static const date::zoned_time<ObjectTime::timeType> getTimeInZone (const std::shared_ptr<Route> route) {
+			if (route) {
+				const std::shared_ptr<typename Route::Segment>& segment = *(route->cbegin ());
+				if (segment) {
+					const std::shared_ptr<typename Route::Point>& point = *(segment->cbegin ());
+					if (point) {
+						return PointDate::getZonedTime (point);
+					}
+				}
+			}
+			return {};
+		}
 
 		static inline time_t convertToTimeT (const ObjectTime::internalTimeType& t) noexcept  {
 			const ObjectTime o (t);
@@ -67,17 +82,16 @@ namespace gpsdata::utils {
 		}
 
 	private:
-		static const ZoneDetect *_zone_database;
-		static std::string _db_path;
+		ZoneDetect *_zone_database;
 
-		static time_t convertToTimeT (const date::local_time<std::chrono::milliseconds>& tp) noexcept {
+		static const ZoneDetect* getZoneDatabasePtr (void);
+		static const date::local_time<std::chrono::milliseconds> parseTimeInt (const std::string&, const std::vector<std::string>&);
+		static const date::zoned_time<ObjectTime::timeType> makeZonedTime (const double& lat, const double& lon, const ObjectTime& time);
+
+		inline static time_t convertToTimeT (const date::local_time<std::chrono::milliseconds>& tp) noexcept {
 			std::chrono::seconds s = std::chrono::duration_cast<std::chrono::seconds>(tp.time_since_epoch());
 			return static_cast<time_t>(s.count());
 		}
-
-		static const date::local_time<std::chrono::milliseconds> parseTimeInt (const std::string&, const std::vector<std::string>&);
-
-		static const date::zoned_time<ObjectTime::timeType> makeZonedTime (const double& lat, const double& lon, const ObjectTime& time);
 	};
 }
 

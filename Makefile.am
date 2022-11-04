@@ -53,8 +53,11 @@ export AM_LIBS
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = gpsdata.pc libgpsdata-utils.pc
 
+pkgdatadir = $(datadir)/gpsdata
+pkgdata_DATA = timezone21.bin
+
 lib_LTLIBRARIES = libgpsdata-utils.la
-libgpsdata_utils_la_CPPFLAGS = -Iinclude -DLOCALEDIR=\"$(localedir)\" -DPKGLIBDIR=\"$(pkglibdir)\" @CPPLOGGER_CFLAGS@
+libgpsdata_utils_la_CPPFLAGS = -Iinclude -DLOCALEDIR=\"$(localedir)\" -DTIMEZONE_FILE=\"$(pkgdatadir)/timezone21.bin\" -DPKGLIBDIR=\"$(pkglibdir)\" @CPPLOGGER_CFLAGS@
 
 ## Define the source file list for the "libexample-@EXAMPLE_API_VERSION@.la"
 ## target.  Note that @EXAMPLE_API_VERSION@ is not interpreted by Automake and
@@ -147,7 +150,7 @@ example3_CPPFLAGS = -Iinclude -DLOCALEDIR=\"$(localedir)\" -DPKGLIBDIR=\"$(pkgli
 example3_SOURCES = examples/example3.cpp
 endif
 
-EXTRA_DIST = VERSION ChangeLog README AUTHORS LICENSE @PROGRAM_NAME@.spec
+EXTRA_DIST = VERSION ChangeLog README AUTHORS LICENSE @PROGRAM_NAME@.spec timezone21.bin
 
 ## Only try to update the ChangeLog file when git is availible to report all the changes.
 if HAVE_GIT

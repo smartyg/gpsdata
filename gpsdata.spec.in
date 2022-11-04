@@ -56,8 +56,17 @@ Development files for @PACKAGE_NAME@.
 Summary:        @PROGRAM_SUMMARY@
 Group:          System/Libraries
 Requires:       timezone
+Requires:       %{name}-data
 
 %description -n libgpsdata-utils%{majorVersion}
+@PROGRAM_DESCRIPTION@
+
+%package data
+Summary:        Data files for libgchart
+Group:          Development/Sources
+
+%description data
+Data files for @PACKAGE_NAME@.
 @PROGRAM_DESCRIPTION@
 
 
@@ -99,4 +108,8 @@ make clean
 %license LICENSE
 %{_libdir}/libgpsdata-utils.so.*
 
+%files data
+%defattr(-,root,root)
+%license LICENSE
+%{_datadir}/%{name}
 %changelog

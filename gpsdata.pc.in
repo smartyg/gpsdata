@@ -7,5 +7,6 @@ Name: @PACKAGE_NAME@
 Description: @PROGRAM_DESCRIPTION@
 Version: @PACKAGE_VERSION@
 URL: @PACKAGE_URL@
-Libs: -L${libdir} -ldate-tz -lcpplogger
+Libs: -L${libdir} -ldate-tz -lcpplogger -lgpsdata-utils
+Requires: libgpsdata-utils = @PACKAGE_VERSION@
 Cflags: -I${includedir}
