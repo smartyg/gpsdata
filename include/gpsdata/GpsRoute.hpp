@@ -7,6 +7,7 @@
 #include <vector>
 #include <memory>
 #include <Logger.hpp>
+#include <date/date.h>
 
 #include <gpsdata/traits/GpsFactory.hpp>
 #include <gpsdata/traits/GpsSegment.hpp>
