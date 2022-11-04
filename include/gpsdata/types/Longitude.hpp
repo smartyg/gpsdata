@@ -1,5 +1,5 @@
-#ifndef _X_GPSDATA_LONGITUDE_
-#define _X_GPSDATA_LONGITUDE_
+#ifndef _GPSDATA_TYPE_LONGITUDE_
+#define _GPSDATA_TYPE_LONGITUDE_
 
 #include <cstdint>
 #include <cfloat>
@@ -131,4 +131,4 @@ namespace gpsdata {
 	}
 }
 
-#endif /* _X_GPSDATA_LONGITUDE_ */
+#endif /* _GPSDATA_TYPE_LONGITUDE_ */

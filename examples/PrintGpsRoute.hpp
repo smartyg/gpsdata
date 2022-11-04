@@ -1,5 +1,5 @@
-#ifndef _X_GPSDATA_EXAMPLE_PRINTGPSROUTE_
-#define _X_GPSDATA_EXAMPLE_PRINTGPSROUTE_
+#ifndef _GPSDATA_EXAMPLE_PRINTGPSROUTE_
+#define _GPSDATA_EXAMPLE_PRINTGPSROUTE_
 
 #include <gpsdata/traits/GpsRoute.hpp>
 
@@ -40,4 +40,4 @@ void printGpsRoute (const std::shared_ptr<R>& route) {
 	}
 }
 
-#endif /* _X_GPSDATA_EXAMPLE_PRINTGPSROUTE_ */
+#endif /* _GPSDATA_EXAMPLE_PRINTGPSROUTE_ */

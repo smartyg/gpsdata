@@ -50,7 +50,7 @@ AC_DEFUN([AX_CPP_CHECK_LIB], [
 AX_DEFINE_SUBST([PROGRAM_NAME], [gpsdata], [program name])
 AX_DEFINE_SUBST([PROGRAM_SUMMARY], [Headers and utility library for GPS data handling], [program summary])
 AX_DEFINE_SUBST([PROGRAM_DESCRIPTION], [Package containing base data structures, types and utilities to handle gps data in C++ programs.], [program description])
-AX_DEFINE_SUBST([LAST_CHANGE], [15-08-2022], [Date of last change])
+AX_DEFINE_SUBST([LAST_CHANGE], [29-10-2022], [Date of last change])
 AX_DEFINE_SUBST([AUTHOR], [Martijn Goedhart], [Author])
 AX_DEFINE_SUBST([COPYRIGHT], [Copyright (C) 2022 Martijn Goedhart], [Copyright])
 AX_DEFINE_SUBST([LICENSE], [GNU General Public License], [License name])
@@ -153,28 +153,32 @@ AX_CXX_COMPILE_STDCXX(20, ext, mandatory)
 AC_SYS_LARGEFILE
 
 # Checks for header files.
-AC_CHECK_HEADERS([fcntl.h string.h sys/stat.h locale.h time.h])
-AC_CHECK_HEADERS([bitsery/bitsery.h bitsery/traits/string.h])
+AC_CHECK_HEADERS([float.h stdio_ext.h])
+# TODO: Check for Bitsery headers
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_CHECK_HEADER_STDBOOL
-AC_TYPE_UID_T
 AC_C_INLINE
-AC_TYPE_MODE_T
-AC_TYPE_OFF_T
 AC_TYPE_SIZE_T
+AC_TYPE_INT8_T
+AC_TYPE_INT16_T
+AC_TYPE_INT32_T
+AC_TYPE_INT64_T
+AC_TYPE_UINT8_T
+AC_TYPE_UINT16_T
+AC_TYPE_UINT32_T
 AC_TYPE_UINT64_T
 
 # Checks for library functions.
-AC_FUNC_MALLOC
-AC_CHECK_FUNCS([memset setlocale strcpy])
 
 # Checks for programs.
 AC_CHECK_PROGS([GIT], [git])
 
+# Checks for packages.
+PKG_CHECK_MODULES([CPPLOGGER], [cpplogger >= 0.1.0])
+
 # Checks for libraries.
 AX_CHECK_LIB([zonedetect], [ZDCloseDatabase], [ZONEDETECT], [-lm])
-
 AX_CPP_CHECK_LIB([date-tz], [date::sys_info r], [date/tz.h], [DATE_TZ], [])
 
 if test "x$gtest" == xtrue; then

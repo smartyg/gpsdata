@@ -1,5 +1,5 @@
-#ifndef _X_GPSDATA_CONVERT_
-#define _X_GPSDATA_CONVERT_
+#ifndef _GPSDATA_UTILS_CONVERT_
+#define _GPSDATA_UTILS_CONVERT_
 
 #include <cstdint>
 #include <limits>
@@ -153,4 +153,4 @@ namespace gpsdata::utils {
 	};
 }
 
-#endif /* _X_GPSDATA_CONVERT_ */
+#endif /* _GPSDATA_UTILS_CONVERT_ */

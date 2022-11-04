@@ -1,5 +1,5 @@
-#ifndef _X_GPSDATA_TRAIT_ISINSTANCE_
-#define _X_GPSDATA_TRAIT_ISINSTANCE_
+#ifndef _GPSDATA_TRAIT_ISINSTANCE_
+#define _GPSDATA_TRAIT_ISINSTANCE_
 
 #include <type_traits>
 
@@ -17,4 +17,4 @@ namespace gpsdata {
 	using is_instance = is_instance_impl<std::decay_t<T>, U>;
 }
 
-#endif /* _X_GPSDATA_TRAIT_ISINSTANCE_ */
+#endif /* _GPSDATA_TRAIT_ISINSTANCE_ */

@@ -1,5 +1,5 @@
-#ifndef _X_GPSDATA_TRAITS_COMMON_
-#define _X_GPSDATA_TRAITS_COMMON_
+#ifndef _GPSDATA_TRAITS_COMMON_
+#define _GPSDATA_TRAITS_COMMON_
 
 #if __cplusplus >= 202002L
 #define SAME_TYPE(type) std::same_as<type>
@@ -13,4 +13,4 @@
 #define CONCEPT_RETURN bool
 #endif
 
-#endif /* _X_GPSDATA_TRAITS_COMMON_ */
+#endif /* _GPSDATA_TRAITS_COMMON_ */

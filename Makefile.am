@@ -53,8 +53,11 @@ export AM_LIBS
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = gpsdata.pc libgpsdata-utils.pc
 
+pkgdatadir = $(datadir)/gpsdata
+pkgdata_DATA = timezone21.bin
+
 lib_LTLIBRARIES = libgpsdata-utils.la
-libgpsdata_utils_la_CPPFLAGS = -Iinclude -DLOCALEDIR=\"$(localedir)\" -DPKGLIBDIR=\"$(pkglibdir)\"
+libgpsdata_utils_la_CPPFLAGS = -Iinclude -DLOCALEDIR=\"$(localedir)\" -DTIMEZONE_FILE=\"$(pkgdatadir)/timezone21.bin\" -DPKGLIBDIR=\"$(pkglibdir)\" @CPPLOGGER_CFLAGS@
 
 ## Define the source file list for the "libexample-@EXAMPLE_API_VERSION@.la"
 ## target.  Note that @EXAMPLE_API_VERSION@ is not interpreted by Automake and
@@ -62,11 +65,10 @@ libgpsdata_utils_la_CPPFLAGS = -Iinclude -DLOCALEDIR=\"$(localedir)\" -DPKGLIBDI
 ## and the variable name derived from that.
 ## Note that it is not necessary to list header files
 ## which are already listed elsewhere in a _HEADERS variable assignment.
-libgpsdata_utils_la_SOURCES = src/utils/Logger.cpp \
-	src/utils/PointDate.cpp \
+libgpsdata_utils_la_SOURCES = src/utils/PointDate.cpp \
 	src/utils/ZoneDate.cpp
 
-libgpsdata_utils_la_LIBADD = @ZONEDETECT_LIBS@ @DATE_TZ_LIBS@
+libgpsdata_utils_la_LIBADD = @ZONEDETECT_LIBS@ @DATE_TZ_LIBS@ @CPPLOGGER_LIBS@
 
 ## Instruct libtool to include ABI version information in the generated shared
 ## library file (.so).  The library ABI version is defined in configure.ac, so
@@ -125,7 +127,6 @@ gpsdata_sub_types_include_HEADERS = include/gpsdata/types/Latitude.hpp \
 gpsdata_sub_utils_includedir = $(includedir)/gpsdata/utils
 gpsdata_sub_utils_include_HEADERS = include/gpsdata/utils/Convert.hpp \
 	include/gpsdata/utils/GpsDataFactoryBasic.hpp \
-	include/gpsdata/utils/Logger.hpp \
 	include/gpsdata/utils/PointDate.hpp \
 	include/gpsdata/utils/ZoneDate.hpp
 
@@ -149,7 +150,7 @@ example3_CPPFLAGS = -Iinclude -DLOCALEDIR=\"$(localedir)\" -DPKGLIBDIR=\"$(pkgli
 example3_SOURCES = examples/example3.cpp
 endif
 
-EXTRA_DIST = VERSION ChangeLog README AUTHORS LICENSE @PROGRAM_NAME@.spec
+EXTRA_DIST = VERSION ChangeLog README AUTHORS LICENSE @PROGRAM_NAME@.spec timezone21.bin
 
 ## Only try to update the ChangeLog file when git is availible to report all the changes.
 if HAVE_GIT

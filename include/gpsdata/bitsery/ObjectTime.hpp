@@ -1,5 +1,5 @@
-#ifndef _X_GPSDATA_BITSERY_OBJECTTIME_
-#define _X_GPSDATA_BITSERY_OBJECTTIME_
+#ifndef _GPSDATA_BITSERY_OBJECTTIME_
+#define _GPSDATA_BITSERY_OBJECTTIME_
 
 #include <bitsery/bitsery.h>
 
@@ -32,4 +32,4 @@ namespace gpsdata {
 	}
 }
 
-#endif /* _X_GPSDATA_BITSERY_OBJECTTIME_ */
+#endif /* _GPSDATA_BITSERY_OBJECTTIME_ */

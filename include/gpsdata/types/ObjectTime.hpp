@@ -1,5 +1,5 @@
-#ifndef _X_GPSDATA_OBJECTTIME_
-#define _X_GPSDATA_OBJECTTIME_
+#ifndef _GPSDATA_TYPE_OBJECTTIME_
+#define _GPSDATA_TYPE_OBJECTTIME_
 
 #include <cstdint>
 #include <climits>
@@ -199,4 +199,4 @@ namespace gpsdata {
 	}
 }
 
-#endif /* _X_GPSDATA_OBJECTTIME_ */
+#endif /* _GPSDATA_TYPE_OBJECTTIME_ */

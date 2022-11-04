@@ -1,16 +1,13 @@
-#include <features.h>
+#include "config.h"
 
 #include <memory>
 #include <iostream>
 #include <string>
 #include <vector>
-
 #include <bitsery/bitsery.h>
 #include <bitsery/adapter/buffer.h>
 #include <bitsery/traits/vector.h>
 
-// Include this file before gpsdata.h to enable debug messages, if _RELEASE is defined also DEBUG_MSG is enabled.
-#include <gpsdata/utils/Logger.hpp>
 #include <gpsdata/utils/GpsDataFactoryBasic.hpp>
 #include <gpsdata.hpp>
 #include <gpsdata/bitsery/GpsRoute.hpp>
@@ -198,7 +195,6 @@ int main (void) {
 	route->setSummary ("long test ride");
 	route->setDetails ("A very nice ling test ride.");
 	route->setActivityType ("CYCLING");
-	route->setTimezoneOffset (3600);
 
 	auto res = GpsRouteType::create<GpsRouteType> (id, factory);
 

@@ -1,5 +1,5 @@
-#ifndef _X_GPSDATA_BITSERY_GPSVALUE_
-#define _X_GPSDATA_BITSERY_GPSVALUE_
+#ifndef _GPSDATA_BITSERY_GPSVALUE_
+#define _GPSDATA_BITSERY_GPSVALUE_
 
 #include <memory>
 #include <vector>
@@ -52,4 +52,4 @@ namespace gpsdata {
 	}
 }
 
-#endif /* _X_GPSDATA_BITSERY_GPSVALUE_ */
+#endif /* _GPSDATA_BITSERY_GPSVALUE_ */

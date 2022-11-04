@@ -1,30 +1,5 @@
-#ifndef _X_GPSDATA_
-#define _X_GPSDATA_
-
-#ifndef DEBUG_MSG
-#define DEBUG_MSG(format, ...) (gpsdata::utils::empty_func())
-#endif
-#ifndef CRITICAL_MSG
-#define CRITICAL_MSG(format, ...) (gpsdata::utils::empty_func())
-#endif
-#ifndef ERROR_MSG
-#define ERROR_MSG(format, ...) (gpsdata::utils::empty_func())
-#endif
-#ifndef WARNING_MSG
-#define WARNING_MSG(format, ...) (gpsdata::utils::empty_func())
-#endif
-#ifndef NOTICE_MSG
-#define NOTICE_MSG(format, ...) (gpsdata::utils::empty_func())
-#endif
-#ifndef INFO_MSG
-#define INFO_MSG(format, ...) (gpsdata::utils::empty_func())
-#endif
-#ifndef EMPTY_FUNC_DEFINED
-#define EMPTY_FUNC_DEFINED
-namespace gpsdata::utils {
-	inline void empty_func (void) { return; };
-}
-#endif /* EMPTY_FUNC_DEFINED */
+#ifndef _GPSDATA_
+#define _GPSDATA_
 
 #define GPSVALUEVECTOR_MIN_SIZE (static_cast<uint8_t>(12))
 
@@ -45,4 +20,4 @@ namespace gpsdata::utils {
 #include <gpsdata/GpsSegment.hpp>
 #include <gpsdata/GpsRoute.hpp>
 
-#endif /* _X_GPSDATA_ */
+#endif /* _GPSDATA_ */

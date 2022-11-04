@@ -1,5 +1,5 @@
-#ifndef _X_GPSDATA_BITSERY_GPSSTATISTICS_
-#define _X_GPSDATA_BITSERY_GPSSTATISTICS_
+#ifndef _GPSDATA_BITSERY_GPSSTATISTICS_
+#define _GPSDATA_BITSERY_GPSSTATISTICS_
 
 #include <type_traits>
 
@@ -24,4 +24,4 @@ namespace gpsdata {
 	};
 }
 
-#endif /* _X_GPSDATA_BITSERY_GPSSTATISTICS_ */
+#endif /* _GPSDATA_BITSERY_GPSSTATISTICS_ */

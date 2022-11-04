@@ -1,5 +1,5 @@
-#ifndef _X_GPSDATA_BITSERY_OBJECTID_
-#define _X_GPSDATA_BITSERY_OBJECTID_
+#ifndef _GPSDATA_BITSERY_OBJECTID_
+#define _GPSDATA_BITSERY_OBJECTID_
 
 #include <bitsery/bitsery.h>
 
@@ -14,4 +14,4 @@ namespace gpsdata {
 	}
 }
 
-#endif /* _X_GPSDATA_BITSERY_OBJECTID_ */
+#endif /* _GPSDATA_BITSERY_OBJECTID_ */

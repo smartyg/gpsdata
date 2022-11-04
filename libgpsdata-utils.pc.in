@@ -8,5 +8,4 @@ Description: @PROGRAM_DESCRIPTION@
 Version: @PACKAGE_VERSION@
 URL: @PACKAGE_URL@
 Libs: -L${libdir} -lgpsdata-utils
-Requires: gpsdata
 Cflags: -I${includedir}

@@ -1,5 +1,5 @@
-#ifndef _X_GPSDATA_GPSDATAFACTORYBASIC_
-#define _X_GPSDATA_GPSDATAFACTORYBASIC_
+#ifndef _GPSDATA_UTILS_GPSDATAFACTORYBASIC_
+#define _GPSDATA_UTILS_GPSDATAFACTORYBASIC_
 
 #include <iostream>
 #include <string>
@@ -328,4 +328,4 @@ namespace gpsdata::utils {
 	};
 }
 
-#endif /* _X_GPSDATA_GPSFACTORY_ */
+#endif /* _GPSDATA_UTILS_GPSFACTORY_ */

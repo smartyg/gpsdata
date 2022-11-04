@@ -29,5 +29,3 @@ test_Convert_LDFLAGS = -pthread
 test_Convert_CPPFLAGS = @GTEST_CFLAGS@ @GMOCK_CFLAGS@ -pthread -I../include -I../src
 
 TESTS = test-ObjectId test-ObjectTime test-zonedate test-pointdate test-Convert
-
-EXTRA_DIST = out_v1/country16.bin out_v1/country21.bin out_v1/timezone16.bin out_v1/timezone21.bin
