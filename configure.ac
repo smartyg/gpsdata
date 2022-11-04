@@ -175,7 +175,7 @@ AC_TYPE_UINT64_T
 AC_CHECK_PROGS([GIT], [git])
 
 # Checks for packages.
-PKG_CHECK_MODULES([CPPLOGGER], [cpplogger])
+PKG_CHECK_MODULES([CPPLOGGER], [cpplogger >= 0.1.0])
 
 # Checks for libraries.
 AX_CHECK_LIB([zonedetect], [ZDCloseDatabase], [ZONEDETECT], [-lm])
