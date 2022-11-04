@@ -34,6 +34,7 @@ BuildRequires:  gmock
 BuildRequires:  date-devel
 BuildRequires:  ZoneDetect-devel
 BuildRequires:  timezone
+BuildRequires:  gpsdata-data
 BuildRequires:  pkgconfig
 BuildRequires:  pkgconfig(cpplogger)
 BuildRoot:      %{_tmppath}/%{name}-%{srcVersion}-build
@@ -64,6 +65,7 @@ Requires:       %{name}-data
 %package data
 Summary:        Data files for libgchart
 Group:          Development/Sources
+Provides:       timezone21.bin
 
 %description data
 Data files for @PACKAGE_NAME@.
