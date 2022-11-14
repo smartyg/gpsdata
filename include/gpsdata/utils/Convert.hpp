@@ -4,8 +4,23 @@
 #include <cstdint>
 #include <limits>
 #include <sstream>
+#include <string>
+#include <string_view>
 
 namespace gpsdata::utils {
+	namespace internal {
+		template<typename>
+		struct is_std_string : std::false_type {};
+
+		template<class CharT, class Traits, class Allocator>
+		struct is_std_string<std::basic_string<CharT, Traits, Allocator>> : std::true_type {};
+
+		template<typename>
+		struct is_std_string_view : std::false_type {};
+
+		template<class CharT, class Traits>
+		struct is_std_string_view<std::basic_string_view<CharT, Traits>> : std::true_type {};
+	}
 
 	class Convert final {
 		Convert (void) = delete;
@@ -59,15 +74,16 @@ namespace gpsdata::utils {
 					v << std::to_string(static_cast<uint64_t>(value)).c_str ();
 				match = true;
 			} else if constexpr (std::is_arithmetic_v<T> &&
-				(std::is_same_v<std::remove_cv_t<std::remove_reference_t<U>>, std::string> ||
-					std::is_same_v<std::remove_cv_t<std::remove_reference_t<U>>, std::string_view> ||
+					(internal::is_std_string<std::remove_cv_t<std::remove_reference_t<U>>>::value ||
+					internal::is_std_string_view<std::remove_cv_t<std::remove_reference_t<U>>>::value ||
 					std::is_same_v<std::remove_cv_t<std::remove_reference_t<U>>, std::istream *>)) {
 				if (best_effort) {
 					if constexpr (std::is_same_v<std::remove_cv_t<std::remove_reference_t<U>>, std::istream *>) {
 						*value >> v;
 						if (!value->fail () && !value->bad ()) match = true;
-					} else if constexpr (std::is_same_v<std::remove_cv_t<std::remove_reference_t<U>>, std::string>) {
-						std::stringstream s(value);
+					} else if constexpr (internal::is_std_string<std::remove_cv_t<std::remove_reference_t<U>>>::value ||
+							internal::is_std_string_view<std::remove_cv_t<std::remove_reference_t<U>>>::value) {
+						std::basic_stringstream<typename U::value_type, typename U::traits_type> s(value);
 						if constexpr (!std::is_same_v<T, bool> && std::numeric_limits<T>::is_integer && (sizeof (v) <= 1 || !std::is_signed_v<T>)) {
 								int64_t v1;
 								s >> v1;
