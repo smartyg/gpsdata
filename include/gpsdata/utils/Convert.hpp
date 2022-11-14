@@ -23,8 +23,12 @@ namespace gpsdata::utils {
 	}
 
 	class Convert final {
-		Convert (void) = delete;
-		~Convert (void) = delete;
+		Convert (void)                           = delete;
+		~Convert (void)                          = delete;
+		Convert (const Convert& other)           = delete; // copy constructor
+		Convert (Convert&& other) noexcept       = delete; // move constructor
+		void operator=(const Convert& other)     = delete; // copy assignment
+		void operator=(Convert&& other) noexcept = delete; // move assignment
 
 	public:
 		#pragma GCC diagnostic push
