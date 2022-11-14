@@ -87,7 +87,8 @@ namespace gpsdata::utils {
 						if (!value->fail () && !value->bad ()) match = true;
 					} else if constexpr (internal::is_std_string<std::remove_cv_t<std::remove_reference_t<U>>>::value ||
 							internal::is_std_string_view<std::remove_cv_t<std::remove_reference_t<U>>>::value) {
-						std::basic_stringstream<typename U::value_type, typename U::traits_type> s(value);
+						std::basic_stringstream<typename U::value_type, typename U::traits_type> s;
+						s << value;
 						if constexpr (!std::is_same_v<T, bool> && std::numeric_limits<T>::is_integer && (sizeof (v) <= 1 || !std::is_signed_v<T>)) {
 								int64_t v1;
 								s >> v1;
