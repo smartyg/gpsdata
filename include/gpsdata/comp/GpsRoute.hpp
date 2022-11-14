@@ -16,7 +16,6 @@ namespace gpsdata {
 		DEBUG_MSG ("{:s}: compare GpsRoute\n", __func__);
 		if (a.getFactory () != b.getFactory ()) return false;
 		if (a.getId () != b.getId ()) return false;
-		if (a.getTimezoneOffset () != b.getTimezoneOffset ()) return false;
 		if (a.getActivityType () != b.getActivityType ()) return false;
 		if (a.getTitle () != b.getTitle ()) return false;
 		if (a.getSummary () != b.getSummary ()) return false;
