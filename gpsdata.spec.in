@@ -36,7 +36,7 @@ BuildRequires:  ZoneDetect-devel
 BuildRequires:  timezone
 BuildRequires:  gpsdata-data
 BuildRequires:  pkgconfig
-BuildRequires:  pkgconfig(cpplogger)
+BuildRequires:  pkgconfig(cpplogger) >= 0.1.0
 BuildRoot:      %{_tmppath}/%{name}-%{srcVersion}-build
 
 %description
