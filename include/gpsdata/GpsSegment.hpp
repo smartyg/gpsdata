@@ -199,9 +199,8 @@ namespace gpsdata {
 			return this->_points.cend ();
 		}
 
-		constexpr
 		operator bool (void) const {
-			return true;
+			return (this->_n > -1);
 		}
 
 	private:

@@ -196,6 +196,7 @@ namespace gpsdata {
 		/* GPS Segments */
 		bool addSegment (std::shared_ptr<S> segment) {
 			DEBUG_MSG ("GpsRoute::{:s} ({:p})\n", __func__, fmt::ptr (segment));
+			if (!segment) return false;
 			this->_segments.push_back (segment);
 			return true;
 		}
