@@ -23,7 +23,7 @@ namespace gpsdata::utils {
 			{ 1, {"LAT", gpsdata::GpsDataValueType::S_LONG_T, "latitude", "latitude of the point", "N"} },
 			{ 2, {"LON", gpsdata::GpsDataValueType::S_LONG_T, "longitude", "longitude of the point", "W"} },
 			{ 3, {"ALT", gpsdata::GpsDataValueType::S_INT_T, "altitude", "altitude of the point", "m"} },
-			{ 4, {"SPEED", gpsdata::GpsDataValueType::FLOAT_T, "speed (km/h)", "current speed in km/h", "km/h"} },
+			{ 4, {"SPEED", gpsdata::GpsDataValueType::FLOAT_T, "speed (m/s)", "current speed in m/s", "m/s"} },
 			{ 5, {"POWER", gpsdata::GpsDataValueType::S_INT_T, "power (W)", "current power in W", "W"} },
 			{ 6, {"HEARTRATE", gpsdata::GpsDataValueType::S_INT_T, "heartrate (bpm)", "heartrate in bpm", "bpm"} },
 			{ 7, {"CADENCE", gpsdata::GpsDataValueType::S_INT_T, "cadence (rpm)", "cadence in rpm", "rpm"} }
