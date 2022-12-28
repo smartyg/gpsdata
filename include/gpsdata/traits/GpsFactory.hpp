@@ -32,6 +32,7 @@ namespace gpsdata {
 			{ t.getActivityType (s) } -> SAME_TYPE(typename T::ActivityType);
 			{ t.getActivityTypeString (a2) } -> CONVERTIBLE_TYPE(const std::string);
 			{ t.getActivityTypesString () } -> CONVERTIBLE_TYPE(ListActivityTypes);
+			{ t.getDefaultActivityType () } -> SAME_TYPE(typename T::ActivityType);
 		} && requires(const T t, const GpsValue<typename T::DataType>& d1, bool b, bool d2) {
 			{ t.getValue (d1, b, d2) } -> SAME_TYPE(bool);
 		} && requires(const T t, const GpsValue<typename T::DataType>& d1, int8_t b, bool d2) {

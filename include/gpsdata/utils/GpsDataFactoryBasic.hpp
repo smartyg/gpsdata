@@ -322,6 +322,11 @@ namespace gpsdata::utils {
 			return false;
 		}
 
+		constexpr
+		ActivityType getDefaultActivityType (void) const {
+			return 0;
+		}
+
 		[[nodiscard]] static std::shared_ptr<GpsDataFactoryBasic> create (void) {
 			return std::shared_ptr<GpsDataFactoryBasic>(new GpsDataFactoryBasic ());
 		}
