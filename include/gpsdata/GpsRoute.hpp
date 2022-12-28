@@ -59,6 +59,7 @@ namespace gpsdata {
 		GpsRoute (const ObjectId& id, const std::shared_ptr<const F>& factory) : internal::GpsFactoryUserBase<F> (factory), GpsStatistics<F> (factory) {
 			DEBUG_MSG ("GpsRoute::{:s} ({:d}, {:p})\n", __func__, static_cast<int64_t>(id), fmt::ptr (factory));
 			this->_id = id;
+			this->_activity_type = this->_factory->getDefaultActivityType ();
 			this->_title = {};
 			this->_summary = {};
 			this->_details = {};
