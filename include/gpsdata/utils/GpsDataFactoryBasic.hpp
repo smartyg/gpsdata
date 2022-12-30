@@ -9,7 +9,7 @@
 #include <memory>
 
 #include <gpsdata/utils/Convert.hpp>
-#include <gpsdata/GpsDataValueType.hpp>
+#include <gpsdata/types/GpsDataValueType.hpp>
 #include <gpsdata/GpsValue.hpp>
 
 namespace gpsdata::utils {

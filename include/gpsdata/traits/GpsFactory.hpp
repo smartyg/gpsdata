@@ -6,7 +6,7 @@
 #include <vector>
 #include <tuple>
 
-#include <gpsdata/GpsDataValueType.hpp>
+#include <gpsdata/types/GpsDataValueType.hpp>
 #include <gpsdata/GpsValue.hpp>
 #include <gpsdata/traits/common.hpp>
 

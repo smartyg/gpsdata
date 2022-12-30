@@ -85,8 +85,7 @@ gpsdata_include_HEADERS = include/gpsdata.hpp \
 	include/gpsdata-utils.hpp
 
 gpsdata_sub_includedir = $(includedir)/gpsdata
-gpsdata_sub_include_HEADERS = include/gpsdata/GpsDataValueType.hpp \
-	include/gpsdata/GpsFactoryUserBase.hpp \
+gpsdata_sub_include_HEADERS = include/gpsdata/GpsFactoryUserBase.hpp \
 	include/gpsdata/GpsPoint.hpp \
 	include/gpsdata/GpsRoute.hpp \
 	include/gpsdata/GpsSegment.hpp \
@@ -119,7 +118,8 @@ gpsdata_sub_traits_include_HEADERS = include/gpsdata/traits/common.hpp \
 	include/gpsdata/traits/is_instance.hpp
 
 gpsdata_sub_types_includedir = $(includedir)/gpsdata/types
-gpsdata_sub_types_include_HEADERS = include/gpsdata/types/Latitude.hpp \
+gpsdata_sub_types_include_HEADERS = include/gpsdata/types/GpsDataValueType.hpp \
+	include/gpsdata/types/Latitude.hpp \
 	include/gpsdata/types/Longitude.hpp \
 	include/gpsdata/types/ObjectId.hpp \
 	include/gpsdata/types/ObjectTime.hpp
