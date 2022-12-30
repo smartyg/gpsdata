@@ -76,8 +76,10 @@ Data files for @PACKAGE_NAME@.
 %setup -q -n %{libName}-%{srcVersion}
 
 %build
+export CC=gcc-%{gcc_version}
 export CXX=g++-%{gcc_version}
-%configure --disable-static --disable-debug --enable-release --enable-gtest
+export GCOV=gcov-%{gcc_version}
+%configure --disable-static --disable-debug --enable-release --enable-gtest --disable-example --disable-coverage
 make %{?_smp_mflags}
 
 %install
