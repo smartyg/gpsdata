@@ -8,9 +8,9 @@
 #include <tuple>
 #include <memory>
 
-#include <gpsdata/utils/Convert.hpp>
 #include <gpsdata/types/GpsDataValueType.hpp>
 #include <gpsdata/GpsValue.hpp>
+#include <gpsdata/utils/Convert.hpp>
 
 namespace gpsdata::utils {
 	class GpsDataFactoryBasic : std::enable_shared_from_this<GpsDataFactoryBasic> {
