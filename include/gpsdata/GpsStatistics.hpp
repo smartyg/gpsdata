@@ -30,6 +30,7 @@ namespace gpsdata {
 	protected:
 		Container _statistics;
 
+		GpsStatistics (void) = default;
 		GpsStatistics (const std::shared_ptr<const F>& factory) : internal::GpsFactoryUserBase<F> (factory) {
 			DEBUG_MSG ("GpsStatistics::{:s} ({:p})\n", __func__, fmt::ptr (factory));
 			this->_statistics.clear ();
@@ -37,7 +38,6 @@ namespace gpsdata {
 		}
 
 	private:
-		GpsStatistics (void) = default;
 		GpsStatistics (const GpsStatistics&) = delete;                // copy constructor
 		GpsStatistics (GpsStatistics&&) noexcept = delete;            // move constructor
 		GpsStatistics& operator= (const GpsStatistics&) = delete;     // copy assignment

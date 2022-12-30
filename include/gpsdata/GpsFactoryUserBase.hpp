@@ -13,10 +13,18 @@ namespace gpsdata::internal {
 	protected:
 		const std::shared_ptr<const F> _factory;
 
+		GpsFactoryUserBase (void) = default;
 		GpsFactoryUserBase (const std::shared_ptr<const F>& factory) : _factory(factory) { }
-		~GpsFactoryUserBase (void) = default;
+
+	private:
+		GpsFactoryUserBase (const GpsFactoryUserBase&)                = delete; // copy constructor
+		GpsFactoryUserBase (GpsFactoryUserBase&&) noexcept            = delete; // move constructor
+		GpsFactoryUserBase& operator= (const GpsFactoryUserBase&)     = delete; // copy assignment
+		GpsFactoryUserBase& operator= (GpsFactoryUserBase&&) noexcept = delete; // move assignment
 
 	public:
+		~GpsFactoryUserBase (void) = default;
+
 		const std::shared_ptr<const F> getFactory (void) const {
 			return this->_factory;
 		}
