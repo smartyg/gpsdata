@@ -55,6 +55,7 @@ const date::local_time<std::chrono::milliseconds> PointDate::parseTimeInt (const
 	date::local_time<std::chrono::milliseconds> tp;
 	unsigned int i = 0;
 	std::istringstream in;
+	in.imbue (std::locale::classic ());
 
 	// Loop over the formats and try till one succeeds.
 	do {
