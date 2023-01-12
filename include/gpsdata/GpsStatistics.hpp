@@ -61,16 +61,17 @@ namespace gpsdata {
 		inline bool addStatistic (const DataType& type, const T& value) {
 			DEBUG_MSG ("GpsStatistics::{:s} ({:d}, ...)\n", __func__, type);
 			GpsValue<DataType> data;
-			if(this->_factory->setValue (data, type, value))
+			if(this->_factory->setValue (data, type, value, true))
 				return this->addStatistic (data);
 			return false;
 		}
 
 		template<class T, typename U = std::string, typename std::enable_if<!std::is_same<U, DataType>::value, bool>::type = 0>
-		inline bool addStatistic (const std::string& type, const T& value) {
-			DEBUG_MSG ("GpsStatistics::{:s} ({:s}, {})\n", __func__, type, value);
+		inline bool addStatistic (const std::string& type_str, const T& value) {
+			DEBUG_MSG ("GpsStatistics::{:s} ({:s}, {})\n", __func__, type_str, value);
 			GpsValue<DataType> data;
-			if(this->_factory->setValue (data, type, value))
+			const DataType& type = this->_factory->getDataType (type_str);
+			if(this->_factory->setValue (data, type, value, true))
 				return this->addStatistic (data);
 			return false;
 		}
@@ -92,16 +93,17 @@ namespace gpsdata {
 		inline bool setStatistic (const DataType& type, const T& value) {
 			DEBUG_MSG ("GpsStatistics::{:s} ({:s}, {})\n", __func__, type, value);
 			GpsValue<DataType> data;
-			if(this->_factory->setValue (data, type, value))
+			if(this->_factory->setValue (data, type, value, true))
 				return this->setStatistic (data);
 			return false;
 		}
 
 		template<class T, typename U = std::string, typename std::enable_if<!std::is_same<U, DataType>::value, bool>::type = 0>
-		inline bool setStatistic (const std::string& type, const T& value) {
-			DEBUG_MSG ("GpsStatistics::{:s} ({:s}, {})\n", __func__, type, value);
+		inline bool setStatistic (const std::string& type_str, const T& value) {
+			DEBUG_MSG ("GpsStatistics::{:s} ({:s}, {})\n", __func__, type_str, value);
 			GpsValue<DataType> data;
-			if(this->_factory->setValue (data, type, value))
+			const DataType& type = this->_factory->getDataType (type_str);
+			if(this->_factory->setValue (data, type, value, true))
 				return this->setStatistic (data);
 			return false;
 		}
