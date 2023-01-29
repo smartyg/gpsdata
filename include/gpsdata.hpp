@@ -19,5 +19,6 @@
 #include <gpsdata/GpsPoint.hpp>
 #include <gpsdata/GpsSegment.hpp>
 #include <gpsdata/GpsRoute.hpp>
+#include <gpsdata/GpsPointIterator.hpp>
 
 #endif /* _GPSDATA_ */
