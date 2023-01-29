@@ -14,7 +14,7 @@ namespace gpsdata::internal {
 		const std::shared_ptr<const F> _factory;
 
 		GpsFactoryUserBase (void) = default;
-		GpsFactoryUserBase (const std::shared_ptr<const F>& factory) : _factory(factory) { }
+		GpsFactoryUserBase (const std::shared_ptr<const F>& factory) noexcept : _factory(factory) { }
 
 	private:
 		GpsFactoryUserBase (const GpsFactoryUserBase&)                = delete; // copy constructor
@@ -25,7 +25,7 @@ namespace gpsdata::internal {
 	public:
 		~GpsFactoryUserBase (void) = default;
 
-		const std::shared_ptr<const F> getFactory (void) const {
+		const std::shared_ptr<const F> getFactory (void) const noexcept {
 			return this->_factory;
 		}
 	};

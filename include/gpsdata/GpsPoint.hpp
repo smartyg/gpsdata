@@ -41,16 +41,24 @@ namespace gpsdata {
 		ObjectTime _time;
 		Container _data;
 
-		GpsPoint (const ObjectTime& time, const std::shared_ptr<const F>& factory) : internal::GpsFactoryUserBase<F> (factory), _time(time) {
+		GpsPoint (const ObjectTime& time, const std::shared_ptr<const F>& factory) noexcept : internal::GpsFactoryUserBase<F> (factory), _time(time) {
 			DEBUG_MSG ("GpsPoint::{:s} ({:d}, {:p})\n", __func__, time.get (), fmt::ptr (factory));
 			this->_data.clear ();
-			this->_data.reserve (GPSVALUEVECTOR_MIN_SIZE);
+			try {
+				this->_data.reserve (GPSVALUEVECTOR_MIN_SIZE);
+			} catch (std::exception& e) {
+				EXCEPTION_ERROR_MSG (e);
+			}
 		}
 
-		GpsPoint (const std::shared_ptr<const F>& factory) : internal::GpsFactoryUserBase<F> (factory) {
+		GpsPoint (const std::shared_ptr<const F>& factory) noexcept : internal::GpsFactoryUserBase<F> (factory) {
 			DEBUG_MSG ("GpsPoint::{:s} ({:p})\n", __func__, fmt::ptr (factory));
 			this->_data.clear ();
-			this->_data.reserve (GPSVALUEVECTOR_MIN_SIZE);
+			try {
+				this->_data.reserve (GPSVALUEVECTOR_MIN_SIZE);
+			} catch (std::exception& e) {
+				EXCEPTION_ERROR_MSG (e);
+			}
 		}
 
 	private:
@@ -95,7 +103,7 @@ namespace gpsdata {
 			return this->hasDataType (type);
 		}
 
-		const ObjectTime getTime (void) const {
+		const ObjectTime getTime (void) const noexcept {
 			DEBUG_MSG ("GpsPoint::{:s} ()\n", __func__);
 			return this->_time;
 		}
@@ -158,31 +166,31 @@ namespace gpsdata {
 			return this->hasDataType ("LAT") && this->hasDataType ("LON");
 		}
 
-		iterator begin(void) {
+		inline iterator begin (void) noexcept {
 			return this->_data.begin ();
 		}
 
-		const_iterator begin (void) const {
+		inline const_iterator begin (void) const noexcept {
 			return this->_data.begin ();
 		}
 
-		const_iterator cbegin (void) const {
+		inline const_iterator cbegin (void) const noexcept {
 			return this->_data.cbegin ();
 		}
 
-		iterator end (void) {
+		inline iterator end (void) noexcept {
 			return this->_data.end ();
 		}
 
-		const_iterator end (void) const {
+		inline const_iterator end (void) const noexcept {
 			return this->_data.end ();
 		}
 
-		const_iterator cend (void) const {
+		inline const_iterator cend (void) const noexcept {
 			return this->_data.cend ();
 		}
 
-		operator bool (void) const {
+		operator bool (void) const noexcept {
 			return (this->_time);
 		}
 	};
