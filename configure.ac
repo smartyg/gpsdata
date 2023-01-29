@@ -176,6 +176,7 @@ AC_CHECK_PROGS([GIT], [git])
 
 # Checks for packages.
 PKG_CHECK_MODULES([CPPLOGGER], [cpplogger >= 0.1.0])
+PKG_CHECK_MODULES([ZONEDETECTDATA], [zonedetect-data])
 
 # Checks for libraries.
 AX_CHECK_LIB([zonedetect], [ZDCloseDatabase], [ZONEDETECT], [-lm])

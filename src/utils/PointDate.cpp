@@ -23,7 +23,7 @@ PointDate::PointDate (void) {
 			throw std::runtime_error (ZDGetErrorString (err_zd));
 		});
 
-		this->_zone_database = ZDOpenDatabase (TIMEZONE_FILE);
+		this->_zone_database = ZDOpenDatabase (_ZONEDETECT_TIMEZONE21_FILE);
 		//this->_zone_database = ZDOpenDatabase ("./timezone21.bin");
 		if (!this->_zone_database) throw std::runtime_error ("Error opening timezone database.");
 }

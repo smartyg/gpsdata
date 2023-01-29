@@ -34,7 +34,7 @@ BuildRequires:  gmock
 BuildRequires:  date-devel
 BuildRequires:  ZoneDetect-devel
 BuildRequires:  timezone
-BuildRequires:  gpsdata-data
+BuildRequires:  zonedetect-data
 BuildRequires:  pkgconfig
 BuildRequires:  pkgconfig(cpplogger) >= 0.1.0
 BuildRoot:      %{_tmppath}/%{name}-%{srcVersion}-build
@@ -57,18 +57,9 @@ Development files for @PACKAGE_NAME@.
 Summary:        @PROGRAM_SUMMARY@
 Group:          System/Libraries
 Requires:       timezone
-Requires:       %{name}-data
+Requires:       zonedetect-data
 
 %description -n libgpsdata-utils%{majorVersion}
-@PROGRAM_DESCRIPTION@
-
-%package data
-Summary:        Data files for libgchart
-Group:          Development/Sources
-Provides:       timezone21.bin
-
-%description data
-Data files for @PACKAGE_NAME@.
 @PROGRAM_DESCRIPTION@
 
 
@@ -112,8 +103,4 @@ make clean
 %license LICENSE
 %{_libdir}/libgpsdata-utils.so.*
 
-%files data
-%defattr(-,root,root)
-%license LICENSE
-%{_datadir}/%{name}
 %changelog

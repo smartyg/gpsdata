@@ -53,11 +53,8 @@ export AM_LIBS
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = gpsdata.pc libgpsdata-utils.pc
 
-pkgdatadir = $(datadir)/gpsdata
-pkgdata_DATA = timezone21.bin
-
 lib_LTLIBRARIES = libgpsdata-utils.la
-libgpsdata_utils_la_CPPFLAGS = -Iinclude -DLOCALEDIR=\"$(localedir)\" -DTIMEZONE_FILE=\"$(pkgdatadir)/timezone21.bin\" -DPKGLIBDIR=\"$(pkglibdir)\" @CPPLOGGER_CFLAGS@
+libgpsdata_utils_la_CPPFLAGS = -Iinclude -DLOCALEDIR=\"$(localedir)\" -DPKGLIBDIR=\"$(pkglibdir)\" @ZONEDETECTDATA_CFLAGS@ @CPPLOGGER_CFLAGS@
 
 ## Define the source file list for the "libexample-@EXAMPLE_API_VERSION@.la"
 ## target.  Note that @EXAMPLE_API_VERSION@ is not interpreted by Automake and
